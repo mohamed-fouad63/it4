@@ -1,0 +1,19 @@
+RewriteEngine On
+
+# Protect sensitive files and directories
+
+<FilesMatch "\.(ini|env|log|yml|sql)$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Route requests to the front controller
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.(txt|css|js|jpg|jpeg|png|gif|ico)$
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+# Protect files and directories from browsing
+
+Options -Indexes

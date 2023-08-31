@@ -1,0 +1,21 @@
+{
+    "name": "moham/it4",
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "App\\": "App/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mohamed-fouad63",
+            "email": "mohamedfoad63@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.5",
+        "symfony/var-dumper": "^5.2",
+        "vlucas/phpdotenv": "^5.3"
+      }
+}
+ 

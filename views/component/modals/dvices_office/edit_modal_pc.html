@@ -1,0 +1,28 @@
+<div class="modal fade" id="EditModalPC" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditModalLabel">تعديل البيانات</h5>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text  col-sm-2">نوع الجهاز </span>
+                    <input type="text" class="form-control me-3 dvice_name" id="edit_dvice_name"
+                        placeholder="نوع الجهاز" readonly>
+                    <span class="input-group-text  col-sm-2">السريال</span>
+                    <input type="text" class="form-control dvice_sn" id="edit_dvice_sn" placeholder="السريال">
+                </div>
+                <div class="input-group mb-3" id="ip_domain">
+                    <span class="input-group-text  col-sm-2" id="dvice_ip_label">IP</span>
+                    <input type="text" class="form-control me-3 dvice_ip" id="dvice_ip" placeholder="IP">
+                    <span class="input-group-text  col-sm-2" id="pc_domian_name_label">DVICE NAME</span>
+                    <input type="text" class="form-control pc_domian_name" id="pc_domian_name" placeholder="Dvice Name">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-teal" data-bs-dismiss="modal">الغاء</button>
+                <button type="button" class="btn btn-success dvice_num" id="dvice_num">تعديل</button>
+            </div>
+        </div>
+    </div>
+</div>

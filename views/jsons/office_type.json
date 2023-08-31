@@ -1,0 +1,15 @@
+[
+  { "office_type": "مكتب بريد" },
+  { "office_type": "مركز خدمات" },
+  { "office_type": "مكتب متنقل" },
+  { "office_type": "كشك بريدي" },
+  { "office_type": "قسم" },
+  { "office_type": "منطقه توزيع" },
+  { "office_type": "خزينه" },
+  { "office_type": "مكتب سفريات" },
+  { "office_type": "مركز حركه" },
+  { "office_type": "مباحث البريد" },
+  { "office_type": "مكتب حركه" },
+  { "office_type": "إداره عامه"},
+  { "office_type": "جهه خارجيه"}
+]

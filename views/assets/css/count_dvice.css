@@ -1,0 +1,29 @@
+.middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+table {
+  border-collapse: collapse;
+}
+tr {
+  border: 1px solid #ccc;
+}
+tr:hover td {
+  background-color: #ccc;
+  color: black;
+}
+th {
+  background-color: #3498db;
+  padding: 16px 20px;
+  background: #3498db;
+  color: aliceblue;
+}
+td {
+  text-align: center;
+  background-color: #333;
+  padding: 16px 20px;
+  color: aliceblue;
+  transition: 0.5s;
+  font-weight: bold;
+}

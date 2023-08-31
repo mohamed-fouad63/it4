@@ -1,0 +1,39 @@
+<div class="modal fade" id="Edit_In_It_Modal" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditModalLabel">تعديل بيانات عطل الجهاز</h5>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text  col-sm-2" id="basic-addon1">اسم المكتب</span>
+                    <input type="text" class="form-control me-3 office_name" placeholder="اسم المكتب" readonly
+                        value="BARCODE PRINTER INTERMEC PC43T">
+                    <span class="input-group-text  col-sm-2" id="basic-addon1">نوع الجهاز</span>
+                    <input type="text" class="form-control dvice_name" placeholder="نوع الجهاز" readonly>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text  col-sm-2" id="basic-addon1">سريال</span>
+                    <input type="text" class="form-control me-3 dvice_sn" placeholder="سريال" readonly>
+                    <span class="input-group-text  col-sm-2" id="basic-addon1">العطل</span>
+                    <input type="text" class="form-control damage" id="damage" placeholder="العطل">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text  col-sm-2" id="basic-addon1">وارد بتاريخ</span>
+                    <input type="date" class="form-control me-3 date_in_it" id="date_in_it" placeholder="ورد بتاريخ">
+                    <span class="input-group-text  col-sm-2" id="basic-addon1">وارد بواسطه</span>
+                    <input type="text" class="form-control parcel_in_it" id="parcel_in_it" placeholder="ورد بواسطه">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text  col-sm-2" id="basic-addon1">ملاحظات</span>
+                    <textarea type="text" class="form-control in_it_note" id="in_it_note"
+                        placeholder="ملاحظات"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-teal" data-bs-dismiss="modal">الغاء</button>
+                <button type="button" class="btn btn-success">تعديل</button>
+            </div>
+        </div>
+    </div>
+</div>

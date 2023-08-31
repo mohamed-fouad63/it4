@@ -1,0 +1,145 @@
+
+table {
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+}
+
+th {
+  background-color: #cccccc;
+      padding:3px;  
+    margin: 0;
+
+    
+}
+td {
+   min-width: 80px; 
+     padding: 3px;
+}
+
+
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #FAFAFA;
+        
+    }
+    * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+    }
+    .modal-footer {
+        position: fixed;
+        display: block;
+        right: 118px;
+        border: none;
+
+    }
+    .page {
+        text-align: center;
+        width: 230mm;
+        min-height: 297mm;
+        padding: 20mm;
+        margin: 10mm auto;
+        border: 1px #D3D3D3 solid;
+        border-radius: 5px;
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+legend {
+     margin-bottom: 0px; 
+}
+th , td {
+            border: 1px solid;
+            text-align: center;
+        }
+    .td100 {
+            width: 100%;
+        }
+.missinletter {
+            height: 95mm;
+            width: 100%;
+            border: 1px solid;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 40px;
+            position: relative;
+        }
+
+
+          .missinbody .missinsection {
+              margin-bottom: 10px;
+              text-align: right;
+          }
+        .missinbody  span {
+            margin-left: 10px;
+        }
+        .missinfooter {
+            position: absolute;
+            width: 100%;
+            bottom: 80px;
+            left: 0;
+        }
+        .missinmsgto ,.missinmsgfrom {
+            height: 140mm;
+            width: 100%;
+            border: 1px solid;
+            padding: 40px;
+            position: relative;
+        }
+        .missinmsgto h3 {
+            transform: rotate(180deg);
+            font-weight: bold;
+            font-size: 33px;
+        }
+        .missinmsgfrom h3{
+            font-size: 33px;
+            font-weight: bold;
+        }
+        .centering {
+            margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+      }
+      .rotating {
+
+      }
+    @page {
+        size: A4;
+        margin: 0;
+    }
+    @media print {
+        
+                    html, body {
+                        width: 210mm;
+                        height: 297mm;
+                        
+                    }
+                    .page {
+                        margin: 0;
+                        border: initial;
+                        border-radius: initial;
+                     
+                  
+                        box-shadow: initial;
+                        background: initial;
+                        page-break-after: always;
+                    }
+        .modal-footer {
+            display: none;
+        }
+            
+        tr {
+            border: 1px solid;
+            text-align: center;
+        }
+        
+        
+    }

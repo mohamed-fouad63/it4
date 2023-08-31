@@ -1,0 +1,12 @@
+    <script src="../it4/views/assets/js/plugins/jquery.min.js"></script>
+    <script src="../it4/views/assets/js/plugins/bootstrap5/popper.min.js"></script>
+    <script src="../it4/views/assets/js/plugins/bootstrap5/bootstrap.min.js"></script>
+    <script src="../it4/views/assets/js/pcoded.min2.js"></script>
+    <script src="../it4/views/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../it4/views/assets/DataTables/jquery.dataTables.min.js"></script>
+    <script src="../it4/views/assets/DataTables/Buttons-2.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="../it4/views/assets/DataTables/Buttons-2.2.3/js/buttons.print.min.js"></script>
+    <script src="../it4/views/assets/DataTables/Buttons-2.2.3/js/buttons.html5.min.js"></script>
+    <script src="../it4/views/assets/DataTables/JSZip-2.5.0/jszip.min.js"></script>
+    <script src="../it4/views/js/log/change_password.js"></script>
+    <script src="../it4/views/data_tables/all_dvices.js"></script>

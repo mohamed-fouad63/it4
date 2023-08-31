@@ -1,0 +1,1 @@
+update v200t_users INNER JOIN dvice on v200t_users.sn = dvice.sn set v200t_users.dvice_name = dvice.dvice_name;
