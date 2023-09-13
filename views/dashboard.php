@@ -1,5 +1,5 @@
 <?php
-
+// print_r($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,13 +90,40 @@
             background-color: rgba(123 153 7 /8%);
         }
 
-        .dvices_count .network {
+        .dvices_count .router {
             color: rgb(172 153 7);
             background-color: rgba(172 153 7 /20%);
         }
 
-        .dvices_count .network_list {
+        .dvices_count .router_list {
             background-color: rgba(172 153 7 /8%);
+        }
+
+        .dvices_count .switch {
+            color: rgb(153 101 22);
+            background-color: rgba(153 101 22 /20%);
+        }
+
+        .dvices_count .switch_list {
+            background-color: rgba(153 101 22 /8%);
+        }
+
+        .dvices_count .modem {
+            color: rgb(61 100 71);
+            background-color: rgba(61 100 71 /20%);
+        }
+
+        .dvices_count .modem_list {
+            background-color: rgba(61 100 71 /8%);
+        }
+
+        .dvices_count .voip {
+            color: rgb(37 164 171);
+            background-color: rgba(122 255 0 /20%);
+        }
+
+        .dvices_count .voip_list {
+            background-color: rgba(122 255 0 /8%);
         }
 
         .card-title {

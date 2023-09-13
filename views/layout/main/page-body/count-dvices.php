@@ -2,7 +2,7 @@
     <div class="row" id="count_office_type">
     </div>
     <div class="row dvices_count">
-        <div class="col-md-3">
+        <div class="col-md-12 col-lg-4 col-xl-3">
             <div class="card">
                 <a href="/it4/getDviceById?dvice_id=pc" target="_blank" class="text-decoration-none fs-1">
                     <div class="card-header pc">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-12 col-lg-4 col-xl-3">
             <div class="card">
                 <a href="/it4/getDviceById?dvice_id=monitor" target="_blank" class="text-decoration-none fs-1">
                     <div class="card-header monitor">
@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-12 col-lg-4 col-xl-3">
             <div class="card">
                 <a href="/it4/getDviceById?dvice_id=printer" target="_blank" class="text-decoration-none fs-1">
                     <div class="card-header printer">
@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-12 col-lg-4 col-xl-3">
             <div class="card">
                 <a href="/it4/getDviceById?dvice_id=pos" target="_blank" class="text-decoration-none fs-1">
                     <div class="card-header pos">
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-12 col-lg-4 col-xl-3">
             <div class="card">
                 <a href="/it4/getDviceById?dvice_id=scanner" target="_blank" class="text-decoration-none fs-1">
                     <div class="card-header scanner">
@@ -91,7 +91,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-12 col-lg-4 col-xl-3">
             <div class="card">
                 <a href="/it4/getDviceById?dvice_id=parcode_printer" target="_blank" class="text-decoration-none fs-1">
                     <div class="card-header parcode_printer">
@@ -109,7 +109,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-12 col-lg-4 col-xl-3">
             <div class="card">
                 <a href="/it4/getDviceById?dvice_id=weighter" target="_blank" class="text-decoration-none fs-1">
                     <div class="card-header weighter">
@@ -126,7 +126,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-12 col-lg-4 col-xl-3">
             <div class="card">
                 <a href="/it4/getDviceById?dvice_id=displaying" target="_blank" class="text-decoration-none fs-1">
                     <div class="card-header displaying">
@@ -138,6 +138,78 @@
                 <div class="displaying_list">
                     <div class="">
                         <table class="table table-hover" id="custom_display_table">
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-4 col-xl-3">
+            <div class="card">
+                <a href="/it4/getDviceById?dvice_id=router" target="_blank" class="text-decoration-none fs-1">
+                    <div class="card-header router">
+                        <span class="fs-1" id="router_table_count"></span>
+                        <i class="bi bi-router-fill"></i>
+                        <span class="fs-2">روتر</span>
+                    </div>
+                </a>
+                <div class="router_list">
+                    <div class="">
+                        <table class="table table-hover" id="router_table">
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-4 col-xl-3">
+            <div class="card">
+                <a href="/it4/getDviceById?dvice_id=switch" target="_blank" class="text-decoration-none fs-1">
+                    <div class="card-header switch">
+                        <span class="fs-1" id="switch_table_count"></span>
+                        <i class="bi bi-hdd-fill"></i>
+                        <span class="fs-2">سويتش</span>
+                    </div>
+                </a>
+                <div class="switch_list">
+                    <div class="">
+                        <table class="table table-hover" id="switch_table">
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-4 col-xl-3">
+            <div class="card">
+                <a href="/it4/getDviceById?dvice_id=modem" target="_blank" class="text-decoration-none fs-1">
+                    <div class="card-header modem">
+                        <span class="fs-1" id="modem_table_count"></span>
+                        <i class="bi bi-modem-fill"></i>
+                        <span class="fs-2">موديم</span>
+                    </div>
+                </a>
+                <div class="modem_list">
+                    <div class="">
+                        <table class="table table-hover" id="modem_table">
+                            <tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-4 col-xl-3">
+            <div class="card">
+                <a href="/it4/getDviceById?dvice_id=voip" target="_blank" class="text-decoration-none fs-1">
+                    <div class="card-header voip">
+                        <span class="fs-1" id="voip_table_count"></span>
+                        <i class="bi bi-telephone-fill"></i>
+                        <span class="fs-2">VOIP</span>
+                    </div>
+                </a>
+                <div class="voip_list">
+                    <div class="">
+                        <table class="table table-hover" id="voip_table">
                             <tbody>
                         </table>
                     </div>

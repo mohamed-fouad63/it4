@@ -64,6 +64,8 @@ class misin_it extends Model
             FROM misin_it WHERE misin_date LIKE :misinYear GROUP BY id
             ",
             "create"=>"INSERT INTO `misin_it`(`misin_day`,`misin_date`,`id`,`it_name`,`office_name`,`misin_type`,`start_time`,`end_time`,`does`) VALUES (:misin_day,:misin_date,:it_id,:it_name,:office_name,:misin_type,:start_time,:end_time,:does)",
+            "create2" => "INSERT INTO `misin_it` (`misin_day`,`misin_date`,`id`,`it_name`, `office_name`, `misin_type`, `start_time`, `end_time`,`does`) VALUES (:misin_day1,:misin_date1,:id,:first_name,:office_name1,:misin_type,:start_time,:end_time,:does),(:misin_day2,:misin_date2,:id,:first_name,:office_name2,:misin_type,:start_time,:end_time,:does)",
+
             "ajaxDelMission"=>"DELETE FROM misin_it WHERE counter = :counter",
         ];
         return $queries[$queryName];
@@ -135,7 +137,6 @@ class misin_it extends Model
                         $nameOfDay = "الخميس";
                         break;
                 }
-                if ($nameOfDay != 'الجمعه' && $nameOfDay != 'السبت') {
                     $params =[':getid' => $getid,':day' => $day];
                     $stmt = self::executePreparedQuery('ajaxMyMission', $params);
                     $row_count = $stmt->rowCount();
@@ -143,7 +144,7 @@ class misin_it extends Model
                         foreach ($stmt as $row) {
                             $result[] = $row;
                         }
-                    } elseif($row_count == 0) {
+                    } elseif($nameOfDay != 'الجمعه' && $nameOfDay != 'السبت') {
                         $row = array(
                             "it_name" => "",
                             "misin_day" => "$nameOfDay",
@@ -159,7 +160,6 @@ class misin_it extends Model
                         );
                         $result[] = $row;
                     };
-                };
             };
             echo json_encode($result, JSON_UNESCAPED_UNICODE);
         } else {
@@ -189,7 +189,33 @@ class misin_it extends Model
             return false;
         }
     }
-    public static function ajaxMissions($formData)
+
+    public static function create2($formData)
+    {
+        try {
+            $conn = self::dbConnectionBySession();
+            $conn->beginTransaction();
+            $params = [
+                ':misin_day1' => $formData['day_name1'],
+                ':misin_day2' => $formData['day_name2'],
+                ':misin_date1' => $formData['mission_date_start'],
+                ':misin_date2' => $formData['badal_raha_date'],
+                ':id' =>$formData['it_id'],
+                ':first_name' => $formData['it_name'],
+                ':office_name1' => 'بدل راحه',
+                ':office_name2' => 'المنطقه',
+                ':misin_type' => $formData['misin_type'],
+                ':start_time' => $formData['start_time'],
+                ':end_time' => $formData['end_time'],
+                ':does' => $formData['does']
+            ];
+            self::executePreparedQuery('create2', $params);
+            $conn->commit();
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }    public static function ajaxMissions($formData)
     {
         $getid = $formData['getid2'];
         if (!empty($getid)) {
@@ -233,7 +259,6 @@ class misin_it extends Model
                         $nameOfDay = "الخميس";
                         break;
                 }
-                if ($nameOfDay != 'الجمعه' && $nameOfDay != 'السبت') {
                     $params =[':getid' => $getid,':day' => $day];
                     $stmt = self::executePreparedQuery('ajaxMissions', $params);
                     $row_count = $stmt->rowCount();
@@ -241,7 +266,7 @@ class misin_it extends Model
                         foreach ($stmt as $row_it_name) {
                             $row_read_dvice_json[] = $row_it_name;
                         }
-                    } else {
+                    } elseif ($nameOfDay != 'الجمعه' && $nameOfDay != 'السبت') {
                         $row_pc3 = array(
                             "it_name" => "",
                             "misin_day" => "$nameOfDay",
@@ -258,7 +283,6 @@ class misin_it extends Model
                         );
                         $row_read_dvice_json[] = $row_pc3;
                     };
-                };
             };
             echo json_encode($row_read_dvice_json, JSON_UNESCAPED_UNICODE);
         } else {

@@ -2,6 +2,7 @@
 
 use Core\Http\Route;
 Route::get('/it4/', 'LoginController@login',['AuthLogin']);
+Route::get('/it4/console', 'console');
 Route::get('/it4/logout', 'LoginController@logout',['AuthSessionLogin']);
 Route::ajax('/it4/submit_login', [LoginController::class, 'submit_login']);
 Route::ajax('/it4/change_passowrd', [LoginController::class, 'change_passowrd']);
@@ -19,6 +20,7 @@ Route::get('/it4/repeatSn', 'DviceController@repeatSn');
 Route::ajax('/it4/ajaxOfficesDvicesReport', [DviceController::class, 'ajaxOfficesDvicesReport']); // ajax dataTbale
 Route::ajax('/it4/ajaxCountDviceNameById', [DviceController::class, 'ajaxCountDviceNameById']); // ajax dataTbale
 Route::ajax('/it4/ajaxCountDviceNameByType', [DviceController::class, 'ajaxCountDviceNameByType']); // ajax dataTbale
+Route::ajax('/it4/ajaxCountDviceNameByName', [DviceController::class, 'ajaxCountDviceNameByName']); // ajax dataTbale
 // Office Group Page
 Route::get('/it4/officeGroup', 'OfficeController@getOfficeGroup',['AuthSessionLogin']);
 Route::ajax('/it4/ajaxofficeGroupName', 'OfficeController@ajaxofficeGroupName'); // ajax dataTbale
@@ -31,6 +33,7 @@ Route::ajax('/it4/ajaxDelofficeGroup', 'OfficeController@ajaxDelofficeGroup'); /
 Route::get('/it4/grd', 'DviceController@grd',['AuthSessionLogin']);
 // Dvices Office Page
 Route::get('/it4/dvicesOffice', 'DviceController@dvicesOffice',['AuthSessionLogin']);
+Route::get('/it4/authDviceMoveTo', 'DviceController@authDviceMoveTo',['AuthSessionLogin']);
 Route::ajax('/it4/ajaxOfficesName', 'OfficeController@ajaxOfficesName'); // reg to & reg in page
 Route::ajax('/it4/ajaxOfficesDetails', 'OfficeController@ajaxOfficesDetails');
 Route::ajax('/it4/ajaxDvicesOfficePc', 'DviceController@ajaxDvicesOfficePc');
@@ -99,6 +102,7 @@ Route::ajax('/it4/ajaxMissionOnline', 'MisinController@ajaxMissionOnline');
 Route::ajax('/it4/ajaxAddMissionOnline', 'MisinController@ajaxAddMissionOnline');
 Route::ajax('/it4/ajaxDelMissionOnline', 'MisinController@ajaxDelMissionOnline');
 Route::post('/it4/vactionFormSubOnLine', 'MisinController@vactionFormSubOnLine',['AuthSessionLogin']);
+Route::post('/it4/badlRahaFormSubOnLine', 'MisinController@badlRahaFormSubOnLine',['AuthSessionLogin']);
 // Missions page
 Route::get('/it4/Missions', 'MisinController@Missions',['AuthSessionLogin']);
 Route::ajax('/it4/usersInfo', 'UserController@usersInfo');

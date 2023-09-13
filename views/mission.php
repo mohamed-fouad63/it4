@@ -91,7 +91,11 @@
         #mission_date_end,
         #mission_time,
         #mission_type,
-        #misin_cairo_type {
+        #misin_cairo_type ,
+        #badl_raha_label ,
+        #badlRahaFormSubOnLine,
+        #vactionFormSub,
+        #badal_raha_date {
             display: none
         }
 
@@ -180,7 +184,6 @@
     <script src="./views/js/mission/office_mission.js"></script>
     <script src="./views/js/mission/remove_mission.js"></script>
     <script src="./views/js/mission/add_mission.js"></script>
-    <script src="./views/js/mission/lock_mission.js"></script>
     <script src="./views/js/global/dismiss_modal_check.js"></script>
     <script src="./views/js/log/change_password.js"></script>
     <script src="./views/js/mission/change_vaction_date.js"></script>

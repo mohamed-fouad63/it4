@@ -1,7 +1,12 @@
 $("#example tbody").on("click", ".btn-danger", function () {
   var data = table.row($(this).parents("tr")).data();
+  if(data.mission_table == 'misin_it_online'){
+    ajaxUrl = '/it4/ajaxDelMissionOnline';
+  } else {
+    ajaxUrl = '/it4/ajaxDelMission';
+  }
   $.ajax({
-    url: "/it4/ajaxDelMission",
+    url: ajaxUrl,
     method: "post",
     data: {
       counter: data.counter,

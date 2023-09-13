@@ -18,11 +18,14 @@
                             <option value="اجازه مرضيه">اجازه مرضيه</option>
                             <option value="اجازه رسميه">اجازه رسميه</option>
                             <option value="ماموريه القاهره">ماموريه القاهره</option>
+                            <option value="بدل  راحه">بدل راحه</option>
                         </select>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text col-sm-2" id="mission_date_start_label">بتاريخ</span>
                         <input type="date" class="form-control me-3" id="mission_date_start" name="misin_date" value="<?php echo date('Y-m-d') ?>">
+                        <span class="input-group-text col-sm-2" id="badl_raha_label">عن يوم</span>
+                        <input type="date" class="form-control" name ="badal_raha_date" id="badal_raha_date" value="<?php echo date('Y-m-d') ?>">
                         <span class="input-group-text col-sm-2" id="mission_date_end_label">حتى تاريخ</span>
                         <input type="date" class="form-control" id="mission_date_end" value="<?php echo date('Y-m-d') ?>">
                         <span class="input-group-text col-sm-2" id="mission_type_label">نوع الماموريه</span>
@@ -46,9 +49,12 @@
                         <label class="form-check-label" for="flexSwitchCheckDefault">ابقاء النافذه مفتوحه</label>
                         <input class="form-check-input" type="checkbox" value="" id="chk_btn" onclick="dismiss_modal_check('chk_btn','add_mission_btn')">
                     </div>
-                    <div id="vaction_div" class="flex-grow-1">
-                        <button type="hidden" class="btn btn-primary" formaction="/it4/vactionFormSub" formtarget="_blank">
+                    <div id="" class="flex-grow-1">
+                        <button class="btn btn-primary" id="vactionFormSub" formaction="/it4/vactionFormSub" formtarget="_blank">
                             <i class="bi bi-file-earmark-text-fill"></i>طباعه الاجازه
+                        </button>
+                        <button class="btn btn-primary" id="badlRahaFormSubOnLine" formaction="/it4/badlRahaFormSubOnLine" formtarget="_blank">
+                            <i class="bi bi-file-earmark-text-fill"></i>طباعه بدل الراحه
                         </button>
                     </div>
             </form>

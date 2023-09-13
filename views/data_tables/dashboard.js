@@ -373,3 +373,190 @@ var scale_table = $("#custom_display_table").DataTable({
     $("#custom_display_table_count").html(api.column(0).data().sum());
   },
 });
+
+var router_table = $("#router_table").DataTable({
+  bProcessing: true,
+  ajax: {
+    url: "/it4/ajaxCountDviceNameByName",
+    method: "post",
+    data: function (d) {
+      d.dvice_name = "ROUTER";
+    },
+    dataSrc: "",
+  },
+  deferRender: true,
+  columns: [
+    { data: "COUNT(dvice_name)" },
+    {
+      data: "dvice_name",
+      className: "px-3 text-end",
+      render: function (data, type, row, meta) {
+        return `<a href="/it4/getDviceByType?dvice_type=${data}" target="_blank" class="text-decoration-none" style="color:unset">${data}</a>`;
+      },
+    },
+  ],
+
+  paging: false,
+  dom: "rt",
+  order: [[0, "desc"]],
+  autoWidth: false,
+  language: {
+    emptyTable: "لا يوجد روترات مدرجه",
+  },
+  drawCallback: function () { },
+  initComplete: function () {
+    $.fn.dataTable.Api.register("sum()", function () {
+      return this.flatten().reduce(function (a, b) {
+        if (typeof a === "string") {
+          a = a.replace(/[^\d.-]/g, "") * 1;
+        }
+        if (typeof b === "string") {
+          b = b.replace(/[^\d.-]/g, "") * 1;
+        }
+        return a + b;
+      }, 0);
+    });
+    var api = this.api();
+    $("#router_table_count").html(api.column(0).data().sum());
+  },
+});
+
+var switch_table = $("#switch_table").DataTable({
+  bProcessing: true,
+  ajax: {
+    url: "/it4/ajaxCountDviceNameByName",
+    method: "post",
+    data: function (d) {
+      d.dvice_name = "SWITCH";
+    },
+    dataSrc: "",
+  },
+  deferRender: true,
+  columns: [
+    { data: "COUNT(dvice_name)" },
+    {
+      data: "dvice_name",
+      className: "px-3 text-end",
+      render: function (data, type, row, meta) {
+        return `<a href="/it4/getDviceByType?dvice_type=${data}" target="_blank" class="text-decoration-none" style="color:unset">${data}</a>`;
+      },
+    },
+  ],
+
+  paging: false,
+  dom: "rt",
+  order: [[0, "desc"]],
+  autoWidth: false,
+  language: {
+    emptyTable: "لا يوجد روترات مدرجه",
+  },
+  drawCallback: function () { },
+  initComplete: function () {
+    $.fn.dataTable.Api.register("sum()", function () {
+      return this.flatten().reduce(function (a, b) {
+        if (typeof a === "string") {
+          a = a.replace(/[^\d.-]/g, "") * 1;
+        }
+        if (typeof b === "string") {
+          b = b.replace(/[^\d.-]/g, "") * 1;
+        }
+        return a + b;
+      }, 0);
+    });
+    var api = this.api();
+    $("#switch_table_count").html(api.column(0).data().sum());
+  },
+});
+var modem_table = $("#modem_table").DataTable({
+  bProcessing: true,
+  ajax: {
+    url: "/it4/ajaxCountDviceNameByType",
+    method: "post",
+    data: function (d) {
+      d.dvice_type = "مودم";
+    },
+    dataSrc: "",
+  },
+  deferRender: true,
+  columns: [
+    { data: "COUNT(dvice_name)" },
+    {
+      data: "dvice_name",
+      className: "px-3 text-end",
+      render: function (data, type, row, meta) {
+        return `<a href="/it4/getDviceByType?dvice_type=${data}" target="_blank" class="text-decoration-none" style="color:unset">${data}</a>`;
+      },
+    },
+  ],
+
+  paging: false,
+  dom: "rt",
+  order: [[0, "desc"]],
+  autoWidth: false,
+  language: {
+    emptyTable: "لا يوجد جهاز اتصال شبكى مدرج",
+  },
+  drawCallback: function () { },
+  initComplete: function () {
+    $.fn.dataTable.Api.register("sum()", function () {
+      return this.flatten().reduce(function (a, b) {
+        if (typeof a === "string") {
+          a = a.replace(/[^\d.-]/g, "") * 1;
+        }
+        if (typeof b === "string") {
+          b = b.replace(/[^\d.-]/g, "") * 1;
+        }
+        return a + b;
+      }, 0);
+    });
+    var api = this.api();
+    $("#modem_table_count").html(api.column(0).data().sum());
+  },
+});
+
+var voip_table = $("#voip_table").DataTable({
+  bProcessing: true,
+  ajax: {
+    url: "/it4/ajaxCountDviceNameByType",
+    method: "post",
+    data: function (d) {
+      d.dvice_type = "عده تليفون شبكه";
+    },
+    dataSrc: "",
+  },
+  deferRender: true,
+  columns: [
+    { data: "COUNT(dvice_name)" },
+    {
+      data: "dvice_name",
+      className: "px-3 text-end",
+      render: function (data, type, row, meta) {
+        return `<a href="/it4/getDviceByType?dvice_type=${data}" target="_blank" class="text-decoration-none" style="color:unset">${data}</a>`;
+      },
+    },
+  ],
+
+  paging: false,
+  dom: "rt",
+  order: [[0, "desc"]],
+  autoWidth: false,
+  language: {
+    emptyTable: "لا يوجد جهاز اتصال شبكى مدرج",
+  },
+  drawCallback: function () { },
+  initComplete: function () {
+    $.fn.dataTable.Api.register("sum()", function () {
+      return this.flatten().reduce(function (a, b) {
+        if (typeof a === "string") {
+          a = a.replace(/[^\d.-]/g, "") * 1;
+        }
+        if (typeof b === "string") {
+          b = b.replace(/[^\d.-]/g, "") * 1;
+        }
+        return a + b;
+      }, 0);
+    });
+    var api = this.api();
+    $("#voip_table_count").html(api.column(0).data().sum());
+  },
+});

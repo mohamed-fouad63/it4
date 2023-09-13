@@ -24,7 +24,6 @@ class Application
         $this->request = new Request;
         $this->response = new Response;
         $this->session = new Session;
-        $this->controller = new Controller;
     }
     public function run()
     {

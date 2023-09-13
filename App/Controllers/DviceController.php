@@ -6,6 +6,8 @@ use Core\Http\View;
 use App\Models\dvice;
 use App\Models\in_it;
 use Core\Http\Controller;
+use Core\Http\Route;
+use Core\Http\Validate;
 
 class DviceController extends Controller
 {
@@ -39,6 +41,7 @@ class DviceController extends Controller
     }
     public function ajaxAddDvice()
     {
+        // Route::get("/",'hoem');
         if ($this->issession) {
             $validData = $this->validate([
                 "office_name" => ["required"],
@@ -55,18 +58,17 @@ class DviceController extends Controller
             return 'انتهت الجلسه';
         }
     }
+
     public function ajaxEditDvice()
     {
-        if ($this->issession) {
-            $validData = $this->validate([
+       $data = Validate::post([
                 "dvice_num" => [""],
                 "pc_sn" => [""],
-                "pc_ip" => [""],
+                "pc_ip" => ["ip"],
                 "pc_domian_name" => [""],
-            ]);
-            return dvice::ajaxEditDvice($this->formData);
-        } else {
-            return 'انتهت الجلسه';
+        ]);
+        if($data->isValid()){
+            return dvice::ajaxEditDvice($data->getData());
         }
     }
     public function ajaxMoveDvice()
@@ -132,6 +134,14 @@ class DviceController extends Controller
             return 'انتهت الجلسه';
         }
     }
+    public function ajaxCountDviceNameByName()
+    {
+        if ($this->issession) {
+            return dvice::countDviceNameByName($_REQUEST['dvice_name']);
+        } else {
+            return 'انتهت الجلسه';
+        }
+    }
     public function ajaxOfficesDvicesReport()
     {
         if ($this->issession) {
@@ -145,6 +155,21 @@ class DviceController extends Controller
     {
             $dvice_id = dvice::getDviceById($_GET['dvice_id']);
             return View::page('dvice_id', [$dvice_id]);
+    }
+    public function authDviceMoveTo()
+    { 
+        $data = Validate::get([
+            'f' => [''],
+            't' => [''],
+            'p' => [''],
+            's' => [''],
+            'd' => ['date']
+        ]);
+        if($data->isValid()){
+            return View::page('auth_move_to', $data->getData());
+        } else {
+            return View::page('auth_move_to', $data->getData());
+        }
     }
     public function getDviceByType()
     {

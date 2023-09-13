@@ -194,6 +194,7 @@ class MisinController extends Controller
                 "misin_cairo_type" => [""],
                 "start_time" => [""],
                 "end_time" => [""],
+                "badal_raha_date" => [""],
             ]);
             if ($validData === true) {
 
@@ -225,12 +226,9 @@ class MisinController extends Controller
                 }
                 if (empty($this->formData['office_name'])) {
                     echo 'قم بتحديد مكتب المرور ';
-                } else if ($nameOfDay == "الجمعه") {
-                    echo 'لا يوجد ماموريات يوم الجمعه';
-                } else if ($this->formData['office_name'] == 'اجازه مرضيه' || $this->formData['office_name'] == 'اجازه رسميه' || $this->formData['office_name'] == 'اجازه عارضه' || $this->formData['office_name'] == 'اجازه اعتياديه' || $this->formData['office_name'] == 'المنطقه') {
+                } elseif ($this->formData['office_name'] == 'اجازه مرضيه' || $this->formData['office_name'] == 'اجازه رسميه' || $this->formData['office_name'] == 'اجازه عارضه' || $this->formData['office_name'] == 'اجازه اعتياديه' || $this->formData['office_name'] == 'المنطقه') {
                     $start_ill_date = strtotime($this->formData['mission_date_start']);
                     $end_ill_date = strtotime($this->formData['mission_date_end']);
-
                     for ($i = $start_ill_date; $i <= $end_ill_date; $i = $i + 86400) {
                         $this_ill_Date = date('Y-m-d', $i);
                         $name_this_ill_Date = date('D', strtotime($this_ill_Date));
@@ -265,12 +263,57 @@ class MisinController extends Controller
                         misin_it::create($this->formData);
                     }
                     echo 'done';
+                } elseif($this->formData['office_name'] == 'بدل راحه')
+                {
+                        $dayName2 = date('D', strtotime($this->formData['badal_raha_date']));
+                        switch ($dayName2) {
+                            case "Fri":
+                                $this->formData['badal_raha_day'] = "الجمعه";
+                                break;
+                            case "Sat":
+                                $this->formData['badal_raha_day'] = "السبت";
+                                break;
+                            case "Sun":
+                                $this->formData['badal_raha_day'] = "الأحد";
+                                break;
+                            case "Mon":
+                                $this->formData['badal_raha_day'] = "الأثنين";
+                                break;
+                            case "Tue":
+                                $this->formData['badal_raha_day'] = "الثلاثاء";
+                                break;
+                            case "Wed":
+                                $this->formData['badal_raha_day'] = "الأربعاء";
+                                break;
+                            case "Thu":
+                                $this->formData['badal_raha_day'] = "الخميس";
+                                break;
+                        }
+                        if ($this->formData['badal_raha_day'] == "الجمعه" || $this->formData['badal_raha_day'] == "السبت") {
+                            $this->formData['day_name1'] = $nameOfDay;
+                            $this->formData['day_name2'] = $this->formData['badal_raha_day'];
+                            $this->formData['misin_type'] = '';
+                            $this->formData['start_time'] = '';
+                            $this->formData['end_time'] = '';
+                            $this->formData['does'] = '';
+                            misin_it::create2($this->formData);
+                            echo 'done';
+                            // return View::page('badal_raha_form_sub', $this->formData);
+                        } else {
+                            echo '<script type="text/javascript">
+                            window.close();
+                        </script>';
+                        
+                    }
                 } else {
-                    $this->formData['misin_date'] = $this->formData['mission_date_start'];
-                    $this->formData['misin_day'] = $nameOfDay;
-                    $this->formData['does'] = $this->formData['misin_cairo_type'];
-                    misin_it::create($this->formData);
-                    echo 'done';
+                    if ( $nameOfDay != "الجمعه" || $nameOfDay != "السبت") {
+                        $this->formData['misin_date'] = $this->formData['mission_date_start'];
+                        $this->formData['misin_day'] = $nameOfDay;
+                        $this->formData['does'] = $this->formData['misin_cairo_type'];
+                        misin_it::create($this->formData);
+                        echo 'done';
+                    }
+
                 }
             } else {
                 return $this->getFormError('json');
@@ -362,9 +405,89 @@ class MisinController extends Controller
                 $this->formData['misin_type'] = '';
                 $this->formData['start_time'] = '';
                 $this->formData['end_time'] = '';
+                $this->formData['reason_vacation'] = '';
                 $this->formData['does'] = '';
                 misin_it_online::create($this->formData);
                 return View::page('vaction_form_sub', $this->formData);
+            }
+    }
+    public function badlRahaFormSubOnLine()
+    {
+            $this->validate([
+                "it_name" => [""],
+                "misin_date" => [""],
+                "badal_raha_date" => [""]
+            ]);
+            $dayName = date('D', strtotime($this->formData['misin_date']));
+            switch ($dayName) {
+                case "Fri":
+                    $this->formData['misin_day'] = "الجمعه";
+                    break;
+                case "Sat":
+                    $this->formData['misin_day'] = "السبت";
+                    break;
+                case "Sun":
+                    $this->formData['misin_day'] = "الأحد";
+                    break;
+                case "Mon":
+                    $this->formData['misin_day'] = "الأثنين";
+                    break;
+                case "Tue":
+                    $this->formData['misin_day'] = "الثلاثاء";
+                    break;
+                case "Wed":
+                    $this->formData['misin_day'] = "الأربعاء";
+                    break;
+                case "Thu":
+                    $this->formData['misin_day'] = "الخميس";
+                    break;
+            }
+            if ($this->formData['misin_day'] == "الجمعه" || $this->formData['misin_day'] == "السبت") {
+                echo '<script type="text/javascript">
+                window.close();
+            </script>';
+            } else {
+                $dayName2 = date('D', strtotime($this->formData['badal_raha_date']));
+                switch ($dayName2) {
+                    case "Fri":
+                        $this->formData['badal_raha_day'] = "الجمعه";
+                        break;
+                    case "Sat":
+                        $this->formData['badal_raha_day'] = "السبت";
+                        break;
+                    case "Sun":
+                        $this->formData['badal_raha_day'] = "الأحد";
+                        break;
+                    case "Mon":
+                        $this->formData['badal_raha_day'] = "الأثنين";
+                        break;
+                    case "Tue":
+                        $this->formData['badal_raha_day'] = "الثلاثاء";
+                        break;
+                    case "Wed":
+                        $this->formData['badal_raha_day'] = "الأربعاء";
+                        break;
+                    case "Thu":
+                        $this->formData['badal_raha_day'] = "الخميس";
+                        break;
+                }
+                if ($this->formData['badal_raha_day'] == "الجمعه" || $this->formData['badal_raha_day'] == "السبت") {
+                
+                    $this->formData['it_id'] = $_SESSION['id'];
+                    $this->formData['day_name1'] = $this->formData['misin_day'];
+                    $this->formData['day_name2'] = $this->formData['badal_raha_day'];
+                    $this->formData['misin_type'] = '';
+                    $this->formData['start_time'] = '';
+                    $this->formData['end_time'] = '';
+                    $this->formData['does'] = '';
+                    misin_it_online::create2($this->formData);
+                    return View::page('badal_raha_form_sub', $this->formData);
+                } else {
+                    echo '<script type="text/javascript">
+                    window.close();
+                </script>';
+                }
+
             }
     }
     public function ajaxDelMission()

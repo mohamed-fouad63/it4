@@ -8,9 +8,9 @@ class Controller
 {
     public $db;
     public $issession;
-    public $formData = [];
-    public $formError = [];
-    private $rulesList = [
+    public static $formData = [];
+    public static $formError = [];
+    private static $rulesList = [
         'required' => true,
         'numeric' => true,
         'int' => true,
@@ -24,7 +24,7 @@ class Controller
     {
         $this->issession = Application::$app->session->get('db');
     }
-    public function validate($formData)
+    public static function validate($formData)
     {
         if (is_array($formData)) {
             $inputs = filter_var_array($_POST, FILTER_SANITIZE_STRING);
@@ -32,37 +32,36 @@ class Controller
                 if (!isset($inputs[$inputName])) {
                     $inputs[$inputName] = '';
                 }
-                $inputValue = $this->sanitizeInput($inputs[$inputName]);
-
+                $inputValue = self::sanitizeInput($inputs[$inputName]);
                 if (is_array($rules)) {
                     foreach ($rules as $rule) {
                         $rulArg = '';
                         if (strpos($rule, ':') !== false) {
                             [$rule, $rulArg] = explode(':', $rule, 2);
                         }
-                        if (isset($this->rulesList[$rule])) {
-                            $this->$rule($inputValue, $inputName, $rulArg);
+                        if (isset(self::$rulesList[$rule])) {
+                            self::$rule($inputValue, $inputName, $rulArg);
                         } else {
-                            // $this->formError[$inputName][$rule] = 'قاعدة التحقق ' . $rule . ' غير موجودة';
-                            // $this->setFormData($inputName,$inputValue);
-                            $this->setFormData($inputName, $inputValue);
+                            // self::$formError[$inputName][$rule] = 'قاعدة التحقق ' . $rule . ' غير موجودة';
+                            //self::setFormData($inputName,$inputValue);
+                        self::setFormData($inputName, $inputValue);
                         }
                     }
                 }
             }
         }
-        if (count($this->formError) > 0) {
-            $this->formData = [];
+        if (count(self::$formError) > 0) {
+             self::$formData = [];
             return false;
         } else {
             return true;
         }
     }
-    private function sanitizeInput($inputValue)
+    private static function sanitizeInput($inputValue)
     {
         if (is_array($inputValue)) {
             foreach ($inputValue as &$value) {
-                $value = $this->sanitizeInput($value);
+                $value = self::sanitizeInput($value);
             }
             unset($value); // Unset the reference to avoid potential bugs
             return $inputValue;
@@ -73,26 +72,26 @@ class Controller
     private function required($inputValue, $inputName)
     {
         if (!empty($inputValue)) {
-            $this->setFormData($inputName, $inputValue);
+           self::setFormData($inputName, $inputValue);
         } else {
-            $this->formError[$inputName]['required'] = "هذا الحقل مطلوب";
+            self::$formError[$inputName]['required'] = "هذا الحقل مطلوب";
         }
     }
     private function numeric($inputValue, $inputName)
     {
         if (filter_var($inputValue, FILTER_VALIDATE_FLOAT)) {
-            $this->setFormData($inputName, $inputValue);
+           self::setFormData($inputName, $inputValue);
         } else {
-            $this->formError[$inputName]['numeric'] = 'هذا الحقل يتطلب أرقام او كسور';
+            self::$formError[$inputName]['numeric'] = 'هذا الحقل يتطلب أرقام او كسور';
         }
     }
     private function int($inputValue, $inputName, $rulArg)
     {
         if (filter_var($inputValue, FILTER_VALIDATE_INT)) {
 
-            $this->setFormData($inputName, $inputValue);
+           self::setFormData($inputName, $inputValue);
         } else {
-            $this->formError[$inputName]['int'] = 'هذا الحقل يتطلب أرقام صحيحه بدون كسور';
+            self::$formError[$inputName]['int'] = 'هذا الحقل يتطلب أرقام صحيحه بدون كسور';
         }
     }
     private function max($inputValue, $inputName, $rulArg)
@@ -100,12 +99,12 @@ class Controller
         if (is_numeric($rulArg)) {
             $rulArg = intval($rulArg);
             if (strlen($inputValue) <= $rulArg) {
-                $this->setFormData($inputName, $inputValue);
+               self::setFormData($inputName, $inputValue);
             } else {
-                $this->formError[$inputName]['max'] = 'الحد الاقصى لعدد الحروف هو (' . $rulArg . ') احرف';
+                self::$formError[$inputName]['max'] = 'الحد الاقصى لعدد الحروف هو (' . $rulArg . ') احرف';
             }
         } else {
-            $this->formError[$inputName]['max'] = 'يوجد خطأ فى تحديد عدد الاحرف';
+            self::$formError[$inputName]['max'] = 'يوجد خطأ فى تحديد عدد الاحرف';
         }
     }
     private function min($inputValue, $inputName, $rulArg)
@@ -113,12 +112,12 @@ class Controller
         if (is_numeric($rulArg)) {
             $rulArg = intval($rulArg);
             if (strlen($inputValue) >= $rulArg) {
-                $this->setFormData($inputName, $inputValue);
+               self::setFormData($inputName, $inputValue);
             } else {
-                $this->formError[$inputName]['min'] = 'الحد الادنى لعدد الحروف هو (' . $rulArg . ') احرف';
+                self::$formError[$inputName]['min'] = 'الحد الادنى لعدد الحروف هو (' . $rulArg . ') احرف';
             }
         } else {
-            $this->formError[$inputName]['min'] = 'يوجد خطأ فى تحديد عدد الاحرف';
+            self::$formError[$inputName]['min'] = 'يوجد خطأ فى تحديد عدد الاحرف';
         }
     }
     private function date($inputValue, $inputName, $rulArg)
@@ -126,70 +125,70 @@ class Controller
         $rulArg = !$rulArg ? 'Y-m-d' :  $rulArg;
         $date = \DateTime::createFromFormat($rulArg, $inputValue);
         if ($date && $date->format($rulArg) === $inputValue) {
-            $this->setFormData($inputName, $inputValue);
+           self::setFormData($inputName, $inputValue);
         } else {
-            $this->formError[$inputName]['date'] = 'هذا الحقل يجب أن يكون بتنسيق ' . $rulArg;
+            self::$formError[$inputName]['date'] = 'هذا الحقل يجب أن يكون بتنسيق ' . $rulArg;
         }
     }
     private function time($inputValue, $inputName, $rulArg)
     {
         $date = \DateTime::createFromFormat($inputValue, $inputValue);
         if ($date && $date->format($inputValue) === $inputValue) {
-            $this->setFormData($inputName, $inputValue);
+           self::setFormData($inputName, $inputValue);
         } else {
-            $this->formError[$inputName]['time'] = 'هذا الحقل يجب أن يكون بتنسيق ' . $rulArg;
+            self::$formError[$inputName]['time'] = 'هذا الحقل يجب أن يكون بتنسيق ' . $rulArg;
         }
     }
     private function barcode($inputValue, $inputName, $rulArg)
     {
         $regex = '/^[A-Z]{2}\d{9}[A-Z]{2}$/';
         if (preg_match($regex, $inputValue)) {
-            $this->setFormData($inputName, $inputValue);
+           self::setFormData($inputName, $inputValue);
         } else {
-            $this->formError[$inputName]['barcode'] = 'الباركود غير متوافق';
+            self::$formError[$inputName]['barcode'] = 'الباركود غير متوافق';
         }
     }
     public function destroy()
     {
-        $this->formData = [];
-        $this->formError = [];
+         self::$formData = [];
+        self::$formError = [];
     }
     public function getFormError($dataType)
     {
         switch ($dataType) {
             case 'json':
-                return json_encode($this->formError, JSON_UNESCAPED_UNICODE);
+                return json_encode(self::$formError, JSON_UNESCAPED_UNICODE);
             case 'array':
-                return $this->formError;
+                return self::$formError;
         }
     }
     public function setFormError($dataType)
     {
         switch ($dataType) {
             case 'json':
-                return json_encode($this->formError, JSON_UNESCAPED_UNICODE);
+                return json_encode(self::$formError, JSON_UNESCAPED_UNICODE);
             case 'array':
-                return $this->formError;
+                return self::$formError;
         }
     }
     public function getFormData($dataType)
     {
         switch ($dataType) {
             case 'json':
-                return json_encode($this->formError, JSON_UNESCAPED_UNICODE);
+                return json_encode(self::$formError, JSON_UNESCAPED_UNICODE);
             case 'array':
-                return $this->formError;
+                return self::$formError;
         }
     }
-    public function setFormData($inputName, $inputValue)
+    public static function setFormData($inputName, $inputValue)
     {
         if (is_array($inputValue)) {
             foreach ($inputValue as $key => $value) {
                 $inputValue[$key] = $value;
             }
-            $this->formData[$inputName] = $inputValue;
+            self::$formData[$inputName] = $inputValue;
         } else {
-            $this->formData[$inputName] = $inputValue;
+             self::$formData[$inputName] = $inputValue;
         }
     }
 }

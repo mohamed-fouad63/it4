@@ -32,7 +32,7 @@ class dvice extends Model
             self::$preparedQueries[$queryName] = self::prepareQuery($query, $params);
         }
         $stmt = self::$preparedQueries[$queryName];
-        $stmt->execute($params);
+        $stmt->execute();
         return $stmt;
     }
 
@@ -63,7 +63,8 @@ class dvice extends Model
             "ajaxDviceToIt2" => "UPDATE dvice set note = 'بقسم الدعم الفنى', note_move_to = '' WHERE num = :dvice_num ",
             "countDviceNameById" => "SELECT dvice_name,COUNT(dvice_name) FROM dvice WHERE id= :dvice_id  GROUP BY dvice_name ORDER BY `dvice`.`dvice_name` ASC",
             "countDviceNameByType" => "SELECT dvice_name,COUNT(dvice_name) FROM dvice WHERE dvice_type= :dvice_type  GROUP BY dvice_name ORDER BY `dvice`.`dvice_name` ASC",
-            "getDviceById" => "SELECT office_name,dvice_name,sn,note,note_move_to FROM dvice WHERE id = :id",
+            "countDviceNameByName" => "SELECT dvice_name,COUNT(dvice_name) FROM dvice WHERE dvice_name LIKE :dvice_name  GROUP BY dvice_name ORDER BY `dvice`.`dvice_name` ASC",
+            "getDviceById" => "SELECT office_name,dvice_name,sn,note,note_move_to FROM dvice WHERE ( id LIKE :id AND dvice_type LIKE :dvice_type ) OR ( id LIKE :id AND dvice_name LIKE :dvice_name )",
             "getDviceByType" => "SELECT office_name,dvice_name,sn,note,note_move_to FROM dvice WHERE dvice_name = :dvice_type",
             "repeatSn" => "SELECT a.sn,a.office_name,a.dvice_name FROM dvice a JOIN (SELECT sn, COUNT(sn) FROM dvice WHERE sn !='' GROUP BY sn HAVING count(sn) > 1 ) b ON a.sn = b.sn ORDER BY a.sn",
             "OfficesDvicesReport" => "
@@ -228,44 +229,79 @@ class dvice extends Model
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return json_encode($result, JSON_UNESCAPED_UNICODE);
     }
+    public static function countDviceNameByName($dvice_name)
+    {
+        $params = [':dvice_name' => $dvice_name. '%'];
+        $stmt = self::executePreparedQuery('countDviceNameByName', $params);
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return json_encode($result, JSON_UNESCAPED_UNICODE);
+    }
     public static function getDviceById($dvice_id)
     {
         self::$instance = static::class;
         switch ($dvice_id) {
             case 'pc':
-                $dvice_type = "";
+                $dvice_type = "%";
+                $dvice_name = "";
                 $id = "pc";
                 break;
             case 'monitor':
-                $dvice_type = "";
+                $dvice_type = "%";
+                $dvice_name = "";
                 $id = "monitor";
                 break;
             case 'printer':
-                $dvice_type = "";
+                $dvice_type = "%";
+                $dvice_name = "";
                 $id = "printer";
                 break;
             case 'pos':
-                $dvice_type = "";
+                $dvice_type = "%";
+                $dvice_name = "";
                 $id = "pos";
                 break;
             case 'scanner':
                 $dvice_type = "قارىء باركود";
+                $dvice_name = "";
                 $id = "postal";
                 break;
             case 'parcode_printer':
                 $dvice_type = "طابعه باركود";
+                $dvice_name = "";
                 $id = "postal";
                 break;
             case 'weighter':
                 $dvice_type = "ميزان الكتروني";
+                $dvice_name = "";
                 $id = "postal";
                 break;
             case 'displaying':
                 $dvice_type = "شاشه عرض عملاء";
+                $dvice_name = "";
                 $id = "postal";
                 break;
+            case 'router':
+                $dvice_type = "";
+                $dvice_name = "ROUTER%";
+                $id = "network";
+                break;
+            case 'switch':
+                $dvice_type = "";
+                $dvice_name = "SWITCH%";
+                $id = "network";
+                break;
+            case 'modem':
+                $dvice_type = "";
+                $dvice_name = "MODEM%";
+                $id = "network";
+                break;
+            case 'voip':
+                $dvice_type = "عده تليفون شبكه";
+                $dvice_name = "";
+                $id = "network";
+                break;
         }
-        $params = [':id' => $id];
+        $params = [':id' => $id,':dvice_type' => $dvice_type,':dvice_name' => $dvice_name];
         $stmt = self::executePreparedQuery('getDviceById', $params);
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return json_encode($result, JSON_UNESCAPED_UNICODE);

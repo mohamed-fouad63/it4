@@ -60,7 +60,7 @@ $("#Move_To_Modal #auth_move_to_btn").click(function () {
   d = $("#move_to_date").val();
   $(this).attr(
     "href",
-    "auth_move_to.php?f=" +
+    "/it4/authDviceMoveTo?f=" +
     f +
     "&t=" +
     t +

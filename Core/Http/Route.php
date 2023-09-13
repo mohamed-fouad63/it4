@@ -51,6 +51,11 @@ class Route
         ];
     }
 
+    public static function redirect($newUrl) {
+        header("Location: " .$newUrl);
+        exit();
+    }
+
     // public function handleMiddlewares($middlewares)
     // {
         // foreach ($middlewares as $middleware) {
@@ -85,7 +90,7 @@ class Route
         $url = $this->request->getUri(); // "/"
         $url = explode('?', $url)[0];
         
-        if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
             return [
                 'uri' => $url,
                 'action' => self::$routes['ajax'][$url]['action'],
@@ -131,9 +136,12 @@ class Route
                 echo $this->inst_method_class($ClassName, $MethodName, $route_type);
                 break;
             default:
-                echo "type of action : " . gettype($action) .
-                    "</br>cation value is : s" . $action . "e";
-                break;
+                // echo "type of action : " . gettype($action) .
+                //     "</br>cation value is : s" . $action . "e";
+                // print_r($_SERVER);
+                // return  View::page('console', []);
+                header('location:/it4/console?error='.$action.'');
+                // break;
         }
     }
 

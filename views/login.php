@@ -1,4 +1,11 @@
 <?php
+if(isset($_SESSION)){
+  print_r($_SESSION);
+} else {
+  echo "no session";
+}
+
+echo "mo";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -144,7 +151,7 @@
     </div>
   </div>
   <script src="/it4/views/assets/js/plugins/jquery.min.js"></script>
-  <script>
+ <script>
     $("form").submit(function(event) {
       event.preventDefault();
       $.ajax({
@@ -155,24 +162,42 @@
           console.log(result);
           if (result == 'done') {
             window.location.replace('/it4/dashboard');
-            console.log(result);
+            // console.log(result);
           } else {
             alert(result)
             // console.log(result)
           }
         }
       })
-      // var xhttp = new XMLHttpRequest();
-      // xhttp.onreadystatechange = function() {
-      //   if (this.readyState == 4 && this.status == 200) {
-      //     console.log(xhttp.responseText);
-      //   }
-      // };
-      // xhttp.open("POST", "/it4/submit_login", true);
-      // xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-      // xhttp.send('mo');
     });
-  </script>
+ </script> 
+  <!-- <script>
+    document.querySelector("form").addEventListener("submit", function(event) {
+  event.preventDefault();
+  fetch("/it4/submit_login", {
+    method: "POST",
+    headers: new Headers({
+    'X-Requested-With': 'XMLHttpRequest',
+  }),
+    body: new FormData(document.querySelector("form"))
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.text();
+  })
+    .then(result => {
+      cosole.log();
+      if (result === "done") {
+        // window.location.replace("/it4/dashboard");
+      } else {
+        alert(result);
+      }
+    })
+    .catch(error => {});
+});
+  </script> -->
   <script>
     function readCookie(name) {
       var nameEQ = name + "=";
@@ -186,7 +211,6 @@
       }
       return null;
     }
-
     var selectbox = document.getElementById("db");
     window.onload = function() {
       selectbox.selectedIndex = readCookie("db");

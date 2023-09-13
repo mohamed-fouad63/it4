@@ -37,6 +37,7 @@ $("#add_mission_btn").click(function () {
     misin_cairo_type: $("#misin_cairo_type").val(),
     start_time: $("#mission_time_start").val(),
     end_time: $("#mission_time_end").val(),
+    badal_raha_date: $("#badal_raha_date").val(),
   };
   console.log(formData);
   $.ajax({

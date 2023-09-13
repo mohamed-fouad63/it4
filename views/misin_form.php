@@ -112,6 +112,7 @@
                                         <option></option>
                                         <option value="اجازه اعتياديه">اجازه اعتياديه</option>
                                         <option value="اجازه عارضه">اجازه عارضه</option>
+                                        <option value="بدل راحه">بدل راحه</option>
                                     </select>
                                 </div>
                                 <label class="control-label col-sm-2">مكتب المرور</label>
@@ -127,7 +128,7 @@
                                 <div class="col-sm-4" id="toggle_badal_raha">
                                     <input type="date" class="form-control list" id="badal_raha_date" name="badal_raha_date" placeholder="تاريخ بدل الرحه">
                                 </div>
-                                <label class="control-label col-sm-2" id="toggle_badal_raha_label">عن يوم السبت</label>
+                                <label class="control-label col-sm-2" id="toggle_badal_raha_label">عن يوم </label>
                                 <div class="col-sm-4" id="toggle_reson_of_vacance">
                                     <input type="text" class="form-control list" name="reason_vacation" value="ظروف طارئه">
                                 </div>
@@ -600,6 +601,9 @@
                         <button style="display:none;" type="hidden" class="btn btn-primary" id="second_form" formaction="/it4/vactionFormSubOnLine">
                             <i class="fas fa-check"></i>اضافه الاجازه
                         </button>
+                        <button style="display: inline-block;" type="hidden" class="btn btn-primary" id="third_form" formaction="/it4/badlRahaFormSubOnLine">
+                            <i class="fas fa-check"></i>اضافه بدل الرحه
+                        </button>
                         <a href="">
                             <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="window.close();">
                                 <i class="fas fa-ban"></i> الغاء
@@ -644,6 +648,7 @@
                     document.getElementById('misin_type_label').style.display = "none";
                     document.getElementById('first_form').style.display = "none";
                     document.getElementById('second_form').style.display = "inline-block";
+                    document.getElementById('third_form').style.display = "none";
                     document.getElementById('toggle_badal_raha').style.display = "none";
                     document.getElementById('toggle_badal_raha_label').style.display = "none";
                     document.getElementById('toggle_reson_of_vacance').style.display = "inline-block";
@@ -662,6 +667,7 @@
                     document.getElementById('misin_type_label').style.display = "none";
                     document.getElementById('first_form').style.display = "none";
                     document.getElementById('second_form').style.display = "none";
+                    document.getElementById('third_form').style.display = "inline-block";
                     document.getElementById('toggle_badal_raha').style.display = "inline-block";
                     document.getElementById('toggle_badal_raha_label').style.display = "inline-block";
                     document.getElementById('toggle_reson_of_vacance').style.display = "none";
@@ -680,6 +686,7 @@
                     document.getElementById('misin_type_label').style.display = "inline-block";
                     document.getElementById('first_form').style.display = "inline-block";
                     document.getElementById('second_form').style.display = "none";
+                    document.getElementById('third_form').style.display = "none";
                     document.getElementById('toggle_reson_of_vacance').style.display = "none";
                     document.getElementById('toggle_reson_of_vacance_abel').style.display = "none";
                     document.getElementById('toggle_badal_raha').style.display = "none";

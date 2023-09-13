@@ -2,9 +2,12 @@
 
 namespace App\Controllers;
 
+use Core\Http\View;
+use Core\Http\Route;
+use Core\Application;
+use Core\Http\Session;
 use App\Models\tbl_user;
 use Core\Http\Controller;
-use Core\Http\View;
 
 class LoginController extends Controller
 {
@@ -35,8 +38,9 @@ class LoginController extends Controller
             return ' خطأ فى اسم المسخدم او كلمه المرور ';
         } else {
             $userAuth = tbl_user::allAuth($user['id']);
+            Application::$app->session->generateCsrfToken();
             foreach ($userAuth as $key => $value) {
-                $_SESSION[$key] = $value;
+                Application::$app->session->set( $key , $value);
             }
             return 'done';
         }
@@ -45,7 +49,7 @@ class LoginController extends Controller
     {
         session_unset();
         session_destroy();
-        header('location:/it4/');
+        Route::redirect('/it4/');
     }
 
     public function change_passowrd()
