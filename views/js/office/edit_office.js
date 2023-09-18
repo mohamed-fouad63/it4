@@ -11,7 +11,8 @@ $("#Edit_Post_Office .btn-primary").click(function () {
     tel: $("#edit_tel").val(),
     address: $("#edit_address").val(),
     domain_name: $("#edit_domain_name").val(),
-    office_id: office_id
+    office_id: office_id,
+    _token: $("#_token").val(),
   };
   $.ajax({
     type: "POST",
@@ -25,6 +26,7 @@ $("#Edit_Post_Office .btn-primary").click(function () {
     },
     success: function (result) {
       result = result.replace(/^\s+|\s+$/gm, "");
+      console.log(result)
       if (result == "done") {
         input_search = formData.post_group;
         $("#" + formData.groupkey1)

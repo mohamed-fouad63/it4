@@ -8,6 +8,7 @@
        هل تريد الخروج ؟
       </div>
       <div class="modal-footer">
+      @csrf
                 <button type="button" class="btn btn-teal" data-bs-dismiss="modal">لا</button>
                 <button type="button" class="btn btn-danger">نعم</button>
             </div>

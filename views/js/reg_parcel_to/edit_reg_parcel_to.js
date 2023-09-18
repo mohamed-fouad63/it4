@@ -17,6 +17,7 @@ $("#edit_reg_parcel_to_btn").click(function () {
     name_reg_parcel_to: $("#name_reg_parcel_to").val(),
     sub_reg_parcel_to: $("#sub_reg_parcel_to").val(),
     edit_reg_parcel_to_btn: $("#edit_reg_parcel_to_btn").val(),
+    _token: $("#_token").val(),
   };
   console.log(formData);
   $.ajax({

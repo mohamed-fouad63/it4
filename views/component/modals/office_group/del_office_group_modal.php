@@ -8,6 +8,7 @@
                     </div>
                     <div class="modal-body">
                         <h4>هل تريد حذف هذه المجموعه</h4>
+                        @csrf
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn" data-bs-dismiss="modal">الغاء</button>

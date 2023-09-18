@@ -11,6 +11,7 @@ $("#example tbody").on("click", ".btn-danger", function () {
     data: {
       counter: data.counter,
       mission_table: data.mission_table,
+      _token: $("#_token").val(),
     },
     success: function (result) {
       result = result.replace(/^\s+|\s+$/gm, "");

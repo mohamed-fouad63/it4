@@ -6,6 +6,7 @@
             </div>
             <form class="modal-body">
                 <div class="input-group mb-3">
+                @csrf
                     <input type="password" class="form-control" id="old_pass" placeholder="كلمه المرور القديمه" autocomplete>
                 </div>
                 <div class="input-group mb-3">

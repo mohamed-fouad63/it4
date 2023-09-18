@@ -10,6 +10,7 @@ $("#Replace_Pices_Modal2 .btn-success").click(function () {
     date_replace_Pices: $("#date_replace_Pices2").val(),
     replace_Pices: replace_Pices,
     dvice_num: dvice_num,
+    _token: $("#_token").val(),
   };
   $.ajax({
     type: "POST",

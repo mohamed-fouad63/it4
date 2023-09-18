@@ -104,7 +104,7 @@ class tbl_user extends Model
         $stmt->execute();
         return  $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-    public static function getPassowrd($id)
+    public static function getPassword($id)
     {
         $conn = self::dbConnectionBySession();
         self::$instance = static::class;
@@ -119,7 +119,7 @@ class tbl_user extends Model
         $stmt->execute();
         return  $stmt->fetch(\PDO::FETCH_ASSOC);
     }
-    public static function changePassowrd($id, $new_pass)
+    public static function changePassword($id, $new_pass)
     {
         $params = [':new_pass' => $new_pass,':id' => $id];
         self::executePreparedQuery('changePassowrd', $params);

@@ -5,6 +5,7 @@ $("#Edit_Pos_Modal .btn-success").click(function () {
     pos_terminal: $("#pos_terminal").val(),
     pos_merchant: $("#pos_merchant").val(),
     stuff_pos: +$("#stuff_pos").val(),
+    _token: $("#_token").val(),
   };
   if (formData.money_code != "0") {
     if (formData.stuff_pos < 6) {

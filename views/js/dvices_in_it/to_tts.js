@@ -3,6 +3,7 @@ $("#To_Tts_Modal .btn-success").click(function () {
     date_auth_repair: $("#date_auth_repair").val(),
     auth_repair: $("#auth_repair").val(),
     dvice_num: dvice_num,
+    _token: $("#_token").val(),
   };
   $.ajax({
     type: "POST",

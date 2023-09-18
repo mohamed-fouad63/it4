@@ -2,6 +2,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                    @csrf
                         <h5 class="modal-title" id="exampleModalLabel">اضافه مجموعه بريديه</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>

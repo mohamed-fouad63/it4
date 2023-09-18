@@ -6,6 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="input-group mb-3">
+                @csrf
                     <span class="input-group-text col-sm-2">جهه البلاغ</span>
                     <input class="form-control me-3 notice_from_edit" readonly>
                     <span class="input-group-text col-sm-2">مقدم البلاغ</span>

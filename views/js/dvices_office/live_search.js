@@ -27,7 +27,7 @@ var options = {
           $("#print_dvices").removeClass("disabled");
           $("#print_dvices").attr(
             "href",
-            "../../it2/grd/?office_name=" + office_name
+            "/it4/grd?office_name=" + office_name
           );
           $("#add_dvice").removeClass("disabled");
         }

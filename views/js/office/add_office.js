@@ -11,6 +11,7 @@ $("#Add_Post_Office .btn-primary").click(function () {
     address: $("#address").val(),
     domain_name: $("#domain_name").val(),
   };
+  // console.log(formData);
   if (formData.office_name == "") {
     $("#office_name").val("");
     $("#office_name").css("border", "1px solid red");
@@ -29,6 +30,7 @@ $("#Add_Post_Office .btn-primary").click(function () {
         $('#Add_Post_Office_btn').html('اضافه');
       },
       success: function (result) {
+        console.log(result)
         if (result == "done") {
           $("." + formData.groupkey + ".btn-group .delbtn").remove();
           $("#office_name").val("");
@@ -45,7 +47,6 @@ $("#Add_Post_Office .btn-primary").click(function () {
             .DataTable()
             .ajax.reload();
         } else {
-          console.log(result);
           $("#office_name").val("");
           $("#office_name").css("border", "1px solid red");
           $("#office_name").attr("placeholder", "موجود بالفعل");

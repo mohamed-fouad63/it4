@@ -7,6 +7,7 @@ $("#Resend_To_Office_Modal .btn-success").click(function () {
     office_name: office_name,
     note_move_to: note_move_to,
     divce_num: divce_num,
+    _token: $("#_token").val(),
   };
   if (
     formData.resen_to_office_date == "" ||

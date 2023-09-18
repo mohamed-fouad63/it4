@@ -5,6 +5,7 @@ $("#example tbody").on("click", ".btn-danger", function () {
     method: "post",
     data: {
       id: data.id,
+      _token: $("#_token").val(),
     },
     success: function (result) {
       result = result.replace(/^\s+|\s+$/gm, "");

@@ -2,6 +2,7 @@ $("#Delete_Modal .btn-success").click(function () {
   var formData = {
     delete_by: $("#delete_by").val(),
     delete_date: $("#delete_date").val(),
+    _token: $("#_token").val(),
     dvice_num: dvice_num,
   };
   if (formData.delete_by != "" && formData.delete_date != "") {

@@ -3,6 +3,7 @@ $("#Pos_Deliver_Report_Modal .btn-success").click(function () {
     selectedData: selectedData,
     pos_deliver: $("#pos_deliver").val(),
     pos_deliver_date: $("#pos_deliver_date").val(),
+    _token: $("#_token").val(),
   };
   if (selectedData.length > 0) {
     $.ajax({

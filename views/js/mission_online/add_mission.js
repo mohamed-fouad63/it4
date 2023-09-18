@@ -15,6 +15,7 @@ $("#example tbody").on("click", ".btn-success", function () {
       start_time: data.start_time,
       end_time: data.end_time,
       does: data.does,
+      _token: $("#_token").val(),
     },
     success: function (result) {
       result = result.replace(/^\s+|\s+$/gm, "");

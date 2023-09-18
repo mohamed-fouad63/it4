@@ -5,8 +5,9 @@ namespace App\Controllers;
 use Core\Http\View;
 use App\Models\send;
 use App\Models\inbox;
-use App\Models\parcel_send;
+use Core\Http\Validate;
 use Core\Http\Controller;
+use App\Models\parcel_send;
 
 class RegController extends Controller
 {
@@ -25,13 +26,13 @@ class RegController extends Controller
     public function ajaxregToAddSub()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "reg_to_sub" => [""]
             ]);
-            if ($validData === true) {
-                return send::ajaxregToAddSub($this->formData);
+            if ($validData->isValid()) {
+                return send::ajaxregToAddSub($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -40,13 +41,13 @@ class RegController extends Controller
     public function ajaxregToDelSub()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "reg_to_sub" => [""]
             ]);
-            if ($validData === true) {
-                return send::ajaxregToDelSub($this->formData);
+            if ($validData->isValid()) {
+                return send::ajaxregToDelSub($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -55,7 +56,7 @@ class RegController extends Controller
     public function ajaxAddRegTo()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "send_to_by" => [""],
                 "czc" => [""],
                 "hand" => [""],
@@ -63,10 +64,10 @@ class RegController extends Controller
                 "name_reg_to" => [""],
                 "sub_reg_to" => [""],
             ]);
-            if ($validData === true) {
-                return send::create($this->formData);
+            if ($validData->isValid()) {
+                return send::create($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -75,7 +76,7 @@ class RegController extends Controller
     public function ajaxRegToEdit()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "send_to_by" => [""],
                 "czc" => [""],
                 "hand" => [""],
@@ -84,10 +85,10 @@ class RegController extends Controller
                 "sub_reg_to" => [""],
                 "edit_reg_to_btn" => [""]
             ]);
-            if ($validData === true) {
-                return send::ajaxRegToEdit($this->formData);
+            if ($validData->isValid()) {
+                return send::ajaxRegToEdit($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -96,13 +97,13 @@ class RegController extends Controller
     public function ajaxRegToDel()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "id" => [""],
             ]);
-            if ($validData === true) {
-                return send::ajaxRegToDel($this->formData);
+            if ($validData->isValid()) {
+                return send::ajaxRegToDel($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -117,13 +118,13 @@ class RegController extends Controller
     public function ajaxregToSearch()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "year" => ["date:Y"],
             ]);
-            if ($validData === true) {
-                return send::ajaxregToSearch($this->formData);
+            if ($validData->isValid()) {
+                return send::ajaxregToSearch($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -147,13 +148,13 @@ class RegController extends Controller
     public function ajaxregInAddSub()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "reg_in_sub" => [""]
             ]);
-            if ($validData === true) {
-                return inbox::ajaxregInAddSub($this->formData);
+            if ($validData->isValid()) {
+                return inbox::ajaxregInAddSub($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -162,13 +163,13 @@ class RegController extends Controller
     public function ajaxregInDelSub()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "reg_in_sub" => [""]
             ]);
-            if ($validData === true) {
-                return inbox::ajaxregInDelSub($this->formData);
+            if ($validData->isValid()) {
+                return inbox::ajaxregInDelSub($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -177,7 +178,7 @@ class RegController extends Controller
     public function ajaxAddRegIn()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "send_in_by" => [""],
                 "czc" => [""],
                 "hand" => [""],
@@ -185,10 +186,10 @@ class RegController extends Controller
                 "name_reg_in" => [""],
                 "sub_reg_in" => [""],
             ]);
-            if ($validData === true) {
-                return inbox::create($this->formData);
+            if ($validData->isValid()) {
+                return inbox::create($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -197,7 +198,7 @@ class RegController extends Controller
     public function ajaxRegInEdit()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "send_in_by" => [""],
                 "czc" => [""],
                 "hand" => [""],
@@ -206,10 +207,10 @@ class RegController extends Controller
                 "sub_reg_in" => [""],
                 "edit_reg_in_btn" => [""]
             ]);
-            if ($validData === true) {
-                return inbox::ajaxRegInEdit($this->formData);
+            if ($validData->isValid()) {
+                return inbox::ajaxRegInEdit($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -218,13 +219,13 @@ class RegController extends Controller
     public function ajaxRegInDel()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "id" => [""],
             ]);
-            if ($validData === true) {
-                return inbox::ajaxRegInDel($this->formData);
+            if ($validData->isValid()) {
+                return inbox::ajaxRegInDel($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -239,13 +240,13 @@ class RegController extends Controller
     public function ajaxregInSearch()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "year" => ["date:Y"],
             ]);
-            if ($validData === true) {
-                return inbox::ajaxregInSearch($this->formData);
+            if ($validData->isValid()) {
+                return inbox::ajaxregInSearch($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -268,28 +269,28 @@ class RegController extends Controller
     public function ajaxParcelToAddSub()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "reg_parcel_to_sub" => [""]
             ]);
-            if ($validData === true) {
-                return parcel_send::ajaxParcelToAddSub($this->formData);
+            if ($validData->isValid()) {
+                return parcel_send::ajaxParcelToAddSub($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
         }
     }
-    public function ajaxParcelToDelSub()
+    public function ajaxParcelToDelSub1()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "reg_parcel_to_sub" => [""]
             ]);
-            if ($validData === true) {
-                return parcel_send::ajaxParcelToDelSub($this->formData);
+            if ($validData->isValid()) {
+                return parcel_send::ajaxParcelToDelSub($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -298,7 +299,7 @@ class RegController extends Controller
     public function ajaxAddParcelTo()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "send_to_by" => [""],
                 "czc" => [""],
                 "hand" => [""],
@@ -306,10 +307,10 @@ class RegController extends Controller
                 "name_reg_parcel_to" => [""],
                 "sub_reg_parcel_to" => [""],
             ]);
-            if ($validData === true) {
-                return parcel_send::create($this->formData);
+            if ($validData->isValid()) {
+                return parcel_send::create($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -318,16 +319,16 @@ class RegController extends Controller
     public function ajaxParcelToEdit()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "czc" => [""],
                 "name_reg_parcel_to" => [""],
                 "sub_reg_parcel_to" => [""],
                 "edit_reg_parcel_to_btn" => [""]
             ]);
-            if ($validData === true) {
-                return parcel_send::ajaxParcelToEdit($this->formData);
+            if ($validData->isValid()) {
+                return parcel_send::ajaxParcelToEdit($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -336,13 +337,13 @@ class RegController extends Controller
     public function ajaxParcelToDel()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "id" => [""],
             ]);
-            if ($validData === true) {
-                return parcel_send::ajaxParcelToDel($this->formData);
+            if ($validData->isValid()) {
+                return parcel_send::ajaxParcelToDel($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -357,13 +358,13 @@ class RegController extends Controller
     public function ajaxParcelToSearch()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "year" => ["date:Y"],
             ]);
-            if ($validData === true) {
-                return parcel_send::ajaxParcelToSearch($this->formData);
+            if ($validData->isValid()) {
+                return parcel_send::ajaxParcelToSearch($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';

@@ -3,7 +3,7 @@ $("#Post_Group .btn-primary").click(function () {
   $.ajax({
     type: "POST",
     url: "/it4/ajaxAddofficeGroup",
-    data: { addgroupname: addgroupname },
+    data: { addgroupname: addgroupname, _token: $("#_token").val(), },
     success: function (result) {
       if (result == "done") {
         $("#Post_Group").modal("hide");

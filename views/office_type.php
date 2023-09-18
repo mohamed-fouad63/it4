@@ -1,8 +1,5 @@
 <?php
-
-// echo gettype($data);
 $data = json_decode($data[0], true);
-// echo $data[0];
 ?>
 <!DOCTYPE html>
 <html>

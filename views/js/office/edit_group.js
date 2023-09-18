@@ -3,7 +3,7 @@ $("#Edit_Post_Group .btn-success").click(function () {
   $.ajax({
     type: "POST",
     url: "/it4/ajaxEditofficeGroup",
-    data: { editgroupname: editgroupname,groupname:groupname },
+    data: { editgroupname: editgroupname,groupname:groupname , _token: $("#_token").val(),},
     success: function (result) {
       if (result == "done") {
         // $("#Edit_Post_Group").modal("hide");

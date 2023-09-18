@@ -3,6 +3,7 @@ $("#Add_USER_Modal .btn-success").click(function () {
     user_id: $("#user_id").val(),
     user_name: $("#user_name").val(),
     job: $("#job").val(),
+    _token: $("#_token").val(),
   };
   console.log(formData);
   $.ajax({

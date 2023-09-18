@@ -6,6 +6,7 @@ $("#add_reg_parcel_to_btn").click(function () {
     date_reg_parcel_to: $("#date_reg_parcel_to").val(),
     name_reg_parcel_to: $("#name_reg_parcel_to").val(),
     sub_reg_parcel_to: $("#sub_reg_parcel_to").val(),
+    _token: $("#_token").val(),
   };
   console.log(formData);
   $.ajax({

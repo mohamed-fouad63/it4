@@ -3,6 +3,7 @@ $("#Resend_To_Office_Modal .btn-success").click(function () {
     resen_to_office_date: $("#resen_to_office_date").val(),
     resen_to_office_by: $("#resen_to_office_by").val(),
     dvice_num: dvice_num,
+    _token: $("#_token").val(),
   };
   if (
     formData.resen_to_office_by != "" &&

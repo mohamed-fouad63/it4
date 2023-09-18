@@ -5,6 +5,7 @@ $("#To_It_Modal .btn-success").click(function () {
     damage: $("#damage").val(),
     in_it_note: $("#in_it_note").val(),
     dvice_num: divce_num,
+    _token: $("#_token").val(),
   };
   $.ajax({
     type: "POST",
@@ -12,6 +13,7 @@ $("#To_It_Modal .btn-success").click(function () {
     data: formData,
     success: function (result) {
       result = result.replace(/^\s+|\s+$/gm, "");
+      console.log(result);
       if (result == "done") {
         datatable_ajax_reload();
         $("#To_It_Modal").modal("hide");

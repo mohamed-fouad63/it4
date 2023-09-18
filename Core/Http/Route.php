@@ -152,7 +152,7 @@ class Route
             if (method_exists($ClassName, $MethodName)) {
                 // $ref = new \ReflectionClass($ClassName);
                 // return $ref->newInstanceArgs([$MethodName, $route_type,]);
-                echo call_user_func_array([new $ClassName, $MethodName], []);
+                echo call_user_func_array([new $ClassName, $MethodName], [$this->request]);
             } else {
                 echo "The <mark><strong>" . $ClassName . "</strong></mark> Class Name does not have the <mark> " . $MethodName . "</mark>  method";
                 // return  View::page('console', []);

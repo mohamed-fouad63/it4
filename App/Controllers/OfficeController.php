@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
-use App\Models\all1;
-use App\Models\post_group;
-use Core\Http\Controller;
 use Core\Http\View;
+use App\Models\all1;
+use Core\Http\Request;
+use Core\Http\Validate;
+use Core\Http\Controller;
+use App\Models\post_group;
 
 class OfficeController extends Controller
 {
@@ -15,7 +17,10 @@ class OfficeController extends Controller
     }
     public function getOfficeByType()
     {
-            $office_type = all1::getOfficeByType($_GET['office_type']);
+        $validate = Validate::get([
+            'office_type' => ['']
+        ]);
+            $office_type = all1::getOfficeByType($validate->office_type);
             return View::page('office_type', [$office_type]);
     }
     public function getOfficeGroup()
@@ -33,7 +38,10 @@ class OfficeController extends Controller
     public function ajaxofficeGroupDetails()
     {
         if ($this->issession) {
-            return all1::ajaxofficeGroupDetails($_POST['input_search']);
+            $validate = Validate::post([
+                'input_search' => ['']
+            ]);
+            return all1::ajaxofficeGroupDetails($validate->input_search);
         } else {
             return 'انتهت الجلسه';
         }
@@ -41,20 +49,24 @@ class OfficeController extends Controller
     public function ajaxEditPostOffice()
     {
         if ($this->issession) {
-            $form_data = [
-                $_POST['post_group'],
-                $_POST['groupkey1'],
-                $_POST['groupkey2'],
-                $_POST['money_code'],
-                $_POST['post_code'],
-                $_POST['postal_code'],
-                $_POST['office_type'],
-                $_POST['tel'],
-                $_POST['address'],
-                $_POST['domain_name'],
-                $_POST['office_id'],
-            ];
-            return all1::ajaxEditPostOffice($form_data);
+            $validData = Validate::post([
+                "post_group" => ["required"],
+                "groupkey1" => ["integer"],
+                "groupkey2" => ["integer"],
+                "money_code" => [""],
+                "post_code" => [""],
+                "postal_code" => [""],
+                "office_type" => ["required"],
+                "tel" => [""],
+                "address" => [""],
+                "domain_name" => [""],
+                "office_id" => ["required","int"]
+            ]);
+            if($validData->isValid()){
+                return all1::ajaxEditPostOffice($validData->all());
+            } else {
+                return $validData->all('json');
+            }
         } else {
             return 'انتهت الجلسه';
         }
@@ -62,7 +74,10 @@ class OfficeController extends Controller
     public function ajaxDelofficeGroup()
     {
         if ($this->issession) {
-            return all1::ajaxDelofficeGroup($_POST['delgroupname']);
+            $validate = Validate::post([
+                'delgroupname' => ['']
+            ]);
+            return all1::ajaxDelofficeGroup($validate->delgroupname);
         } else {
             return 'انتهت الجلسه';
         }
@@ -70,7 +85,10 @@ class OfficeController extends Controller
     public function ajaxAddofficeGroup()
     {
         if ($this->issession) {
-            return post_group::ajaxAddofficeGroup($_POST['addgroupname']);
+            $validate = Validate::post([
+                'addgroupname' => ['']
+            ]);
+            return post_group::ajaxAddofficeGroup($validate->addgroupname);
         } else {
             return 'انتهت الجلسه';
         }
@@ -78,28 +96,21 @@ class OfficeController extends Controller
     public function ajaxEditofficeGroup()
     {
         if ($this->issession) {
-            return post_group::ajaxEditofficeGroup($_POST['groupname'], $_POST['editgroupname']);
+            $POST = Validate::post([
+                'groupname' => ['required'],
+                'editgroupname' => ['required'],
+            ]);
+            return post_group::ajaxEditofficeGroup($POST->groupname, $POST->editgroupname);
         } else {
             return 'انتهت الجلسه';
         }
     }
-    public function ajaxAddPostOffice()
+    public function ajaxAddPostOffice(Request $request)
     {
         if ($this->issession) {
-            // $form_data = [
-            //     $_POST['office_name'],
-            //     $_POST['post_group'],
-            //     $_POST['office_type'],
-            //     $_POST['money_code'],
-            //     $_POST['post_code'],
-            //     $_POST['postal_code'],
-            //     $_POST['tel'],
-            //     $_POST['address'],
-            //     $_POST['groupkey'],
-            //     $_POST['domain_name'],
-            // ];
-            $validData = $this->validate([
-                "office_name" => [""],
+            
+            $validData = Validate::post([
+                "office_name" => ["int"],
                 "post_group" => [""],
                 "office_type" => [""],
                 "money_code" => [""],
@@ -110,8 +121,29 @@ class OfficeController extends Controller
                 "groupkey" => [""],
                 "domain_name" => [""]
             ]);
-            // return print_r($form_data);
-            return all1::ajaxAddPostOffice($this->formData);
+            if($validData->isValid()){
+                return all1::ajaxAddPostOffice($validData->all());
+            } else {
+                return $validData->all('json');
+            }
+
+            // $request->validate([
+            //     "office_name" => ["required"],
+            //     "post_group" => [""],
+            //     "office_type" => ["required"],
+            //     "money_code" => [""],
+            //     "post_code" => [""],
+            //     "postal_code" => [""],
+            //     "tel" => [""],
+            //     "address" => [""],
+            //     "groupkey" => ["required"],
+            //     "domain_name" => [""]
+            // ]);
+            // if($request->isValid()){
+            //     return all1::ajaxAddPostOffice($request->all());
+            // } else {
+            //     return $request->all('json');
+            // }
         } else {
             return 'انتهت الجلسه';
         }
@@ -128,7 +160,10 @@ class OfficeController extends Controller
     public function ajaxOfficesName()
     {
         if ($this->issession) {
-            return all1::ajaxOfficesName($_GET['phrase']);
+            $validate = Validate::get([
+                'phrase' => ['']
+            ]);
+            return all1::ajaxOfficesName($validate->phrase);
         } else {
             return 'انتهت الجلسه';
         }
@@ -136,7 +171,10 @@ class OfficeController extends Controller
     public function ajaxOfficesDetails()
     {
         if ($this->issession) {
-            return all1::ajaxOfficesDetails($_POST['input_search']);
+            $validate = Validate::post([
+                'input_search' => ['']
+            ]);
+            return all1::ajaxOfficesDetails($validate->input_search);
         } else {
             return 'انتهت الجلسه';
         }

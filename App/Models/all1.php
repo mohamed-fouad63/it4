@@ -115,15 +115,15 @@ class all1 extends Model
     public static function ajaxEditPostOffice($form_data)
     {
         $params = [
-            ':post_group' => $form_data[0],
-            ':office_type' => $form_data[6],
-            ':money_code' => $form_data[3],
-            ':post_code' => $form_data[4],
-            ':postal_code' => $form_data[5],
-            ':tel' => $form_data[7],
-            ':address' => $form_data[8],
-            ':domain_name' => $form_data[9],
-            ':id' => $form_data[10]
+            ':post_group' => $form_data['post_group'],
+            ':office_type' => $form_data['office_type'],
+            ':money_code' => $form_data['money_code'],
+            ':post_code' => $form_data['post_code'],
+            ':postal_code' => $form_data['postal_code'],
+            ':tel' => $form_data['tel'],
+            ':address' => $form_data['address'],
+            ':domain_name' => $form_data['domain_name'],
+            ':id' => $form_data['office_id']
         ];
         self::executePreparedQuery('ajaxEditPostOffice', $params);
         return 'done';
@@ -133,6 +133,7 @@ class all1 extends Model
     {
         $params1 = [':office_name' => $form_data['office_name']];
         $stmt1 = self::executePreparedQuery('checkOfficeNameExite', $params1);
+        
         $result1 = $stmt1->fetchAll(\PDO::FETCH_ASSOC);
         if ($result1[0]['countCol'] === 0) {
             $params2 = [

@@ -1,17 +1,18 @@
 <?php
 
 use Core\Http\Route;
+Route::get('/it4/test1','TestController@test1');
 Route::get('/it4/', 'LoginController@login',['AuthLogin']);
 Route::get('/it4/console', 'console');
 Route::get('/it4/logout', 'LoginController@logout',['AuthSessionLogin']);
 Route::ajax('/it4/submit_login', [LoginController::class, 'submit_login']);
-Route::ajax('/it4/change_passowrd', [LoginController::class, 'change_passowrd']);
+Route::ajax('/it4/change_password', [LoginController::class, 'change_password']);
 // Dashboard Page
 Route::get('/it4/dashboard', 'DashboardController@dashboard',['AuthSessionLogin']);
 Route::get('/it4/getOfficeByType', 'OfficeController@getOfficeByType',['AuthSessionLogin']);
 Route::ajax('/it4/countOfficeNameByType', [OfficeController::class, 'countOfficeNameByType']);
 Route::get('/it4/dvices', 'DviceController@dvices',['AuthSessionLogin']);
-Route::get('/it4/getDviceById', 'DviceController@getDviceById',['AuthSessionLogin']);
+// Route::get('/it4/getDviceById', 'DviceController@getDviceById',['AuthSessionLogin']);
 Route::get('/it4/getDviceByType', 'DviceController@getDviceByType',['AuthSessionLogin']);
 Route::get('/it4/OfficesDvicesReport', 'DviceController@OfficesDvicesReport',['AuthSessionLogin']);
 Route::get('/it4/postalDvicesComptaible', 'DviceController@postalDvicesComptaible',['AuthSessionLogin']);
@@ -60,6 +61,7 @@ Route::ajax('/it4/ajaxposDeliver', 'DviceController@ajaxposDeliver');
 Route::ajax('/it4/ajaxMoveToInIt', 'DviceController@ajaxMoveToInIt');
 Route::ajax('/it4/ajaxReplacePicesDvice', 'DviceController@ajaxReplacePicesDvice');
 Route::ajax('/it4/ajaxToTts', 'DviceController@ajaxToTts');
+Route::get('/it4/authRepair', 'DviceController@authRepair',['AuthSessionLogin']);
 Route::ajax('/it4/ajaxResentToOfice', 'DviceController@ajaxResentToOfice');
 // Dvices In Tss page
 Route::get('/it4/dvicesInTts', 'DviceController@dvicesInTts');

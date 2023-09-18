@@ -2,9 +2,10 @@
 
 namespace App\Controllers;
 
+use Core\Http\View;
+use Core\Http\Validate;
 use App\Models\tbl_user;
 use Core\Http\Controller;
-use Core\Http\View;
 
 class UserController extends Controller
 {
@@ -48,20 +49,20 @@ class UserController extends Controller
     public function ajaxAddUser()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "user_id" => [""],
                 "user_name" => [""],
                 "job" => [""]
             ]);
-            if ($validData === true) {
-                $userCount = tbl_user::count($this->formData['user_id']);
+            if ($validData->isValid()) {
+                $userCount = tbl_user::count($validData->user_id);
                 if ($userCount == 0) {
-                    return tbl_user::ajaxAddUser($this->formData);
+                    return tbl_user::ajaxAddUser($validData->all());
                 } else {
                     return "رقم ملف مكرر";
                 }
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -70,15 +71,15 @@ class UserController extends Controller
     public function ajaxEditUser()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "edit_user_id" => [""],
                 "edit_user_name" => [""],
                 "edit_user_job" => [""]
             ]);
-            if ($validData === true) {
-                return tbl_user::ajaxEditUser($this->formData);
+            if ($validData->isValid()) {
+                return tbl_user::ajaxEditUser($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';

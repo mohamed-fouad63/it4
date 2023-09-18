@@ -4,6 +4,7 @@ $("#EditModalPC .btn-success").click(function () {
     pc_ip: $("#dvice_ip").val(),
     pc_domian_name: $("#pc_domian_name").val(),
     dvice_num: divce_num,
+    _token: $("#_token").val(),
   };
   $.ajax({
     type: "POST",

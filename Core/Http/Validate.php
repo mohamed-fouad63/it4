@@ -8,7 +8,7 @@ class Validate
     private $rulesList = [
         'required' => true,
         'numeric' => true,
-        'int' => true,
+        'integer' => true,
         'max' => true,
         'min' => true,
         'date' => true,
@@ -81,23 +81,21 @@ class Validate
         return count($this->formError) === 0;
     }
 
-    public function getData()
+    public function all(string $dataFormate = 'array')
     {
         if ($this->isValid()) {
-            return $this->formData;
+            return $this->dataFormate($this->formData,$dataFormate);
         } else {
-            return $this->formError;
+            return $this->dataFormate($this->formError,$dataFormate);
         }
     }
-
-
-
     private function required($inputValue, $inputName)
     {
-        if (!empty($inputValue)) {
+        if (!empty($inputValue)  && strlen(trim($inputValue)) > 0) {
             $this->setFormData($inputName, $inputValue);
         } else {
             $this->formError[$inputName]['required'] = "هذا الحقل مطلوب";
+            $this->formError[$inputName]['value'] = $inputValue;
         }
     }
     private function ip($inputValue, $inputName)
@@ -122,12 +120,13 @@ class Validate
         }
     }
 
-    private function int($inputValue, $inputName, $ruleArg)
+    private function integer($inputValue, $inputName, $ruleArg)
     {
-        if (filter_var($inputValue, FILTER_VALIDATE_INT)) {
+        if (filter_var($inputValue, FILTER_VALIDATE_INT) || $inputValue == 0) {
             $this->setFormData($inputName, $inputValue);
         } else {
             $this->formError[$inputName]['int'] = 'هذا الحقل يتطلب أرقام صحيحه بدون كسور';
+            $this->formError[$inputName]['value'] = $inputValue;
         }
     }
 
@@ -214,6 +213,7 @@ class Validate
             $this->setFormData($inputName, $inputValue);
         } else {
             $this->formError[$inputName]['barcode'] = 'الباركود غير متوافق';
+            $this->formError[$inputName]['value'] = $inputValue;
         }
     }
 
@@ -223,13 +223,13 @@ class Validate
         $this->formError = [];
     }
 
-    public function getFormError($dataType)
+    public function dataFormate($data ,$dataType)
     {
         switch ($dataType) {
             case 'json':
-                return json_encode($this->formError, JSON_UNESCAPED_UNICODE);
+                return json_encode($data, JSON_UNESCAPED_UNICODE);
             case 'array':
-                return $this->formError;
+                return $data;
         }
     }
 
@@ -242,6 +242,22 @@ class Validate
             $this->formData[$inputName] = $inputValue;
         } else {
             $this->formData[$inputName] = $this->sanitizeInput($inputValue);
+        }
+    }
+    public function __get($property)
+    {
+        if (array_key_exists($property, $this->formData)) {
+            return $this->formData[$property];
+        } else {
+            return false;
+        }
+    }
+    public function __set($property , $value)
+    {
+        if (!array_key_exists($property, $this->formData)) {
+            $this->formData[$property] = $value;
+        } else {
+            return false;
         }
     }
 }

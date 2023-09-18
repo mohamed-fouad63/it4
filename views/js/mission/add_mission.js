@@ -15,6 +15,7 @@ $("#example tbody").on("click", ".btn-success", function () {
       start_time: data.start_time,
       end_time: data.end_time,
       does: data.does,
+      _token: $("#_token").val(),
     },
     success: function (result) {
       result = result.replace(/^\s+|\s+$/gm, "");
@@ -38,6 +39,7 @@ $("#add_mission_btn").click(function () {
     start_time: $("#mission_time_start").val(),
     end_time: $("#mission_time_end").val(),
     badal_raha_date: $("#badal_raha_date").val(),
+    _token: $("#_token").val(),
   };
   console.log(formData);
   $.ajax({

@@ -1,6 +1,5 @@
 <?php
-$count = json_decode($data['count'], true);
-$office = json_decode($data['office'], true);
+
 $id = $_SESSION['id'];
 
 $office_name = $data['office_name'];
@@ -18,16 +17,16 @@ $num_pc_domain = $_POST['num_pc_domain'];
 $note_not_domain = $_POST['note_not_domain'];
 $date = $misin_date;
 $nameOfDay = date('D', strtotime($date));
-$rowcount1 = $count[0]['pc'];
-$rowcount2 = $count[0]['monitor'];
-$rowcount3 = $count[0]['printer'];
-$rowcount4 = $count[0]['posfinance'];
-$rowcount5 = $count[0]['vx510'] + $count[0]['V200T'] + $count[0]['BITEL'];
-$rowcount6 = $count[0]['postalscale'];
-$rowcount7 = $count[0]['postalprinter'];
-$rowcount8 = $count[0]['postalscanner'];
-$rowcount9 = $count[0]['postalmonitor'];
-$office_type  = $count[0]['office_type'];
+$rowcount1 = $data['pc'];
+$rowcount2 = $data['monitor'];
+$rowcount3 = $data['printer'];
+$rowcount4 = $data['posfinance'];
+$rowcount5 = $data['vx510'] + $data['V200T'] + $data['BITEL'];
+$rowcount6 = $data['postalscale'];
+$rowcount7 = $data['postalprinter'];
+$rowcount8 = $data['postalscanner'];
+$rowcount9 = $data['postalmonitor'];
+$office_type  = $data['office_type'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -83,10 +82,10 @@ $office_type  = $count[0]['office_type'];
                         <th> الانصراف</th>
                     </tr>
                     <tr>
-                        <td><?php echo $office[0]['post_group']; ?></td>
+                        <td><?php echo $data['post_group']; ?></td>
                         <td><?php echo $data['office_name']; ?></td>
-                        <td><?php echo $office[0]['money_code']; ?></td>
-                        <td><?php echo $office[0]['tel']; ?></td>
+                        <td><?php echo $data['money_code']; ?></td>
+                        <td><?php echo $data['tel']; ?></td>
                         <td><?php echo $data['misin_date']; ?></td>
                         <td><?php echo $misin_type; ?></td>
                         <td><?php echo $start_time; ?></td>
@@ -165,7 +164,7 @@ $office_type  = $count[0]['office_type'];
                     <tr>
                         <td><?php echo $pc_domain; ?></td>
                         <td><?php echo $num_pc_domain; ?></td>
-                        <td><?php echo $office[0]['domain_name']; ?></td>
+                        <td><?php echo $data['domain_name']; ?></td>
                         <td colspan="5"><?php echo $note_not_domain; ?></td>
                     </tr>
                 </table>

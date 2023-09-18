@@ -3,11 +3,12 @@
 namespace App\Controllers;
 
 use Core\Http\View;
+use Core\Http\Route;
 use App\Models\dvice;
 use App\Models\in_it;
-use Core\Http\Controller;
-use Core\Http\Route;
+use Core\Http\Request;
 use Core\Http\Validate;
+use Core\Http\Controller;
 
 class DviceController extends Controller
 {
@@ -41,19 +42,17 @@ class DviceController extends Controller
     }
     public function ajaxAddDvice()
     {
-        // Route::get("/",'hoem');
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "office_name" => ["required"],
                 "dvice_name" => ["required"],
                 "dvice_sn" => [""],
             ]);
-            if ($validData) {
-                return dvice::ajaxAddDvice($this->formData);
+            if ($validData->isValid()) {
+                return dvice::ajaxAddDvice($validData->all());
             } else {
                 return $this->formError;
             }
-            
         } else {
             return 'انتهت الجلسه';
         }
@@ -61,29 +60,20 @@ class DviceController extends Controller
 
     public function ajaxEditDvice()
     {
-       $data = Validate::post([
-                "dvice_num" => [""],
-                "pc_sn" => [""],
-                "pc_ip" => ["ip"],
-                "pc_domian_name" => [""],
+        $data = Validate::post([
+            "dvice_num" => [""],
+            "pc_sn" => [""],
+            "pc_ip" => ["ip"],
+            "pc_domian_name" => [""],
         ]);
-        if($data->isValid()){
-            return dvice::ajaxEditDvice($data->getData());
+        if ($data->isValid()) {
+            return dvice::ajaxEditDvice($data->all());
         }
     }
     public function ajaxMoveDvice()
     {
         if ($this->issession) {
-            // $form_data = [
-            //     $_POST['office_name_to'],
-            //     $_POST['move_to_date'],
-            //     $_POST['move_by'],
-            //     $_POST['move_like'],
-            //     $_POST['move_note'],
-            //     $_POST['dvice_num'],
-            //     $_SESSION['id']
-            // ];
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "office_name_to" => [""],
                 "move_to_date" => [""],
                 "move_by" => [""],
@@ -91,29 +81,22 @@ class DviceController extends Controller
                 "move_note" => [""],
                 "dvice_num" => [""]
             ]);
-            return dvice::ajaxMoveDvice($this->formData);
+            return dvice::ajaxMoveDvice($validData->all());
         } else {
             return 'انتهت الجلسه';
         }
     }
-    public function ajaxDviceToIt()
+    public function ajaxDviceToIt(Request $request)
     {
         if ($this->issession) {
-            // $form_data = [
-            //     $_POST["to_it_date"],
-            //     $_POST['to_it_by'],
-            //     $_POST['damage'],
-            //     $_POST['in_it_note'],
-            //     $_POST['dvice_num'],
-            // ];
-            $validData = $this->validate([
+            $request->validate([
                 "to_it_date" => [""],
                 "to_it_by" => [""],
                 "damage" => [""],
                 "in_it_note" => [""],
                 "dvice_num" => [""]
             ]);
-            return dvice::ajaxDviceToIt($this->formData);
+            return dvice::ajaxDviceToIt($request->all());
         } else {
             return 'انتهت الجلسه';
         }
@@ -121,7 +104,10 @@ class DviceController extends Controller
     public function ajaxCountDviceNameById()
     {
         if ($this->issession) {
-            return dvice::countDviceNameById($_REQUEST['dvice_id']);
+            $validData = Validate::post([
+                'dvice_id' => ['']
+            ]);
+            return dvice::countDviceNameById($validData->dvice_id);
         } else {
             return 'انتهت الجلسه';
         }
@@ -129,7 +115,10 @@ class DviceController extends Controller
     public function ajaxCountDviceNameByType()
     {
         if ($this->issession) {
-            return dvice::countDviceNameByType($_REQUEST['dvice_type']);
+            $validData = Validate::post([
+                'dvice_type' => ['']
+            ]);
+            return dvice::countDviceNameByType($validData->dvice_type);
         } else {
             return 'انتهت الجلسه';
         }
@@ -137,7 +126,10 @@ class DviceController extends Controller
     public function ajaxCountDviceNameByName()
     {
         if ($this->issession) {
-            return dvice::countDviceNameByName($_REQUEST['dvice_name']);
+            $validData = Validate::post([
+                'dvice_name' => ['']
+            ]);
+            return dvice::countDviceNameByName($validData->dvice_name);
         } else {
             return 'انتهت الجلسه';
         }
@@ -151,13 +143,13 @@ class DviceController extends Controller
         }
     }
 
-    public function getDviceById()
-    {
-            $dvice_id = dvice::getDviceById($_GET['dvice_id']);
-            return View::page('dvice_id', [$dvice_id]);
-    }
+    // public function getDviceById()
+    // {
+    //     $dvice_id = dvice::getDviceById($_GET['dvice_id']);
+    //     return View::page('dvice_id', [$dvice_id]);
+    // }
     public function authDviceMoveTo()
-    { 
+    {
         $data = Validate::get([
             'f' => [''],
             't' => [''],
@@ -165,46 +157,52 @@ class DviceController extends Controller
             's' => [''],
             'd' => ['date']
         ]);
-        if($data->isValid()){
-            return View::page('auth_move_to', $data->getData());
-        } else {
-            return View::page('auth_move_to', $data->getData());
+        if ($data->isValid()) {
+            return View::page('auth_move_to', $data->all());
         }
     }
     public function getDviceByType()
     {
-            $data = dvice::getDviceByType($_GET['dvice_type']);
+        $validData = Validate::get([
+            'dvice_type' => ['']
+        ]);
+        if($validData->isValid()){
+            $data = dvice::getDviceByType($validData->dvice_type);
             return View::page('dvice_type', [$data]);
+        }
     }
     public function postalDvicesComptaible()
     {
-            $data = dvice::postalDvicesComptaible();
-            return View::page('postal_dvices_comptaible', [$data]);
+        $data = dvice::postalDvicesComptaible();
+        return View::page('postal_dvices_comptaible', [$data]);
     }
     public function pcsMonitorsComptaible()
     {
-            $data = dvice::pcsMonitorsComptaible();
-            return View::page('pcs_monitors_comptaible', [$data]);
+        $data = dvice::pcsMonitorsComptaible();
+        return View::page('pcs_monitors_comptaible', [$data]);
     }
     public function repeatSn()
     {
-            $data = dvice::repeatSn();
-            return View::page('repeat_sn', [$data]);
+        $data = dvice::repeatSn();
+        return View::page('repeat_sn', [$data]);
     }
 
     public function OfficesDvicesReport()
     {
-            return View::page('offices_dvices_report', []);
+        return View::page('offices_dvices_report', []);
     }
     public function dvicesOffice()
     {
-            return View::page('dvices_office', []);
+        return View::page('dvices_office', []);
     }
 
     public function ajaxDvicesOfficePc()
     {
         if ($this->issession) {
-            return dvice::ajaxDvicesOfficePc($_POST['input_search']);
+            $validData = Validate::post([
+                'input_search' => ['']
+            ]);
+            return dvice::ajaxDvicesOfficePc($validData->input_search);
         } else {
             return 'انتهت الجلسه';
         }
@@ -212,7 +210,10 @@ class DviceController extends Controller
     public function ajaxDvicesOfficeMonitor()
     {
         if ($this->issession) {
-            return dvice::ajaxDvicesOfficeMonitor($_POST['input_search']);
+            $validData = Validate::post([
+                'input_search' => ['']
+            ]);
+            return dvice::ajaxDvicesOfficeMonitor($validData->input_search);
         } else {
             return 'انتهت الجلسه';
         }
@@ -220,7 +221,10 @@ class DviceController extends Controller
     public function ajaxDvicesOfficePrinter()
     {
         if ($this->issession) {
-            return dvice::ajaxDvicesOfficePrinter($_POST['input_search']);
+            $validData = Validate::post([
+                'input_search' => ['']
+            ]);
+            return dvice::ajaxDvicesOfficePrinter($validData->input_search);
         } else {
             return 'انتهت الجلسه';
         }
@@ -228,7 +232,10 @@ class DviceController extends Controller
     public function ajaxDvicesOfficePos()
     {
         if ($this->issession) {
-            return dvice::ajaxDvicesOfficePos($_POST['input_search']);
+            $validData = Validate::post([
+                'input_search' => ['']
+            ]);
+            return dvice::ajaxDvicesOfficePos($validData->input_search);
         } else {
             return 'انتهت الجلسه';
         }
@@ -236,7 +243,10 @@ class DviceController extends Controller
     public function ajaxDvicesOfficeNetwork()
     {
         if ($this->issession) {
-            return dvice::ajaxDvicesOfficeNetwork($_POST['input_search']);
+            $validData = Validate::post([
+                'input_search' => ['']
+            ]);
+            return dvice::ajaxDvicesOfficeNetwork($validData->input_search);
         } else {
             return 'انتهت الجلسه';
         }
@@ -244,7 +254,10 @@ class DviceController extends Controller
     public function ajaxDvicesOfficePostal()
     {
         if ($this->issession) {
-            return dvice::ajaxDvicesOfficePostal($_POST['input_search']);
+            $validData = Validate::post([
+                'input_search' => ['']
+            ]);
+            return dvice::ajaxDvicesOfficePostal($validData->input_search);
         } else {
             return 'انتهت الجلسه';
         }
@@ -252,19 +265,25 @@ class DviceController extends Controller
     public function ajaxDvicesOfficeOther()
     {
         if ($this->issession) {
-            return dvice::ajaxDvicesOfficeOther($_POST['input_search']);
+            $validData = Validate::post([
+                'input_search' => ['']
+            ]);
+            return dvice::ajaxDvicesOfficeOther($validData->input_search);
         } else {
             return 'انتهت الجلسه';
         }
     }
     public function dvicesInIt()
     {
-            return View::page('dvices_in_it', []);
+        return View::page('dvices_in_it', []);
     }
     public function ajaxDvicesInIt()
     {
         if ($this->issession) {
-            return in_it::ajaxDvicesInIt($_GET['dvice_id']);
+            $validData = Validate::get([
+                'dvice_id' => ['']
+            ]);
+            return in_it::ajaxDvicesInIt($validData->dvice_id);
         } else {
             return 'انتهت الجلسه';
         }
@@ -272,17 +291,17 @@ class DviceController extends Controller
     public function ajaxDvicesEditInIt()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "damage" => [""],
                 "dvice_num" => [""],
                 "in_it_note" => [""],
                 "date_in_it" => ["required", "date:Y-m-d"],
                 "parcel_in_it" => [""],
             ]);
-            if ($validData === true) {
-                return in_it::ajaxDvicesEditInIt($this->formData);
+            if ($validData->isValid()) {
+                return in_it::ajaxDvicesEditInIt($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -291,15 +310,32 @@ class DviceController extends Controller
     public function ajaxToTts()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData =  Validate::post([
                 "date_auth_repair" => ["required", "date:Y-m-d"],
                 "auth_repair" => ["required"],
                 "dvice_num" => ["numric"]
             ]);
-            if ($validData === true) {
-                return in_it::ajaxToTts($this->formData);
+            if ($validData->isValid()) {
+                return in_it::ajaxToTts($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
+            }
+        } else {
+            return 'انتهت الجلسه';
+        }
+    }
+
+    public function authRepair()
+    {
+        if ($this->issession) {
+            $validData =  Validate::get([
+                "dvice_num" => [""],
+            ]);
+            if ($validData->isValid()) {
+                $data = in_it::authRepair($validData->dvice_num);
+                return View::page('auth_repair', [$data]);
+            } else {
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';
@@ -308,12 +344,12 @@ class DviceController extends Controller
     public function ajaxResentToOfice()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "resen_to_office_date" => ["required", "date:Y-m-d"],
                 "resen_to_office_by" => [""],
                 "dvice_num" => [""],
             ]);
-            return in_it::ajaxResentToOfice($this->formData);
+            return in_it::ajaxResentToOfice($validData->all());
         } else {
             return 'انتهت الجلسه';
         }
@@ -321,12 +357,12 @@ class DviceController extends Controller
     public function ajaxDvicesDeleteInIt()
     {
         if ($this->issession) {
-            $form_data = [
-                $_POST["delete_by"],
-                $_POST['delete_date'],
-                $_POST['dvice_num'],
-            ];
-            return in_it::ajaxDvicesDeleteInIt($form_data);
+            $validData = Validate::post([
+                "delete_by" => [""],
+                "delete_date" => [""],
+                "dvice_num" => [""],
+            ]);
+            return in_it::ajaxDvicesDeleteInIt($validData->all());
         } else {
             return 'انتهت الجلسه';
         }
@@ -334,7 +370,7 @@ class DviceController extends Controller
     public function ajaxMoveToInIt()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "office_name_from" => ["required"],
                 "office_name_to" => ["required"],
                 "move_by" => ["required"],
@@ -343,8 +379,8 @@ class DviceController extends Controller
                 "move_to_date" => ["required", "date:Y-m-d"],
                 "dvice_num" => ["numric"]
             ]);
-            if ($validData === true) {
-                return in_it::ajaxMoveToInIt($this->formData);
+            if ($validData->isValid()) {
+                return in_it::ajaxMoveToInIt($validData->all());
             } else {
                 return $this->getFormError('json');
             }
@@ -355,15 +391,15 @@ class DviceController extends Controller
     public function ajaxReplacePicesDvice()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "office_name" => [""],
                 "dvice_name" => [""],
                 "dvice_sn" => [""],
                 "date_replace_Pices" => ["date:Y-m-d"],
                 "replace_Pices" => [""],
             ]);
-            if ($validData === true) {
-                return in_it::ajaxReplacePicesDvice($this->formData);
+            if ($validData->isValid()) {
+                return in_it::ajaxReplacePicesDvice($validData->all());
             } else {
                 return $this->getFormError('json');
             }
@@ -374,18 +410,12 @@ class DviceController extends Controller
     public function ajaxposDeliver()
     {
         if ($this->issession) {
-            // $form_data = [
-            //     $_POST["selectedData"],
-            //     $_POST['pos_deliver'],
-            //     $_POST['pos_deliver_date'],
-            // ];
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "selectedData" => [""],
                 "pos_deliver" => [""],
                 "pos_deliver_date" => ["date:Y-m-d"],
             ]);
-            // print_r($this->formData);
-            return in_it::ajaxposDeliver($this->formData);
+            return in_it::ajaxposDeliver($validData->all());
         } else {
             return 'انتهت الجلسه';
         }
@@ -393,13 +423,16 @@ class DviceController extends Controller
 
     public function dvicesInTts()
     {
-            return View::page('dvices_in_tts', []);
+        return View::page('dvices_in_tts', []);
     }
 
     public function ajaxDvicesInTts()
     {
         if ($this->issession) {
-            return in_it::ajaxDvicesInTts($_GET['dvice_id']);
+            $validData = Validate::get([
+                "dvice_id" => [""]
+            ]);
+            return in_it::ajaxDvicesInTts($validData->dvice_id);
         } else {
             return 'انتهت الجلسه';
         }
@@ -408,13 +441,13 @@ class DviceController extends Controller
     public function ajaxDvicesEditInTts()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "date_auth_repair" => ["required", "date:Y-m-d"],
                 "auth_repair" => [""],
                 "dvice_num" => [""],
             ]);
-            if ($validData === true) {
-                return in_it::ajaxDvicesEditInTts($this->formData);
+            if ($validData->isValid()) {
+                return in_it::ajaxDvicesEditInTts($validData->all());
             } else {
                 return $this->getFormError('json');
             }
@@ -425,13 +458,13 @@ class DviceController extends Controller
     public function ajaxResentToIt()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "date_from_auth_repair" => ["required", "date:Y-m-d"],
                 "by_from_auth_repair" => [""],
                 "dvice_num" => [""],
             ]);
-            if ($validData === true) {
-                return in_it::ajaxResentToIt($this->formData);
+            if ($validData->isValid()) {
+                return in_it::ajaxResentToIt($validData->all());
             } else {
                 return $this->getFormError('json');
             }
@@ -442,13 +475,16 @@ class DviceController extends Controller
 
     public function temp_moved()
     {
-            return View::page('temp_moved', []);
+        return View::page('temp_moved', []);
     }
 
     public function ajaxTempMoved()
     {
         if ($this->issession) {
-            return dvice::ajaxTempMoved($_GET['dvice_id']);
+            $validData = Validate::get([
+                "dvice_id" => [""]
+            ]);
+            return dvice::ajaxTempMoved($validData->dvice_id);
         } else {
             return 'انتهت الجلسه';
         }
@@ -456,7 +492,7 @@ class DviceController extends Controller
     public function ajaxResentMovedToOfice()
     {
         if ($this->issession) {
-            $validData = $this->validate([
+            $validData = Validate::post([
                 "resen_to_office_date" => ["required", "date:Y-m-d"],
                 "resen_to_office_by" => [""],
                 "dvice_name" => [""],
@@ -465,8 +501,8 @@ class DviceController extends Controller
                 "note_move_to" => [""],
                 "divce_num" => [""],
             ]);
-            if ($validData === true) {
-                return dvice::ajaxResentMovedToOfice($this->formData);
+            if ($validData->isValid()) {
+                return dvice::ajaxResentMovedToOfice($validData->all());
             } else {
                 return $this->getFormError('json');
             }
@@ -477,7 +513,7 @@ class DviceController extends Controller
 
     public function allDvices()
     {
-            return View::page('all_dvices', []);
+        return View::page('all_dvices', []);
     }
 
     public function ajaxAllDvices()
@@ -490,8 +526,7 @@ class DviceController extends Controller
     }
     public function repairDvices()
     {
-
-            return View::page('repair_dvices', []);
+        return View::page('repair_dvices', []);
     }
 
     public function ajaxRepairDvices()
@@ -504,7 +539,7 @@ class DviceController extends Controller
     }
     public function moveingDvices()
     {
-            return View::page('moveing_dvices', []);
+        return View::page('moveing_dvices', []);
     }
     public function ajaxMoveingDvices()
     {
@@ -516,7 +551,7 @@ class DviceController extends Controller
     }
     public function replaceDvices()
     {
-            return View::page('replace_dvices', []);
+        return View::page('replace_dvices', []);
     }
     public function ajaxReplaceDvices()
     {
@@ -528,7 +563,7 @@ class DviceController extends Controller
     }
     public function deletedDvices()
     {
-            return View::page('deleted_dvices', []);
+        return View::page('deleted_dvices', []);
     }
     public function ajaxDeletedDvices()
     {
@@ -540,7 +575,10 @@ class DviceController extends Controller
     }
     public function grd()
     {
-            $grd =  dvice::grd($_GET['office_name']);
-            return View::page('grd', $grd);
+        $validData = Validate::get([
+            "office_name" => [""]
+        ]);
+        $grd =  dvice::grd($validData->office_name);
+        return View::page('grd', $grd);
     }
 }

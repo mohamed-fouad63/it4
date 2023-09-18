@@ -6,6 +6,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="input-group mb-3">
+                        @csrf
                             <span class="input-group-text  col-sm-2">رقم الملف </span>
                             <input type="number" min="1000" class="form-control text-start me-3" id="user_id" required>
                             <span class="input-group-text  col-sm-2">اسم المستخدم</span>

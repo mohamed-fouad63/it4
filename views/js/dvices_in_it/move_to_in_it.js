@@ -18,6 +18,7 @@ $("#Move_To_Modal #move_to_btn").click(function () {
     move_note: $("#move_note").val(),
     move_like: $("#move_like").val(),
     move_to_date: $("#move_to_date").val(),
+    _token: $("#_token").val(),
     dvice_num: dvice_num,
   };
   console.log(formData);

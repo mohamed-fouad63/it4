@@ -6,6 +6,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                    @csrf
                         <label for="" class="mb-2" id="edit_post_group_error" style="color:red"></label>
                         <input type="text" class="form-control me-3" name="" id="edit_post_group_input">
                     </div>

@@ -3,6 +3,7 @@ $("#Edit_USER_Modal .btn-success").click(function () {
     edit_user_id: $("#edit_user_id").val(),
     edit_user_name: $("#edit_user_name").val(),
     edit_user_job: $("#edit_user_job").val(),
+    _token: $("#_token").val(),
   };
   $.ajax({
     type: "POST",

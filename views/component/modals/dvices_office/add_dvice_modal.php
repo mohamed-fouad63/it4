@@ -6,6 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="input-group mb-3">
+                @csrf
                     <span class="input-group-text  col-sm-2">صنف الجهاز </span>
                     <select class="form-select text-end me-3" id="id_dvice_type" required>
                         <option></option>

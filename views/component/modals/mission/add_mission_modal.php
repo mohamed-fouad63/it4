@@ -7,6 +7,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="input-group mb-3">
+                    @csrf
                         <span class="input-group-text col-sm-2" id="it_name_label">القائم بالماوريه</span>
                         <input type="text" class="form-control me-3" name="it_name" id="it_name" placeholder="القائم بالماوريه" readonly>
                         <span class="input-group-text col-sm-2" id="select_office_name_label">مكتب المرور</span>

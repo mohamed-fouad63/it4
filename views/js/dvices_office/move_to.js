@@ -19,6 +19,7 @@ $("#Move_To_Modal #move_to_btn ").click(function () {
     move_like: $("#move_like").val(),
     move_to_date: $("#move_to_date").val(),
     dvice_num: divce_num,
+    _token: $("#_token").val(),
   };
   if (
     formData.office_name_to == "" ||

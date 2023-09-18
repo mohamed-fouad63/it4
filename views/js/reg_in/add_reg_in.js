@@ -6,6 +6,7 @@ $("#add_reg_in_btn").click(function () {
     date_reg_in: $("#date_reg_in").val(),
     name_reg_in: $("#name_reg_in").val(),
     sub_reg_in: $("#sub_reg_in").val(),
+    _token: $("#_token").val(),
   };
   $.ajax({
     type: "POST",

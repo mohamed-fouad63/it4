@@ -11,11 +11,13 @@ class AuthSessionLogin
     
     public function handle($holde_routes)
     {
-        $this->issession = Application::$app->session->get('db');
+        $this->issession = Application::$app->session->get('_token');
         
         if (!$this->issession) {
             View::page('login', [$holde_routes]);
             die;
+        } else {
+            // Route::redirect($holde_routes['uri']);
         }
     }
 }

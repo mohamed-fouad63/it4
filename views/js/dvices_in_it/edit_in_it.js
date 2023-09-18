@@ -4,6 +4,7 @@ $("#Edit_In_It_Modal .btn-success").click(function () {
     date_in_it: $("#date_in_it").val(),
     parcel_in_it: $("#parcel_in_it").val(),
     in_it_note: $("#in_it_note").val(),
+    _token: $("#_token").val(),
     dvice_num: dvice_num
   };
   $.ajax({

@@ -17,6 +17,7 @@ $("#edit_reg_in_btn").click(function () {
     name_reg_in: $("#name_reg_in").val(),
     sub_reg_in: $("#sub_reg_in").val(),
     edit_reg_in_btn: $("#edit_reg_in_btn").val(),
+    _token: $("#_token").val(),
   };
   $.ajax({
     type: "POST",

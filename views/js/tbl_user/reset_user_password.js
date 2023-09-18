@@ -1,7 +1,7 @@
 $("#users_table tbody").on("click", ".btn-info", function () {
   var tr = $(this).closest("tr");
   var row = users_table.row(tr);
-  formdata = { id: row.data().id };
+  formdata = { id: row.data().id, _token: $("#_token").val(), };
   $.ajax({
     type: "POST",
     url: "/it4/ajaxResetUserPassword",

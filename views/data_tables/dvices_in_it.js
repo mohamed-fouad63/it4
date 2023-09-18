@@ -136,7 +136,7 @@ var dvice_office_pc = $("#dvice_office_pc").DataTable({
       $(".dvice_num").val(data_pc.num);
       $(".sub_print_ticket").attr(
         "href",
-        "../views/auth_repair.php?dvice_num=" + data_pc.count_in_it + ""
+        "/it4/authRepair?dvice_num=" + data_pc.count_in_it + ""
       );
       return (dvice_num = data_pc.count_in_it);
     });

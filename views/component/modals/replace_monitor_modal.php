@@ -6,6 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="input-group mb-3">
+                @csrf
                     <span class="input-group-text  col-sm-2">نوع الجهاز </span>
                     <input type="text" class="form-control me-3 dvice_name" id="dvice_name" placeholder="نوع الجهاز"
                         readonly>

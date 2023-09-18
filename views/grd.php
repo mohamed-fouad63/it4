@@ -127,7 +127,7 @@
                 </tr>
                 <tr>
                     <th>تاريخ</th>
-                    <th>30/06/2022</th>
+                    <th><?= date('Y-m-d')?></th>
                     <th colspan="6"></th>
                     <th colspan="2"></th>
                     <th colspan="4">اسم صاحب العهده</th>

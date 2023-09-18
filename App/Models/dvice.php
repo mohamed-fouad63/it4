@@ -329,8 +329,8 @@ class dvice extends Model
     {
         $params = [':officeName' => $officeName];
         $stmt = self::executePreparedQuery('OfficeDvicesCount', $params);
-        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        return json_encode($result, JSON_UNESCAPED_UNICODE);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result;
     }
 
     public static function postalDvicesComptaible()

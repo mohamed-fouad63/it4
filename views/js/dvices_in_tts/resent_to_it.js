@@ -3,6 +3,7 @@ $("#Resen_To_It_Modal .btn-success").click(function () {
     date_from_auth_repair: $("#date_from_auth_repair").val(),
     by_from_auth_repair: $("#by_from_auth_repair").val(),
     dvice_num: dvice_num,
+    _token: $("#_token").val(),
   };
   if (
     formData.date_from_auth_repair != "" &&

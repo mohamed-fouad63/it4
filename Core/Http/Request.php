@@ -2,27 +2,49 @@
 
 namespace Core\Http;
 
+use Core\Http\Validate;
+
 class Request
 {
     private $uri;
     private $method;
-    private $query;
-    private $params = array();
-    private $headers = array();
-    private $cookies = array();
-    private $files = array();
+    private $valid;
+    private $vali;
+    private $headers;
+    private $requsetData = [];
 
     public function __construct()
     {
         $this->method = $_SERVER['REQUEST_METHOD'];
         $this->uri = $_SERVER['REQUEST_URI'];
-        $this->query = $_SERVER['QUERY_STRING'];
-        $this->params = $_REQUEST;
         $this->headers = getallheaders();
-        $this->cookies = $_COOKIE;
-        $this->files = $_FILES;
+        $this->vali = new Validate();
     }
 
+    public function validate($validate)
+    {
+        $data = $this->vali::{$this->method}($validate);
+        $this->valid = $data->isValid();
+        return $this->requsetData = $data->all();
+    }
+    public function all(string $dataFormate = 'array')
+    {
+        if ($this->isValid()) {
+            return $this->dataFormate($this->requsetData,$dataFormate);
+        } else {
+            return $this->dataFormate($this->requsetData,$dataFormate);
+        }
+    }
+
+    public function dataFormate($data ,$dataType)
+    {
+        switch ($dataType) {
+            case 'json':
+                return json_encode($data, JSON_UNESCAPED_UNICODE);
+            case 'array':
+                return $data;
+        }
+    }
     public function getUri()
     {
         return $this->uri;
@@ -31,62 +53,6 @@ class Request
     public function getMethod()
     {
         return $this->method;
-    }
-
-    public function getQuery()
-    {
-        return $this->query;
-    }
-
-    public function getParams() // get all requested data both GET or POST $_REQUEST
-    {
-        return $this->params;
-    }
-
-    public function getParam($key)
-    {
-        return isset($this->params[$key]) ? $this->params[$key] : null;
-    }
-
-    public function setParam($key, $value)
-    {
-        $this->params[$key] = $value;
-    }
-
-    public function getHeaders()
-    {
-        return $this->headers;
-    }
-
-    public function getHeader($header_name)
-    {
-        $header_name = strtolower($header_name);
-        foreach ($this->headers as $name => $value) {
-            if (strtolower($name) === $header_name) {
-                return $value;
-            }
-        }
-        return null;
-    }
-
-    public function getCookies()
-    {
-        return $this->cookies;
-    }
-
-    public function getCookie($cookie_name)
-    {
-        return isset($this->cookies[$cookie_name]) ? $this->cookies[$cookie_name] : null;
-    }
-
-    public function getFiles()
-    {
-        return $this->files;
-    }
-
-    public function getFile($file_name)
-    {
-        return isset($this->files[$file_name]) ? $this->files[$file_name] : null;
     }
 
     public function isGet()
@@ -98,21 +64,55 @@ class Request
     {
         return $this->method === 'POST';
     }
+    public function isValid()
+    {
+        return $this->valid === true;
+    }
 
     public function isAjax()
     {
-        return strtolower($this->getHeader('X-Requested-With')) === 'xmlhttprequest';
+        return strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
     }
-
-    public function getIpAddress()
+    public function header($headerName = NULL) {
+        return $this->headers[$headerName] ?? $this->headers;
+    }
+    public function __get($property)
     {
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        if (array_key_exists($property, $this->requsetData)) {
+            return $this->requsetData[$property];
         } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
+            return false;
         }
-        return $ip;
     }
-};
+    // $request->input('name');
+    // $request->path();
+    // $request->url();
+    // $request->host();
+    // $request->httpHost();
+    // $request->schemeAndHttpHost();
+    // $request->method();
+    // $request->isMethod('post')
+    //  $request->header('X-Header-Name');
+    // $request->header('X-Header-Name', 'default');
+    // $request->bearerToken();
+    // $request->ip();
+    // $request->all();
+    // $request->input('name', 'Sally');
+    // $request->input('products.0.name');
+    // $request->input(); retrieve all of the input values as an associative array:
+    // $request->query('name');
+    // $request->query('name', 'Helen');
+    // $request->query(); retrieve all of the query string values as an associative array:
+    // $request->input('user.name');When sending JSON requests to your application, you may access the JSON data via the input method as long as the Content-Type header of the request is properly set to application/json. You may even use "dot" syntax to retrieve values that are nested within JSON arrays / objects:
+    // $request->only(['username', 'password']);
+    // $request->except(['credit_card']);
+    // $request->cookie('name');
+
+        /**
+         * Get the value of this
+         */ 
+        public function getThis()
+        {
+                return $this->this;
+        }
+}

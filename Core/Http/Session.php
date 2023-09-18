@@ -16,7 +16,7 @@ namespace Core\Http;
 //         }
 
 //         $this->sessionData = $_SESSION;
-//         $this->csrfToken = $this->sessionData['csrf_token'] ?? null;
+//         $this->csrfToken = $this->sessionData['_token'] ?? null;
 //     }
 
 //     public function deleteOldSessions($maxLifetime) {
@@ -32,7 +32,7 @@ namespace Core\Http;
 
 //     public function generateCsrfToken() {
 //         $this->csrfToken = bin2hex(random_bytes(16));
-//         $_SESSION['csrf_token'] = $this->csrfToken;
+//         $_SESSION['_token'] = $this->csrfToken;
 
 //         return $this->csrfToken;
 //     }
@@ -64,14 +64,14 @@ class Session {
 
     public function __construct() {
         if (session_status() !== PHP_SESSION_ACTIVE) {
-            $this->deleteOldSessions(86400);
-            session_set_cookie_params(86400, '/it4/', $_SERVER['HTTP_HOST'], false, true);
+            $this->deleteOldSessions(9999999);
+            session_set_cookie_params(9999999, '/it4/', $_SERVER['HTTP_HOST'], false, true);
             session_save_path(dirname(realpath(__FILE__)) . '/../session_save_path');
             session_start();
         }
 
         $this->sessionData = $_SESSION;
-        $this->csrfToken = $this->sessionData['csrf_token'] ?? null;
+        $this->csrfToken = $this->sessionData['_token'] ?? null;
     }
 
     public function deleteOldSessions($maxLifetime) {
@@ -87,7 +87,7 @@ class Session {
 
     public function generateCsrfToken() {
         $this->csrfToken = bin2hex(random_bytes(16));
-        $_SESSION['csrf_token'] = $this->csrfToken;
+        $_SESSION['_token'] = $this->csrfToken;
 
         return $this->csrfToken;
     }
@@ -106,5 +106,12 @@ class Session {
             return false;
         }
         return $this->sessionData[$key] ?? null;
+    }
+    public function destroy() {
+        // session_start();
+        // remov all session variables
+          session_unset();
+          // destroy the session 
+          session_destroy();
     }
 }

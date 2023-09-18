@@ -67,6 +67,7 @@ $("#add_dvice_btn").click(function () {
     office_name: office_name,
     dvice_name: $("#select_dvice_name").val(),
     dvice_sn: $("#divce_sn_add").val(),
+    _token: $("#_token").val(),
   };
   $.ajax({
     type: "POST",

@@ -6,6 +6,7 @@
             </div>
             <div class="modal-body">
                 <div class="input-group mb-3">
+                @csrf
                     <span class="input-group-text  col-sm-2" id="basic-addon1">اسم المكتب</span>
                     <input type="text" class="form-control me-3 office_name" id="office_name1" placeholder=">اسم المكتب" readonly>
                     <span class="input-group-text  col-sm-2" id="basic-addon1">نوع الجهاز</span>
