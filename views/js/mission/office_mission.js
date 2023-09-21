@@ -17,6 +17,7 @@ $("#select_office_name").on("change", function () {
       $("#badal_raha_date").css("display", "none");
       $("#vactionFormSub").css("display", "none");
       $("#badlRahaFormSubOnLine").css("display", "none");
+      $("#misin_cairo").css("display", "none")
       break;
     case "اجازه عارضه":
     case "اجازه اعتياديه":
@@ -36,6 +37,7 @@ $("#select_office_name").on("change", function () {
       $("#badal_raha_date").css("display", "none");
       $("#vactionFormSub").css("display", "flex");
       $("#badlRahaFormSubOnLine").css("display", "none");
+      $("#misin_cairo").css("display", "none")
       break;
     case "اجازه مرضيه":
     case "اجازه رسميه":
@@ -55,10 +57,12 @@ $("#select_office_name").on("change", function () {
       $("#badal_raha_date").css("display", "none");
       $("#vactionFormSub").css("display", "none");
       $("#badlRahaFormSubOnLine").css("display", "none");
+      $("#misin_cairo").css("display", "none")
+      
       break;
     case "ماموريه القاهره":
-      $("#mission_date_end_label").css("display", "none");
-      $("#mission_date_end").css("display", "none");
+      $("#mission_date_end_label").css("display", "flex");
+      $("#mission_date_end").css("display", "flex");
       $("#vaction_div").css("visibility", "hidden");
       $("#mission_time").css("display", "none");
       $("#mission_time").val("");
@@ -66,14 +70,15 @@ $("#select_office_name").on("change", function () {
       $("#mission_type").val("");
       $("#mission_date_start_label").css("display", "flex");
       $("#mission_date_start").css("display", "flex");
-      $("#mission_type_label").css("display", "flex");
+      $("#mission_type_label").css("display", "none");
       $("#misin_cairo_type").css("display", "flex");
       $("#badl_raha_label").css("display", "none");
       $("#badal_raha_date").css("display", "none");
       $("#vactionFormSub").css("display", "none");
       $("#badlRahaFormSubOnLine").css("display", "none");
+      $("#misin_cairo").css("display", "flex");
       break;
-    case "بدل  راحه":
+    case "بدل راحه":
       $("#mission_date_end_label").css("display", "none");
       $("#mission_date_end").css("display", "none");
       $("#vaction_div").css("visibility", "hidden");
@@ -89,6 +94,7 @@ $("#select_office_name").on("change", function () {
       $("#badal_raha_date").css("display", "flex");
       $("#vactionFormSub").css("display", "none");
       $("#badlRahaFormSubOnLine").css("display", "flex");
+      $("#misin_cairo").css("display", "none");
       break;
 
     case "":
@@ -108,6 +114,7 @@ $("#select_office_name").on("change", function () {
       $("#badal_raha_date").css("display", "none");
       $("#vactionFormSub").css("display", "none");
       $("#badlRahaFormSubOnLine").css("display", "none");
+      $("#misin_cairo").css("display", "none");
       
       break;
 
@@ -126,6 +133,7 @@ $("#select_office_name").on("change", function () {
       $("#badal_raha_date").css("display", "none");
       $("#vactionFormSub").css("display", "none");
       $("#badlRahaFormSubOnLine").css("display", "none");
+      $("#misin_cairo").css("display", "none");
       break;
   }
 });

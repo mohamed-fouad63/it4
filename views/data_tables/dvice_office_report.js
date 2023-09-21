@@ -1,5 +1,6 @@
 var table = $("#dvice_office_report").DataTable({
   bProcessing: true,
+  fixedHeader: true,
   ajax: {
     url: "/it4/ajaxOfficesDvicesReport",
     method: "post",
@@ -16,8 +17,10 @@ var table = $("#dvice_office_report").DataTable({
     { data: "pc" },
     { data: "pc_init" },
     { data: "monitor" },
+    { data: "monitor_init" },
     { data: "printer_laser" },
     { data: "printer_scann" },
+    { data: "printer_init" },
     { data: "posfinance" },
     { data: "vx510" },
     { data: "V200T" },

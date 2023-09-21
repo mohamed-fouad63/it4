@@ -181,7 +181,7 @@ class misin_it extends Model
                 ':misin_type' => $formData['misin_type'],
                 ':start_time' => $formData['start_time'],
                 ':end_time' => $formData['end_time'],
-                ':does' => $formData['does']
+                ':does' => $formData['misin_cairo_type']
             ];
            self::executePreparedQuery('create', $params);
             return true;

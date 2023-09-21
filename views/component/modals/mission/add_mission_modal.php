@@ -19,7 +19,7 @@
                             <option value="اجازه مرضيه">اجازه مرضيه</option>
                             <option value="اجازه رسميه">اجازه رسميه</option>
                             <option value="ماموريه القاهره">ماموريه القاهره</option>
-                            <option value="بدل  راحه">بدل راحه</option>
+                            <option value="بدل راحه">بدل راحه</option>
                         </select>
                     </div>
                     <div class="input-group mb-3">
@@ -35,7 +35,6 @@
                             <option value="خطه">خطه</option>
                             <option value="بلاغ">بلاغ</option>
                         </select>
-                        <input type="text" class="form-control" id="misin_cairo_type" name="reason_vacation" placeholder="سبب الماموريه">
                     </div>
                     <div class="input-group mb-3" id="mission_time">
                         <span class="input-group-text col-sm-2" id="basic-addon1">من الساعه</span>
@@ -43,6 +42,10 @@
                         <span class="input-group-text col-sm-2" id="basic-addon1">الى الساعه</span>
                         <input type="time" class="form-control" id="mission_time_end">
                     </div>
+                    <div class="input-group mb-3" id="misin_cairo">
+                    <span class="input-group-text col-sm-2" id="">نوع الماموريه</span>
+                            <input type="text" class="form-control" id="misin_cairo_type" name="reason_vacation" placeholder="سبب الماموريه">
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <div class="form-check">

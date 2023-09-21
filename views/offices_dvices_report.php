@@ -7,6 +7,7 @@
 <head>
     <link rel="icon" href="./views/assets/images/it1.svg" type="image/x-icon" />
     <link rel="stylesheet" href="./views/assets/css/m.css">
+    <script src="./views/assets/DataTables/FixedHeader-3.2.3/css/fixedHeader.dataTables.min.css"></script>
     <style>
         table {
             text-align: left;
@@ -82,16 +83,19 @@
                         <th rowspan='2'>نوع المكتب</th>
                         <th rowspan='2'>كود مالى</th>
                         <th colspan='2'>عدد الاجهزه</th>
-                        <th rowspan='2'>عدد الشاشات</th>
-                        <th colspan='2'>عدد الطابعات</th>
+                        <th colspan='2'>عدد الشاشات</th>
+                        <th colspan='3'>عدد الطابعات</th>
                         <th colspan='4'>عدد ماكينات نقاط البيع</th>
                         <th colspan='4'>عدد اجهزه بوستال</th>
                     </tr>
                     <tr class="">
                         <th>كل الاجهزه</th>
                         <th>اجهزه بالصيانه</th>
+                        <th>كل الشاشات</th>
+                        <th>شاشات بالصيانه</th>
                         <th>طابعات ليزر</th>
                         <th>طابعات متعدده</th>
+                        <th>طابعات بالصيانه</th>
                         <th>FINANC</th>
                         <th>VX510</th>
                         <th>V200T</th>
@@ -115,6 +119,7 @@
     <script src="./views/assets/DataTables/Buttons-2.2.3/js/dataTables.buttons.js"></script>
     <script src="./views/assets/DataTables/Buttons-2.2.3/js/buttons.html5.min.js"></script>
     <script src="./views/assets/DataTables/JSZip-2.5.0/jszip.min.js"></script>
+    <script src="./views/assets/DataTables/FixedHeader-3.2.3/js/dataTables.fixedHeader.min.js"></script>
     <script src="./views/data_tables/dvice_office_report.js"></script>
 </body>
 

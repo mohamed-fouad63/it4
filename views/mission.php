@@ -92,6 +92,7 @@
         #mission_time,
         #mission_type,
         #misin_cairo_type ,
+        #misin_cairo ,
         #badl_raha_label ,
         #badlRahaFormSubOnLine,
         #vactionFormSub,

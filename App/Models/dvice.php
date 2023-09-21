@@ -73,6 +73,8 @@ class dvice extends Model
             COUNT(CASE WHEN dvice.id = 'pc' AND note <> '' THEN 1 ELSE NULL END) AS pc_init ,
             COUNT(CASE WHEN dvice.id = 'monitor' THEN 1 ELSE NULL END) AS monitor ,
             COUNT(CASE WHEN dvice.id = 'monitor' AND note <> '' THEN 1 ELSE NULL END) AS monitor_init ,
+            COUNT(CASE WHEN dvice.id = 'printer' THEN 1 ELSE NULL END) AS printer ,
+            COUNT(CASE WHEN dvice.id = 'printer' AND note <> '' THEN 1 ELSE NULL END) AS printer_init ,
             COUNT(CASE WHEN dvice.id = 'printer' AND dvice_name NOT IN ('HP Laser MFP 432 Series', 'LEXMARK MX622 ADE','RICOH SP C231','RICOH 1100','CANON MF210 Series') THEN 1 ELSE NULL END) AS printer_laser ,
             COUNT(CASE WHEN dvice.id = 'printer' AND dvice_name IN ('HP Laser MFP 432 Series', 'LEXMARK MX622 ADE','RICOH SP C231','RICOH 1100','CANON MF210 Series') THEN 1 ELSE NULL END) AS printer_scann ,
             COUNT(CASE WHEN dvice.id = 'pos' AND dvice_name = 'verifone vx 520' OR  dvice_name = 'verifone vx 675'  THEN 1 ELSE NULL END)  AS posfinance ,

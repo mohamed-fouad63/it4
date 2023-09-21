@@ -196,10 +196,10 @@ class MisinController extends Controller
             ]);
             if ($validData->isValid()) {
 
-                $date = $validData->mission_date_start;
-                $nameOfDay = date('D', strtotime($date));
+                $date_start = $validData->mission_date_start;
+                $nameOfDayDate_start = date('D', strtotime($date_start));
 
-                switch ($nameOfDay) {
+                switch ($nameOfDayDate_start) {
                     case "Fri":
                         $nameOfDay = "الجمعه";
                         break;
@@ -224,7 +224,7 @@ class MisinController extends Controller
                 }
                 if (!$validData->office_name) {
                     echo 'قم بتحديد مكتب المرور ';
-                } elseif ($validData->office_name == 'اجازه مرضيه' || $validData->office_name == 'اجازه رسميه' || $validData->office_name == 'اجازه عارضه' || $validData->office_name == 'اجازه اعتياديه' || $validData->office_name == 'المنطقه') {
+                } elseif ($validData->office_name == 'اجازه مرضيه' || $validData->office_name == 'اجازه رسميه' || $validData->office_name == 'اجازه عارضه' || $validData->office_name == 'اجازه اعتياديه' || $validData->office_name == 'المنطقه' || $validData->office_name == 'ماموريه القاهره') {
                     $start_ill_date = strtotime($validData->mission_date_start);
                     $end_ill_date = strtotime($validData->mission_date_end);
                     for ($i = $start_ill_date; $i <= $end_ill_date; $i = $i + 86400) {
@@ -253,12 +253,23 @@ class MisinController extends Controller
                                 $name_this_ill_Date = "الخميس";
                                 break;
                         }
-                        $validData->misin_date = $this_ill_Date;
-                        $validData->misin_day = $name_this_ill_Date;
-                        $validData->start_time = '';
-                        $validData->end_time = '';
-                        $validData->does = "";
-                        misin_it::create($validData->all());
+                        $start_time = $validData->office_name != 'المنطقه' ? '' : $validData->start_time ;
+                        $end_time = $validData->office_name != 'المنطقه' ? '' : $validData->end_time ;
+                        $misin_cairo_type = $validData->office_name != 'ماموريه القاهره' ? '' : $validData->misin_cairo_type ;
+                        $misin_type = '' ;
+                        // misin_it::create($validData->all());
+                        $formData = [
+                            'it_id' => $validData->it_id,
+                            'it_name' => $validData->it_name,
+                            'office_name' => $validData->office_name,
+                            'misin_date' => $this_ill_Date,
+                            'misin_day' => $name_this_ill_Date,
+                            'misin_cairo_type' => $misin_cairo_type,
+                            'misin_type' => $misin_type,
+                            'start_time' => $start_time,
+                            'end_time' => $end_time
+                        ];
+                        misin_it::create($formData);
                     }
                     echo 'done';
                 } elseif ($validData->office_name == 'بدل راحه') {
