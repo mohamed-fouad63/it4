@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Core\Support\Day;
 use Core\Http\View;
 use App\Models\all1;
 use App\Models\dvice;
@@ -195,69 +196,19 @@ class MisinController extends Controller
                 "badal_raha_date" => [""],
             ]);
             if ($validData->isValid()) {
-
-                $date_start = $validData->mission_date_start;
-                $nameOfDayDate_start = date('D', strtotime($date_start));
-
-                switch ($nameOfDayDate_start) {
-                    case "Fri":
-                        $nameOfDay = "الجمعه";
-                        break;
-                    case "Sat":
-                        $nameOfDay = "السبت";
-                        break;
-                    case "Sun":
-                        $nameOfDay = "الأحد";
-                        break;
-                    case "Mon":
-                        $nameOfDay = "الأثنين";
-                        break;
-                    case "Tue":
-                        $nameOfDay = "الثلاثاء";
-                        break;
-                    case "Wed":
-                        $nameOfDay = "الأربعاء";
-                        break;
-                    case "Thu":
-                        $nameOfDay = "الخميس";
-                        break;
-                }
+                $nameOfDay = Day::getDayName($validData->mission_date_start, 'ar');
                 if (!$validData->office_name) {
                     echo 'قم بتحديد مكتب المرور ';
                 } elseif ($validData->office_name == 'اجازه مرضيه' || $validData->office_name == 'اجازه رسميه' || $validData->office_name == 'اجازه عارضه' || $validData->office_name == 'اجازه اعتياديه' || $validData->office_name == 'المنطقه' || $validData->office_name == 'ماموريه القاهره') {
                     $start_ill_date = strtotime($validData->mission_date_start);
                     $end_ill_date = strtotime($validData->mission_date_end);
-                    for ($i = $start_ill_date; $i <= $end_ill_date; $i = $i + 86400) {
-                        $this_ill_Date = date('Y-m-d', $i);
-                        $name_this_ill_Date = date('D', strtotime($this_ill_Date));
-                        switch ($name_this_ill_Date) {
-                            case "Fri":
-                                $name_this_ill_Date = "الجمعه";
-                                continue 2;
-                            case "Sat":
-                                $name_this_ill_Date = "السبت";
-                                continue 2;
-                            case "Sun":
-                                $name_this_ill_Date = "الأحد";
-                                break;
-                            case "Mon":
-                                $name_this_ill_Date = "الأثنين";
-                                break;
-                            case "Tue":
-                                $name_this_ill_Date = "الثلاثاء";
-                                break;
-                            case "Wed":
-                                $name_this_ill_Date = "الأربعاء";
-                                break;
-                            case "Thu":
-                                $name_this_ill_Date = "الخميس";
-                                break;
-                        }
-                        $start_time = $validData->office_name != 'المنطقه' ? '' : $validData->start_time ;
-                        $end_time = $validData->office_name != 'المنطقه' ? '' : $validData->end_time ;
-                        $misin_cairo_type = $validData->office_name != 'ماموريه القاهره' ? '' : $validData->misin_cairo_type ;
-                        $misin_type = '' ;
-                        // misin_it::create($validData->all());
+                    for ($start_ill_date; $start_ill_date <= $end_ill_date; $start_ill_date += 86400) {
+                        $this_ill_Date = date('Y-m-d', $start_ill_date);
+                        $name_this_ill_Date = Day::getDayName($this_ill_Date, 'ar')->not(['الجمعة', 'السبت']);
+                        $start_time = $validData->office_name != 'المنطقه' ? '' : $validData->start_time;
+                        $end_time = $validData->office_name != 'المنطقه' ? '' : $validData->end_time;
+                        $misin_cairo_type = $validData->office_name != 'ماموريه القاهره' ? '' : $validData->misin_cairo_type;
+                        $misin_type = '';
                         $formData = [
                             'it_id' => $validData->it_id,
                             'it_name' => $validData->it_name,
@@ -270,36 +221,14 @@ class MisinController extends Controller
                             'end_time' => $end_time
                         ];
                         misin_it::create($formData);
+                        // misin_it::delRepeatMisin($validData->it_id);
                     }
                     echo 'done';
                 } elseif ($validData->office_name == 'بدل راحه') {
-                    $dayName2 = date('D', strtotime($validData->badal_raha_date));
-                    switch ($dayName2) {
-                        case "Fri":
-                            $validData->badal_raha_day = "الجمعه";
-                            break;
-                        case "Sat":
-                            $validData->badal_raha_day = "السبت";
-                            break;
-                        case "Sun":
-                            $validData->badal_raha_day = "الأحد";
-                            break;
-                        case "Mon":
-                            $validData->badal_raha_day = "الأثنين";
-                            break;
-                        case "Tue":
-                            $validData->badal_raha_day = "الثلاثاء";
-                            break;
-                        case "Wed":
-                            $validData->badal_raha_day = "الأربعاء";
-                            break;
-                        case "Thu":
-                            $validData->badal_raha_day = "الخميس";
-                            break;
-                    }
-                    if ($validData->badal_raha_day == "الجمعه" || $validData->badal_raha_day == "السبت") {
+                    $validData->raha_day = Day::getDayName($validData->badal_raha_date, 'ar');
+                    if ($validData->raha_day->in(['الجمعة', 'السبت'])) {
                         $validData->day_name1 = $nameOfDay;
-                        $validData->day_name2 = $validData->badal_raha_day;
+                        $validData->day_name2 = $validData->raha_day;
                         $validData->misin_type = '';
                         $validData->start_time = '';
                         $validData->end_time = '';
@@ -313,7 +242,7 @@ class MisinController extends Controller
                         </script>';
                     }
                 } else {
-                    if ($nameOfDay != "الجمعه" || $nameOfDay != "السبت") {
+                    if ($nameOfDay->not(['الجمعة', 'السبت'])) {
                         $validData->misin_date = $validData->mission_date_start;
                         $validData->misin_day = $nameOfDay;
                         $validData->does = $validData->misin_cairo_type;
@@ -321,6 +250,7 @@ class MisinController extends Controller
                         echo 'done';
                     }
                 }
+                // misin_it::delRepeatMisin($validData->it_id);
             } else {
                 return $validData->all('json');
             }
@@ -334,34 +264,13 @@ class MisinController extends Controller
         $post = Validate::post([
             "it_name" => [""],
             "office_name" => [""],
-            "misin_date" => [""]
+            "misin_date" => [""],
+            "mission_date_end" => [""],
         ]);
-        $dayName = date('D', strtotime($post->misin_date));
-        switch ($dayName) {
-            case "Fri":
-                $post->day_name = "الجمعه";
-                break;
-            case "Sat":
-                $post->day_name = "السبت";
-                break;
-            case "Sun":
-                $post->day_name = "الأحد";
-                break;
-            case "Mon":
-                $post->day_name = "الأثنين";
-                break;
-            case "Tue":
-                $post->day_name = "الثلاثاء";
-                break;
-            case "Wed":
-                $post->day_name = "الأربعاء";
-                break;
-            case "Thu":
-                $post->day_name = "الخميس";
-                break;
-        }
         $post->reason_vacation = "لظروف خاصه";
-        if ($post->day_name == "الجمعه" || $post->day_name == "السبت") {
+        $post->fromDay = Day::getDayName($post->misin_date)->not(['الجمعة', 'السبت']);
+        $post->toDay = Day::getDayName($post->mission_date_end)->not(['الجمعة', 'السبت']);
+        if ((!$post->fromDay || !$post->toDay) || ($post->misin_date > $post->mission_date_end)) {
             echo '<script type="text/javascript">
                 window.close();
             </script>';
@@ -375,47 +284,40 @@ class MisinController extends Controller
             "it_name" => [""],
             "office_name" => [""],
             "misin_date" => [""],
-            "reason_vacation" => [""]
+            "mission_date_end" => [""]
         ]);
-        $dayName = date('D', strtotime($post->misin_dat));
-        switch ($dayName) {
-            case "Fri":
-                $post->misin_day = "الجمعه";
-                break;
-            case "Sat":
-                $post->misin_day = "السبت";
-                break;
-            case "Sun":
-                $post->misin_day = "الأحد";
-                break;
-            case "Mon":
-                $post->misin_day = "الأثنين";
-                break;
-            case "Tue":
-                $post->misin_day = "الثلاثاء";
-                break;
-            case "Wed":
-                $post->misin_day = "الأربعاء";
-                break;
-            case "Thu":
-                $post->misin_day = "الخميس";
-                break;
-        }
-        if ($post->misin_day == "الجمعه" || $post->misin_day == "السبت") {
+        $post->reason_vacation = "لظروف خاصه";
+        $post->fromDay = Day::getDayName($post->misin_date)->not(['الجمعة', 'السبت']);
+        $post->toDay = Day::getDayName($post->mission_date_end)->not(['الجمعة', 'السبت']);
+
+        if ((!$post->fromDay || !$post->toDay) || ($post->misin_date > $post->mission_date_end)) {
             echo '<script type="text/javascript">
                 window.close();
             </script>';
         } else {
-            $post->it_id = $_SESSION['id'];
-            $post->day_name = $post->misin_day;
-            $post->misin_type = '';
-            $post->start_time = '';
-            $post->end_time = '';
-            $post->reason_vacation = '';
-            $post->does = '';
-            misin_it_online::create($post->all());
-            return View::page('vaction_form_sub', $post->all());
+            $start_date = strtotime($post->misin_date);
+            $end_date = strtotime($post->mission_date_end);
+            for ($start_date; $start_date <= $end_date; $start_date += 86400) {
+                $this_Date = date('Y-m-d', $start_date);
+                $name_this_Date = Day::getDayName($this_Date, 'ar')->not(['الجمعة', 'السبت']);
+                $misin_type = '';
+                $formData = [
+                    'it_id' => $_SESSION['id'],
+                    'it_name' => $post->it_name,
+                    'office_name' => $post->office_name,
+                    'misin_date' => $this_Date,
+                    'misin_day' => $name_this_Date,
+                    'misin_cairo_type' => '',
+                    'misin_type' => $misin_type,
+                    'does' => '',
+                    'start_time' => '',
+                    'end_time' => ''
+                ];
+                misin_it_online::create($formData);
+                // misin_it::delRepeatMisin($validData->it_id);
+            }
         }
+        return View::page('vaction_form_sub', $post->all());
     }
     public function badlRahaFormSubOnLine()
     {
@@ -424,75 +326,22 @@ class MisinController extends Controller
             "misin_date" => [""],
             "badal_raha_date" => [""]
         ]);
-        $dayName = date('D', strtotime($post->misin_date));
-        switch ($dayName) {
-            case "Fri":
-                $post->misin_day= "الجمعه";
-                break;
-            case "Sat":
-                $post->misin_day= "السبت";
-                break;
-            case "Sun":
-                $post->misin_day= "الأحد";
-                break;
-            case "Mon":
-                $post->misin_day= "الأثنين";
-                break;
-            case "Tue":
-                $post->misin_day= "الثلاثاء";
-                break;
-            case "Wed":
-                $post->misin_day= "الأربعاء";
-                break;
-            case "Thu":
-                $post->misin_day= "الخميس";
-                break;
-        }
-        if ($post->misin_day == "الجمعه" || $post->misin_day == "السبت") {
-            echo '<script type="text/javascript">
-                window.close();
-            </script>';
+        $post->misin_day = Day::getDayName($post->misin_date)->not(['الجمعة', 'السبت']);
+        $post->raha_day = Day::getDayName($post->badal_raha_date)->in(['الجمعة', 'السبت']);
+        if ($post->misin_day &&  $post->raha_day) {
+            $post->it_id = $_SESSION['id'];
+            $post->day_name1 = $post->misin_day;
+            $post->day_name2 = $post->raha_day;
+            $post->misin_type = '';
+            $post->start_time = '';
+            $post->end_time = '';
+            $post->does = '';
+            misin_it_online::create2($post->all());
+            return View::page('badal_raha_form_sub', $post->all());
         } else {
-            $dayName2 = date('D', strtotime($post->badal_raha_date));
-            switch ($dayName2) {
-                case "Fri":
-                    $post->badal_raha_day = "الجمعه";
-                    break;
-                case "Sat":
-                    $post->badal_raha_day = "السبت";
-                    break;
-                case "Sun":
-                    $post->badal_raha_day = "الأحد";
-                    break;
-                case "Mon":
-                    $post->badal_raha_day = "الأثنين";
-                    break;
-                case "Tue":
-                    $post->badal_raha_day = "الثلاثاء";
-                    break;
-                case "Wed":
-                    $post->badal_raha_day = "الأربعاء";
-                    break;
-                case "Thu":
-                    $post->badal_raha_day = "الخميس";
-                    break;
-            }
-            if ($post->badal_raha_day == "الجمعه" || $post->badal_raha_day == "السبت") {
-
-                $post->it_id = $_SESSION['id'];
-                $post->day_name1 = $post->misin_day;
-                $post->day_name2 = $post->badal_raha_day;
-                $post->misin_type = '';
-                $post->start_time = '';
-                $post->end_time = '';
-                $post->does = '';
-                misin_it_online::create2($post->all());
-                return View::page('badal_raha_form_sub', $post->all());
-            } else {
-                echo '<script type="text/javascript">
+            echo '<script type="text/javascript">
                     window.close();
                 </script>';
-            }
         }
     }
     public function ajaxDelMission()

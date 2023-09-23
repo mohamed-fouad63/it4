@@ -28,7 +28,7 @@
                         <span class="input-group-text col-sm-2" id="badl_raha_label">عن يوم</span>
                         <input type="date" class="form-control" name ="badal_raha_date" id="badal_raha_date" value="<?php echo date('Y-m-d') ?>">
                         <span class="input-group-text col-sm-2" id="mission_date_end_label">حتى تاريخ</span>
-                        <input type="date" class="form-control" id="mission_date_end" value="<?php echo date('Y-m-d') ?>">
+                        <input type="date" class="form-control" name="mission_date_end" id="mission_date_end" value="<?php echo date('Y-m-d') ?>">
                         <span class="input-group-text col-sm-2" id="mission_type_label">نوع الماموريه</span>
                         <select class="form-select" id="mission_type" aria-label="Default select example">
                             <option></option>
@@ -38,9 +38,9 @@
                     </div>
                     <div class="input-group mb-3" id="mission_time">
                         <span class="input-group-text col-sm-2" id="basic-addon1">من الساعه</span>
-                        <input type="time" class="form-control me-3" id="mission_time_start">
+                        <input type="time" class="form-control me-3" id="mission_time_start" value="07:30:00">
                         <span class="input-group-text col-sm-2" id="basic-addon1">الى الساعه</span>
-                        <input type="time" class="form-control" id="mission_time_end">
+                        <input type="time" class="form-control" id="mission_time_end" value="02:30:00">
                     </div>
                     <div class="input-group mb-3" id="misin_cairo">
                     <span class="input-group-text col-sm-2" id="">نوع الماموريه</span>

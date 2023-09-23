@@ -81,7 +81,7 @@
     </div>
     <div>
       <h1>
-        السيد الاستاذ / مدير عام منطقه بريد
+        السيد الاستاذ / مدير عام منطقه بريد<?= " " . $_SESSION['area_name'] ?>
       </h1>
     </div>
     <div>
@@ -93,15 +93,21 @@
       <p>
         الرجاء من سيادتكم الموافقه على اعطائى
         <?= $data['office_name'] ?>
-        يوم
-        <?= $data['day_name'] ?>
-        الموافق
-        <span class="date_misin">
-          <?= $data['misin_date'] ?>
-        </span>
+        <?php
+        if ($data['fromDay'] == $data['toDay']) { ?>
+          يوم
+          <?= $data['fromDay'] ?>
+          الموافق
+          <span class="date_misin">
+            <?= $data['misin_date'] ?>
+          </span>
+        <?php } else { ?>
+          من يوم <?= $data['fromDay'] ?> الموافق <?= $data['misin_date'] ?> حتى يوم <?= $data['toDay'] ?> الموافق <?= $data['mission_date_end'] ?>
+        <?php } ?>
+
         و ذلك
 
-        <?php echo "لـ" . $data['reason_vacation']; ?>
+        <?= $data['reason_vacation']; ?>
       </p>
     </div>
     <div>

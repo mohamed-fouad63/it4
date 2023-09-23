@@ -268,7 +268,7 @@ switch ($pc_name_ticket) {
         <hr>
         <div class="flex margin_top">
             <div>
-                <div> ادارة / منطقة بريد </div>
+                <div> ادارة / منطقة بريد<?= " ".$_SESSION['area_name']?></div>
                 <div>يعتمد </div>
             </div>
             <div><img class="post_logo" src="./views/assets/images/khtm.png" alt=""></div>

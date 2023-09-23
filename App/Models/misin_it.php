@@ -65,7 +65,7 @@ class misin_it extends Model
             ",
             "create"=>"INSERT INTO `misin_it`(`misin_day`,`misin_date`,`id`,`it_name`,`office_name`,`misin_type`,`start_time`,`end_time`,`does`) VALUES (:misin_day,:misin_date,:it_id,:it_name,:office_name,:misin_type,:start_time,:end_time,:does)",
             "create2" => "INSERT INTO `misin_it` (`misin_day`,`misin_date`,`id`,`it_name`, `office_name`, `misin_type`, `start_time`, `end_time`,`does`) VALUES (:misin_day1,:misin_date1,:id,:first_name,:office_name1,:misin_type,:start_time,:end_time,:does),(:misin_day2,:misin_date2,:id,:first_name,:office_name2,:misin_type,:start_time,:end_time,:does)",
-
+            "delRepeatMisin" => "DELETE n1 FROM misin_it n1, misin_it n2 WHERE n1.counter < n2.counter AND n1.misin_date = n2.misin_date AND n1.office_name = n2.office_name AND n1.id = :id",
             "ajaxDelMission"=>"DELETE FROM misin_it WHERE counter = :counter",
         ];
         return $queries[$queryName];
@@ -215,7 +215,9 @@ class misin_it extends Model
         } catch (\Exception $e) {
             return false;
         }
-    }    public static function ajaxMissions($formData)
+    }
+    
+    public static function ajaxMissions($formData)
     {
         $getid = $formData['getid2'];
         if (!empty($getid)) {
@@ -290,6 +292,11 @@ class misin_it extends Model
         }
     }
 
+    public static function delRepeatMisin($id)
+    {
+        $params = [':id' => $id];
+        self::executePreparedQuery('delRepeatMisin', $params);
+    }
     public static function ajaxDelMission($formData)
     {
         try {

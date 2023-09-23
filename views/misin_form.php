@@ -130,9 +130,9 @@
                                 </div>
                                 <label class="control-label col-sm-2" id="toggle_badal_raha_label">عن يوم </label>
                                 <div class="col-sm-4" id="toggle_reson_of_vacance">
-                                    <input type="text" class="form-control list" name="reason_vacation" value="ظروف طارئه">
+                                    <input type="date" class="form-control list" name="mission_date_end">
                                 </div>
-                                <label class="control-label col-sm-2" id="toggle_reson_of_vacance_abel">و ذلك لـ
+                                <label class="control-label col-sm-2" id="toggle_reson_of_vacance_abel">حتى تاريخ
                                 </label>
                                 <div class="col-sm-4">
                                     <select class="form-control list" name="misin_type" id="misin_type">
