@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Core\Http\Model;
+
 class misin_it extends Model
 {
 

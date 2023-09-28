@@ -21,67 +21,73 @@ class Route
 
     public static function get($uri, $action, $middlewares = [])
     {
-        self::$routes['GET'][$uri] = [
-            'action' => $action,
-            'middlewares' => $middlewares
-        ];
+        $route = new Route(new Request , new Response );
+        $route->addRoute('GET', $uri, $action, $middlewares);
+        return $route;
     }
 
     public static function post($uri, $action, $middlewares = [])
     {
-        self::$routes['POST'][$uri] = [
-            'action' => $action,
-            'middlewares' => $middlewares
-        ];
+        $route = new Route(new Request , new Response);
+        $route->addRoute('POST', $uri, $action, $middlewares);
+        return $route;
     }
-
+    public static function controller(string $controllerClass)
+    {
+        return new RouteGroup($controllerClass);
+    }
     public static function ajax($uri, $action, $middlewares = [])
     {
-        self::$routes['ajax'][$uri] = [
+        $route = new Route(new Request , new Response);
+        $route->addRoute('ajax', $uri, $action, $middlewares);
+        return $route;
+    }
+
+    public function group($callback)
+    {
+        $callback();
+    }
+
+    public function addRoute($method, $uri, $action, $middlewares)
+    {
+        self::$routes[$method][$uri] = [
             'action' => $action,
             'middlewares' => $middlewares
         ];
     }
 
-    public static function redirect($newUrl) {
-        header("Location: " .$newUrl);
+    public static function redirect($newUrl)
+    {
+        header("Location: " . $newUrl);
         exit();
     }
 
-    // public function handleMiddlewares($middlewares)
-    // {
-        // foreach ($middlewares as $middleware) {
-            // Implement your middleware logic here
-            // You can perform checks or actions before executing the route action
-            // For example, you can check for authentication or authorization
-        // }
-    // }
-    public function handleMiddlewares($middlewares,$holde_routes)
-{
-    if(!$middlewares){
-// return;
-    } else {
-        foreach ($middlewares as $middleware) {
-            $middlewareClass = 'App\Middleware\\' . $middleware;
-            if (class_exists($middlewareClass)) {
-                $middlewareInstance = new $middlewareClass();
-                $middlewareInstance->handle($holde_routes);
-            } else {
-                // Handle the case when middleware class doesn't exist
-                echo  View::page('console', []);
-                die;
+    public function handleMiddlewares($middlewares, $holde_routes)
+    {
+        if (!$middlewares) {
+            // return;
+        } else {
+            foreach ($middlewares as $middleware) {
+                $middlewareClass = 'App\Middleware\\' . $middleware;
+                if (class_exists($middlewareClass)) {
+                    $middlewareInstance = new $middlewareClass();
+                    $middlewareInstance->handle($holde_routes);
+                } else {
+                    // Handle the case when middleware class doesn't exist
+                    echo View::page('console', []);
+                    die;
+                }
             }
         }
-    }
 
-}
+    }
 
     public function holde_routes()
     {
         $method = $this->request->getMethod(); // "get" or "post"
         $url = $this->request->getUri(); // "/"
         $url = explode('?', $url)[0];
-        
+
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
             return [
                 'uri' => $url,
@@ -106,7 +112,7 @@ class Route
         $middlewares = $holde_routes['middlewares'];
         $route_type = $holde_routes['type'];
 
-        $this->handleMiddlewares($middlewares,$holde_routes);
+        $this->handleMiddlewares($middlewares, $holde_routes);
 
         switch (gettype($action)) {
             case 'string': // $action = 'contactController@contact' or $action = 'home'
@@ -116,7 +122,7 @@ class Route
                     $MethodName = $action[1];
                     return $this->inst_method_class($ClassName, $MethodName, $route_type);
                 } else { //$action = 'index'
-                    echo  View::page($action, []);
+                    echo View::page($action, []);
                 }
                 break;
             case 'object': // $action = function () { echo 'hello'; }
@@ -132,7 +138,7 @@ class Route
                 //     "</br>cation value is : s" . $action . "e";
                 // print_r($_SERVER);
                 // return  View::page('console', []);
-                header('location:/it4/console?error='.$action.'');
+                header('location:/it4/console?error=' . $action . '');
                 // break;
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace Core\Http;
 
 use Core\Database2\DB;
 use Core\Application;

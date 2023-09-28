@@ -143,11 +143,11 @@ class DviceController extends Controller
         }
     }
 
-    // public function getDviceById()
-    // {
-    //     $dvice_id = dvice::getDviceById($_GET['dvice_id']);
-    //     return View::page('dvice_id', [$dvice_id]);
-    // }
+    public function getDviceById()
+    {
+        $dvice_id = dvice::getDviceById($_GET['dvice_id']);
+        return View::page('dvice_id', [$dvice_id]);
+    }
     public function authDviceMoveTo()
     {
         $data = Validate::get([
@@ -416,6 +416,19 @@ class DviceController extends Controller
                 "pos_deliver_date" => ["date:Y-m-d"],
             ]);
             return in_it::ajaxposDeliver($validData->all());
+        } else {
+            return 'انتهت الجلسه';
+        }
+    }
+    public function PosDeliverReport()
+    {
+        if ($this->issession) {
+            $validData = Validate::post([
+                "names" => [""],
+                "pos_deliver" => [""],
+                "pos_deliver_date" => ["date:Y-m-d"],
+            ]);
+            return View::page('Pos_deliver_report', []);
         } else {
             return 'انتهت الجلسه';
         }

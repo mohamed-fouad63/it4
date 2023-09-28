@@ -79,12 +79,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex flex-column">
+                <!-- <div class="d-flex flex-column">
                     <form action="#" id="form_att">
                         <input class="file-input" type="file" name="file" hidden>
                         <i class="bi bi-upload"> مرفقات </i>
                     </form>
-                </div>
+                </div> -->
                 <div class="">
                     <div class="progress-area">
 

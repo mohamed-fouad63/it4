@@ -13,7 +13,7 @@ class RegController extends Controller
 {
     public function regTo()
     {
-            return View::page('reg_to', []);
+        return View::page('reg_to', []);
     }
     public function ajaxRegTo()
     {
@@ -26,13 +26,12 @@ class RegController extends Controller
     public function ajaxregToAddSub()
     {
         if ($this->issession) {
-            $validData = Validate::post([
-                "reg_to_sub" => [""]
-            ]);
-            if ($validData->isValid()) {
-                return send::ajaxregToAddSub($validData->all());
+            $db = $_SESSION['db'];
+            if (!empty($_POST['reg_to_sub'])) {
+                $reg_to_sub = json_encode($_POST['reg_to_sub'], JSON_UNESCAPED_UNICODE);
+                file_put_contents('./views/jsons/' . $db . '/reg_to_sub.json', $reg_to_sub);
             } else {
-                return $validData->all('json');
+                file_put_contents('./views/jsons/' . $db . '/reg_to_sub.json', '[]');
             }
         } else {
             return 'انتهت الجلسه';
@@ -112,7 +111,7 @@ class RegController extends Controller
 
     public function regToSearch()
     {
-            return View::page('reg_to_search', []);
+        return View::page('reg_to_search', []);
     }
 
     public function ajaxregToSearch()
@@ -135,7 +134,7 @@ class RegController extends Controller
     // start reg in
     public function regIn()
     {
-            return View::page('reg_in', []);
+        return View::page('reg_in', []);
     }
     public function ajaxRegIn()
     {
@@ -148,13 +147,12 @@ class RegController extends Controller
     public function ajaxregInAddSub()
     {
         if ($this->issession) {
-            $validData = Validate::post([
-                "reg_in_sub" => [""]
-            ]);
-            if ($validData->isValid()) {
-                return inbox::ajaxregInAddSub($validData->all());
+            $db = $_SESSION['db'];
+            if (!empty($_POST['reg_in_sub'])) {
+                $reg_in_sub = json_encode($_POST['reg_in_sub'], JSON_UNESCAPED_UNICODE);
+                file_put_contents('./views/jsons/' . $db . '/reg_in_sub.json', $reg_in_sub);
             } else {
-                return $validData->all('json');
+                file_put_contents('./views/jsons/' . $db . '/reg_in_sub.json', '[]');
             }
         } else {
             return 'انتهت الجلسه';
@@ -234,7 +232,7 @@ class RegController extends Controller
 
     public function regInSearch()
     {
-            return View::page('reg_in_search', []);
+        return View::page('reg_in_search', []);
     }
 
     public function ajaxregInSearch()
@@ -256,7 +254,7 @@ class RegController extends Controller
     // start parcel to
     public function parcelTo()
     {
-            return View::page('reg_parcel_to', []);
+        return View::page('reg_parcel_to', []);
     }
     public function ajaxParcelTo()
     {
@@ -269,13 +267,12 @@ class RegController extends Controller
     public function ajaxParcelToAddSub()
     {
         if ($this->issession) {
-            $validData = Validate::post([
-                "reg_parcel_to_sub" => [""]
-            ]);
-            if ($validData->isValid()) {
-                return parcel_send::ajaxParcelToAddSub($validData->all());
+            $db = $_SESSION['db'];
+            if (!empty($_POST['reg_parcel_to_sub'])) {
+                $reg_parcel_to_sub = json_encode($_POST['reg_parcel_to_sub'], JSON_UNESCAPED_UNICODE);
+                file_put_contents('./views/jsons/' . $db . '/reg_parcel_to_sub.json', $reg_parcel_to_sub);
             } else {
-                return $validData->all('json');
+                file_put_contents('./views/jsons/' . $db . '/reg_parcel_to_sub.json', '[]');
             }
         } else {
             return 'انتهت الجلسه';
@@ -352,7 +349,7 @@ class RegController extends Controller
 
     public function parcelToSearch()
     {
-            return View::page('reg_parcel_to_search', []);
+        return View::page('reg_parcel_to_search', []);
     }
 
     public function ajaxParcelToSearch()

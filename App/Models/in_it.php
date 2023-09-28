@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Core\Http\Model;
+
 class in_it extends Model
 {
 
@@ -52,7 +54,7 @@ class in_it extends Model
             'ajaxMoveToInIt4' => "UPDATE dvice SET office_name = :office_name_to, note = '', note_move_to = '' WHERE num = ( SELECT num from in_it WHERE count_in_it = :dvice_num )",
             'ajaxToTts1' => "UPDATE in_it SET date_auth_repair = :date_auth_repair, auth_repair = :auth_repair, status = 'in_tts'  where count_in_it = :dvice_num",
             'ajaxToTts2' => "UPDATE dvice SET note = 'بقطاع الدعم الفنى بالقاهره' where num = (SELECT num FROM in_it WHERE count_in_it = :dvice_num)",
-            'authRepair' => "SELECT dvice_name,sn,damage FROM in_it WHERE count_in_it = :count_in_it",
+            'authRepair' => "SELECT id,dvice_name,sn,damage FROM in_it WHERE count_in_it = :count_in_it",
             'ajaxResentToOfice1' => "UPDATE in_it SET parcel_out_it = :resen_to_office_by, data_out_it = :resen_to_office_date, status = 'in_office' WHERE count_in_it = :dvice_num",
             'ajaxResentToOfice2' => "UPDATE dvice SET note ='' WHERE num = (SELECT num FROM in_it  WHERE count_in_it = :dvice_num)",
             'ajaxReplacePicesDvice1' => "DELETE FROM replace_pices_dvice WHERE `sn` = :dvice_sn AND `date` = :date_replace_Pices",
@@ -95,6 +97,23 @@ class in_it extends Model
     }
 
     public static function ajaxposDeliver($form_data)
+    {
+        try {
+            $conn = self::dbConnectionBySession();
+            $conn->beginTransaction();
+            foreach ($form_data['selectedData'] as $key => $value) {
+                $params1 = [':pos_deliver' => $form_data['pos_deliver'], ':pos_deliver_date' => $form_data['pos_deliver_date'], ':count_in_it' => $value['count_in_it']];
+                self::executePreparedQuery('ajaxposDeliver1', $params1);
+                $params2 = [':count_in_it' => $value['count_in_it']];
+                self::executePreparedQuery('ajaxposDeliver2', $params2);
+            }
+            $conn->commit();
+            return "done";
+        } catch (\Exception $e) {
+            return "not done";
+        }
+    }
+    public static function PosDeliverReport($form_data)
     {
         try {
             $conn = self::dbConnectionBySession();

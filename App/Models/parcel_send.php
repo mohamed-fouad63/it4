@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Core\Http\Model;
+
 class parcel_send extends Model
 {
     protected static $table = 'parcel_send';

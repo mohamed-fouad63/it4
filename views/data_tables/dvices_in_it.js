@@ -262,7 +262,7 @@ var dvice_office_monitor = $("#dvice_office_monitor").DataTable({
       $(".dvice_num").val(data_monitor.num);
       $(".sub_print_ticket").attr(
         "href",
-        "../views/auth_repair.php?dvice_num=" + data_monitor.count_in_it + ""
+        "/it4/authRepair?dvice_num=" + data_monitor.count_in_it + ""
       );
       return (dvice_num = data_monitor.count_in_it);
     });
@@ -388,7 +388,7 @@ var dvice_office_printer = $("#dvice_office_printer").DataTable({
       $(".dvice_num").val(data_printer.num);
       $(".sub_print_ticket").attr(
         "href",
-        "../views/auth_repair.php?dvice_num=" + data_printer.count_in_it + ""
+        "/it4/authRepair?dvice_num=" + data_printer.count_in_it + ""
       );
       return (dvice_num = data_printer.count_in_it);
     });
@@ -777,7 +777,7 @@ var dvice_office_postal = $("#dvice_office_postal").DataTable({
       $(".dvice_num").val(data_postal.num);
       $(".sub_print_ticket").attr(
         "href",
-        "../views/auth_repair.php?dvice_num=" + data_postal.count_in_it + ""
+        "/it4/authRepair?dvice_num=" + data_postal.count_in_it + ""
       );
       return (dvice_num = data_postal.count_in_it);
     });
@@ -903,7 +903,7 @@ var dvice_office_other = $("#dvice_office_other").DataTable({
       $(".dvice_num").val(data_other.num);
       $(".sub_print_ticket").attr(
         "href",
-        "../views/auth_repair.php?dvice_num=" + data_other.count_in_it + ""
+        "/it4/authRepair?dvice_num=" + data_other.count_in_it + ""
       );
       return (dvice_num = data_other.count_in_it);
     });

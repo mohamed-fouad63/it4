@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Core\Http\Model;
+
 class misin_it_online extends Model
 {
     protected static $table = 'misin_it_online';

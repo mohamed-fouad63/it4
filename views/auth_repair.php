@@ -3,18 +3,20 @@
 
 if(isset($_GET['dvice_num'])){
 
-
-
 $result = json_decode($data[0], true);
 
 
     foreach($result as $row){
-
             $pc_name_ticket1 = $row['dvice_name'];
             $pc_sn_ticket = $row['sn'];
             $pc_damage_ticket = $row['damage'];
+            $id = $row['id'];
         }
-
+        if($id == 'pos' || $id == 'network'){
+            echo '<script type="text/javascript">
+            window.close();
+        </script>';
+        }
     $pc_name_ticket1 = strtoupper($pc_name_ticket1);
     $pc_name_ticket = trim($pc_name_ticket1);
 
@@ -279,7 +281,7 @@ switch ($pc_name_ticket) {
                         <th>التاريخ</th>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td><?= $id?></td>
                         <td></td>
                     </tr>
                 </table>

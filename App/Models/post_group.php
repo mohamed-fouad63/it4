@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Core\Http\Model;
+
 class post_group extends Model
 {
     protected static $table = 'post_group';

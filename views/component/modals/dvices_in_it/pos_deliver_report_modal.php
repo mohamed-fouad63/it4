@@ -1,4 +1,4 @@
-<form method="post" action="print.php" target="_blank" class="modal fade" id="Pos_Deliver_Report_Modal" tabindex="-1" aria-labelledby="pos_deliver_report_modal"
+<form method="post" action="/it4/PosDeliverReport" target="_blank" class="modal fade" id="Pos_Deliver_Report_Modal" tabindex="-1" aria-labelledby="pos_deliver_report_modal"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

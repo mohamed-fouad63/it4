@@ -1,6 +1,10 @@
 <?php
 
 use Core\Http\Route;
+Route::controller(OrderController::class)->group(function ($route) {
+    $route->get('/it4/orders/', 'show');
+    $route->post('/it4/orders', 'store');
+});
 Route::get('/it4/test1','TestController@test1');
 Route::get('/it4/', 'LoginController@login',['AuthLogin']);
 Route::get('/it4/console', 'console');

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Core\Database2\DB;
+use Core\Http\Model;
 
 class tbl_user extends Model
 {

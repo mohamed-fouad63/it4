@@ -5,7 +5,7 @@ namespace Core\Support;
 
 
 
-class Config implements \ArrayAccess
+class Config
 {
     protected array $items = [];
 

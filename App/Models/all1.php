@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Model;
+use Core\Http\Model;
+
+
 
 class all1 extends Model
 {
@@ -163,7 +165,8 @@ class all1 extends Model
 
     public static function ajaxOfficesName($officeSearch)
     {
-        $params = [':officeSearch' => '%' . $officeSearch . '%'];
+        $officeSearch1 = '%' . $officeSearch . '%';
+        $params = [':officeSearch' => '%' . $officeSearch1 . '%'];
         $stmt = self::executePreparedQuery('ajaxOfficesName', $params);
         return json_encode($stmt->fetchAll(\PDO::FETCH_ASSOC), JSON_UNESCAPED_UNICODE);
     }

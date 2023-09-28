@@ -18,7 +18,10 @@ class Route
         // $this->session = new Session2;
     }
     public static array $routes = [];
-
+    public static function controller(string $controllerClass)
+    {
+        return new RouteGroup($controllerClass);
+    }
     public static function get($uri, $action, $middlewares = [])
     {
         self::$routes['GET'][$uri] = [

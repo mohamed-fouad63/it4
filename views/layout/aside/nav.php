@@ -82,48 +82,23 @@
                     <span class="pcoded-mtext">المراسلات</span>
                 </a>
                 <ul class="pcoded-submenu">
-
                     <li><a href="/it4/regTo">تسجيل الصادر</a></li>
-
                     <li><a href="/it4/regToSearch">استعلام الصادر</a></li>
-
                     <li><a href="/it4/regIn">تسجيل الوارد</a></li>
-
                     <li><a href="/it4/regInSearch">استعلام الوارد</a></li>
-
                     <li><a href="/it4/parcelTo">تسجيل الطرود الصادره</a></li>
-
                     <li><a href="/it4/parcelToSearch">استعلام الطرود الصادره</a></li>
-
                 </ul>
             </li>
-
-
             <li class="nav-item pcoded-hasmenu">
                 <a href="#!" class="nav-link ">
                     <span class="pcoded-micon"><i class="bi bi-people-fill"></i></span>
                     <span class="pcoded-mtext">المستخدمين</span>
                 </a>
                 <ul class="pcoded-submenu">
-
                     <li><a href="/it4/usersAuth">صلاحيات المستخدمين</a></li>
-
-                    <li><a href="/it2/views/services_users.php">مستخدمين الخدمات</a></li>
-
                 </ul>
             </li>
-
-            <li class="nav-item pcoded-hasmenu">
-                <a href="#!" class="nav-link ">
-                    <span class="pcoded-micon"><i class="bi bi-people-fill"></i></span>
-                    <span class="pcoded-mtext">اداره ماكينات POS</span>
-                </a>
-                <ul class="pcoded-submenu">
-                    <li><a href="/it2/views/v200t.php">ماكينات V200T</a></li>
-                    <li><a href="/it2/views/bitel.php">ماكينات BITEL</a></li>
-                </ul>
-            </li>
-
         </ul>
     </div>
 </div>

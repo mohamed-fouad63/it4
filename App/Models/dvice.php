@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Core\Http\Model;
+
 class dvice extends Model
 {
     protected static $table = 'dvice';
@@ -51,7 +53,7 @@ class dvice extends Model
             SELECT
             num,id,dvice_name,sn,office_name,:office_name_to,:move_to_date,:move_by,:move_like,:move_note,:first_name FROM dvice  WHERE num = :dvice_num
             ",
-            "ajaxMoveDvice2" => "UPDATE dvice SET note_move_to ='منقول مؤقتا الى ':office_name_to, note = '' WHERE num = :dvice_num",
+            "ajaxMoveDvice2" => "UPDATE dvice SET note_move_to = CONCAT('منقول مؤقتا الى ', :office_name_to), note = '' WHERE num = :dvice_num",
             "ajaxMoveDvice3" => "UPDATE dvice SET office_name = :office_name_to, note = '', note_move_to ='' WHERE num = :dvice_num",
             "ajaxDviceToIt1" => "
             INSERT INTO in_it

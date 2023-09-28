@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Core\Http\Model;
+
 class send extends Model
 {
     protected static $table = 'send';
