@@ -11,7 +11,7 @@ class Session {
           $this->deleteOldSessions(5);
           session_set_cookie_params(
             0,
-            '/it4/',
+            '//',
             $_SERVER['HTTP_HOST'],
             true,
             true

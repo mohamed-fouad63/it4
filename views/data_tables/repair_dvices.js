@@ -28,14 +28,53 @@ var table = $("#repair_dvices").DataTable({
           case "in_tts":
             return "بقطاع الدعم الفنى";
             break;
-          default:
+          case "in_it":
             return "بقسم الدعم الفنى";
             break;
+          case "deleted":
+            return "تم استنزالها";
+            break;
+          default:
+            return "";
         }
       },
     },
-    { data: "parcel_out_it" },
-    { data: "data_out_it" },
+    {
+      data: "parcel_out_it",
+      render: function (data, type, row) {
+        switch (row.status) {
+          case "in_office":
+            return row.parcel_out_it;
+            break;
+          case "in_tts":
+            return row.auth_repair;
+            break;
+          case "deleted":
+            return row.deleted_parcel;
+            break;
+          default:
+            return "";
+        }
+      },
+    },
+    {
+      data: "data_out_it",
+      render: function (data, type, row) {
+        switch (row.status) {
+          case "in_office":
+            return row.data_out_it;
+            break;
+          case "in_tts":
+            return row.date_auth_repair;
+            break;
+          case "deleted":
+            return row.data_deleted;
+            break;
+          default:
+            return "";
+        }
+      },
+    },
   ],
   order: [[0, "desc"]],
   paging: false,
@@ -62,19 +101,28 @@ var table = $("#repair_dvices").DataTable({
     emptyTable: "لا يوجد اجهزه مدرجه",
   },
   initComplete: function () {
-                $("thead tr#filterboxrow th").each(function () {
-            $(this).html(`
-            <input type="search" id="input${$(this).index()}" placeholder="بحث بـ ${$(this).text()}"/>
+    $("thead tr#filterboxrow th").each(function () {
+      $(this).html(`
+            <input type="search" id="input${$(
+              this
+            ).index()}" placeholder="بحث بـ ${$(this).text()}"/>
             `);
-            $(this).on("keyup change", function () {
-                var val = $("#input" + $(this).index()).val();
-                table.column($(this).index()).search(val).draw();
-            });
-        });
+      $(this).on("keyup change", function () {
+        var val = $("#input" + $(this).index()).val();
+        table.column($(this).index()).search(val).draw();
+      });
+    });
 
-    $(".filte_div").append($(".dataTables_filter input")).children().addClass("form-control").attr("placeholder", "بحث عام");
+    $(".filte_div")
+      .append($(".dataTables_filter input"))
+      .children()
+      .addClass("form-control")
+      .attr("placeholder", "بحث عام");
     $(".bt_div").append($(".dt-buttons button")).children().addClass("btn");
-    $(".info_div").append($(".dataTables_info")).children().addClass("form-control");
+    $(".info_div")
+      .append($(".dataTables_info"))
+      .children()
+      .addClass("form-control");
     $("thead tr#filterboxrow").css("display", "table-row");
     $("thead tr#filterboxrow th input").addClass("form-control");
     $("table").removeClass("dataTable");

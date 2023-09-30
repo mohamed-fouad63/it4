@@ -7,13 +7,7 @@ use Core\Application;
 
 abstract class Model
 {
-    protected static $instance;
     private static $conn;
-
-
-    static function get_session()
-    {
-    }
     static function getConnection_login()
     {
         $DB = new DB($_REQUEST['db']);
@@ -52,7 +46,7 @@ abstract class Model
     public static function getTableName()
     {
         // return class_basename(self::$instance);
-        $class = is_object(self::$instance) ? get_class() : self::$instance;
-        return basename(str_replace('\\', '/', $class));
+        // $class = is_object(self::$instance) ? get_class() : self::$instance;
+        // return basename(str_replace('\\', '/', $class));
     }
 }

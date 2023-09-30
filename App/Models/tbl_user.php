@@ -64,7 +64,7 @@ class tbl_user extends Model
     public static function allAuth($id)
     {
         $conn = self::getConnection_login();
-        self::$instance = static::class;
+        //  
         $columns =
             array_merge(
                 self::$columns['info'],
@@ -78,7 +78,7 @@ class tbl_user extends Model
         if (is_array($columns)) {
             $columns = implode(', ', $columns);
         }
-        $query = "SELECT {$columns} FROM " . Model::getTableName();
+        $query = "SELECT {$columns} FROM tbl_user";
         if ($id) {
             $query .= " WHERE id = ? LIMIT 1";
         }
@@ -92,8 +92,8 @@ class tbl_user extends Model
     public static function login($id)
     {
         $conn = self::getConnection_login();
-        self::$instance = static::class;
-        $query = "SELECT `id` , `password` ,`db` FROM " . Model::getTableName();
+        //  
+        $query = "SELECT `id` , `password` ,`db` FROM tbl_user";
         if ($id) {
             $query .= " WHERE id = ? LIMIT 1";
         }
@@ -107,8 +107,8 @@ class tbl_user extends Model
     public static function getPassword($id)
     {
         $conn = self::dbConnectionBySession();
-        self::$instance = static::class;
-        $query = "SELECT `id` , `password` ,`db` FROM " . Model::getTableName();
+        //  
+        $query = "SELECT `id` , `password` ,`db` FROM tbl_user";
         if ($id) {
             $query .= " WHERE id = ? LIMIT 1";
         }
@@ -129,11 +129,11 @@ class tbl_user extends Model
     public static function usersDetails()
     {
         $conn = self::dbConnectionBySession();
-        self::$instance = static::class;
+        //  
         if (is_array(self::$columns['info'])) {
             $columns = implode(', ', self::$columns['info']);
         }
-        $query = "SELECT {$columns} FROM " . Model::getTableName();
+        $query = "SELECT {$columns} FROM tbl_user";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $count = $stmt->rowCount();
@@ -163,7 +163,7 @@ class tbl_user extends Model
     public static function ajaxEditUserAuth()
     {
         $conn = self::dbConnectionBySession();
-        self::$instance = static::class;
+        //  
         $id = $_POST['id'];
         foreach ($_POST as $k => $v) {
             $sql_update = "UPDATE `tbl_user` SET $k = $v where `id`  = $id ";

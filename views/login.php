@@ -1,11 +1,11 @@
 <?php
-if(isset($_SESSION)){
-  print_r($_SESSION);
-} else {
-  echo "no session";
-}
+// if(isset($_SESSION)){
+//   print_r($_SESSION);
+// } else {
+//   echo "no session";
+// }
 
-echo "mo";
+// echo "mo";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -125,7 +125,7 @@ echo "mo";
           <select class="custom-select" name="db" id="db" style="">
             <option>اختر المنطقه</option>
             <?php
-            $fgc = file_get_contents("http://localhost/it2/jsons/area_name.json");
+            $fgc = file_get_contents("http://localhost/".$_ENV['APP_NAME']."/views/jsons/area_name.json");
             $jc = json_decode($fgc, true);
             foreach ($jc as $key => $value) { ?>
               <option value="<?php echo $key ?>"><?php echo $value; ?></option>

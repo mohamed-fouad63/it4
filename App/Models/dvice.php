@@ -126,7 +126,7 @@ class dvice extends Model
             ",
             "ajaxResentMovedToOfice2" => "UPDATE dvice SET note_move_to ='' WHERE num =:divce_num",
             "ajaxAllDvices" => "SELECT num,office_name,dvice_name,sn,ip,note,note_move_to FROM dvice ORDER BY office_name ASC",
-            "ajaxRepairDvices" => "SELECT office_name,dvice_name,sn,date_in_it,parcel_in_it,damage,in_it_note,status,parcel_out_it,data_out_it FROM in_it",
+            "ajaxRepairDvices" => "SELECT office_name,dvice_name,sn,date_in_it,parcel_in_it,damage,in_it_note,status,parcel_out_it,data_out_it,deleted_parcel,data_deleted,auth_repair,date_auth_repair FROM in_it",
             "ajaxMoveingDvices" => "SELECT dvice_name,sn,office_name_from,office_name_to,date,move_by,move_like,move_note FROM move_to",
             "ajaxReplaceDvices" => "SELECT * FROM replace_pices_dvice",
             "ajaxDeletedDvices" => "SELECT office_name,dvice_name,sn,deleted_parcel,data_deleted FROM in_it WHERE status = 'deleted'",
@@ -242,7 +242,6 @@ class dvice extends Model
     }
     public static function getDviceById($dvice_id)
     {
-        self::$instance = static::class;
         switch ($dvice_id) {
             case 'pc':
                 $dvice_type = "%";
@@ -440,7 +439,6 @@ class dvice extends Model
     }
     public static function ajaxResentMovedToOfice($form_data)
     {
-        self::$instance = static::class;
         $Char = mb_substr($form_data['note_move_to'], 16, 60, 'utf-8');
         try {
             $conn = self::dbConnectionBySession();
