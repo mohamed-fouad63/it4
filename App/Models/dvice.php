@@ -7,38 +7,8 @@ use Core\Http\Model;
 class dvice extends Model
 {
     protected static $table = 'dvice';
-    protected static $conn;
-    protected static $preparedQueries = [];
-    protected static function getConnection()
-    {
-        if (!isset(self::$conn)) {
-            self::$conn = self::dbConnectionBySession();
-        }
-        return self::$conn;
-    }
 
-    private static function prepareQuery($query, $params)
-    {
-        $conn = self::getConnection();
-        $stmt = $conn->prepare($query);
-        foreach ($params as $param => $value) {
-            $stmt->bindValue($param, $value);
-        }
-        return $stmt;
-    }
-
-    private static function executePreparedQuery($queryName, $params)
-    {
-        if (!isset(self::$preparedQueries[$queryName])) {
-            $query = self::getQueryByName($queryName);
-            self::$preparedQueries[$queryName] = self::prepareQuery($query, $params);
-        }
-        $stmt = self::$preparedQueries[$queryName];
-        $stmt->execute();
-        return $stmt;
-    }
-
-    private static function getQueryByName($queryName)
+    protected static function getQueryByName($queryName)
     {
         $queries = [
             "grd" => "SELECT * FROM dvice WHERE office_name = :office_name ORDER BY FIELD(id,'pc', 'monitor','printer','pos','postal','network') ASC",

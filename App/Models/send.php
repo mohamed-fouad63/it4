@@ -7,42 +7,15 @@ use Core\Http\Model;
 class send extends Model
 {
     protected static $table = 'send';
-    protected static $conn;
-    protected static $preparedQueries = [];
-    protected static function getConnection()
-    {
-        if (!isset(self::$conn)) {
-            self::$conn = self::dbConnectionBySession();
-        }
-        return self::$conn;
-    }
-    private static function prepareQuery($query, $params)
-    {
-        $conn = self::getConnection();
-        $stmt = $conn->prepare($query);
-        foreach ($params as $param => $value) {
-            $stmt->bindValue($param, $value);
-        }
-        return $stmt;
-    }
-    private static function executePreparedQuery($queryName, $params)
-    {
-        if (!isset(self::$preparedQueries[$queryName])) {
-            $query = self::getQueryByName($queryName);
-            self::$preparedQueries[$queryName] = self::prepareQuery($query, $params);
-        }
-        $stmt = self::$preparedQueries[$queryName];
-        $stmt->execute($params);
-        return $stmt;
-    }
-    private static function getQueryByName($queryName)
+    protected static function getQueryByName($queryName)
     {
         $queries = [
             "ajaxRegTo" => "SELECT * FROM send  WHERE date = :date",
             "create" => "INSERT INTO `send` (`date`,`barcode`,`send_to`,`subject`,`send_by`,`Attach`,`admin`) VALUES (:date_reg_to,:barcode,:name_reg_to,:sub_reg_to,:send_to_by,'',:first_name)",
             "ajaxRegToEdit" => "UPDATE `send` SET `date` = :date_reg_to,`barcode` = :barcode, `send_to` = :name_reg_to, `subject` = :sub_reg_to, `send_by` = :send_to_by,`Attach` = '', `admin` = :first_name WHERE `id` = :edit_reg_to_btn",
             "ajaxRegToDel" => "DELETE FROM `send` WHERE `id` = :id",
-            "ajaxregToSearch" => "SELECT * FROM send  WHERE date LIKE :year"
+            "ajaxregToSearch" => "SELECT * FROM send  WHERE date LIKE :year",
+            'regToReport' => "SELECT * FROM send  WHERE date = :date AND barcode REGEXP '^[A-Za-z]{2}[0-9]{9}[A-Za-z]{2}$'",
         ];
         return $queries[$queryName];
     }
@@ -54,7 +27,18 @@ class send extends Model
         if (count($result) > 0) {
             return json_encode($result, JSON_UNESCAPED_UNICODE);
         } else {
-            return json_encode(array('message' => 'no datas found'));
+            return json_encode(array('empty' => 'no datas found'));
+        }
+    }
+    public static function regToReport()
+    {
+        $params = [':date' => date('Y-m-d')];
+        $stmt = self::executePreparedQuery('regToReport', $params);
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        if (count($result) > 0) {
+            return $result;
+        } else {
+            return array('empty' => 'لا توجد مسجلات صادره اليوم');
         }
     }
     public static function ajaxregToAddSub($formData)

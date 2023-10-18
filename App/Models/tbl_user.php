@@ -18,37 +18,8 @@ class tbl_user extends Model
             'reg' => ['reg_to', 'to_filter', 'reg_to_edit', 'reg_parcel_to', 'parcel_to_filter', 'reg_parcel_to_edit', 'reg_in', 'in_filter'],
         ]
     ];
-
     protected static $table = 'tbl_user';
-    protected static $conn;
-    protected static $preparedQueries = [];
-    protected static function getConnection()
-    {
-        if (!isset(self::$conn)) {
-            self::$conn = self::dbConnectionBySession();
-        }
-        return self::$conn;
-    }
-    private static function prepareQuery($query, $params)
-    {
-        $conn = self::getConnection();
-        $stmt = $conn->prepare($query);
-        foreach ($params as $param => $value) {
-            $stmt->bindValue($param, $value);
-        }
-        return $stmt;
-    }
-    private static function executePreparedQuery($queryName, $params)
-    {
-        if (!isset(self::$preparedQueries[$queryName])) {
-            $query = self::getQueryByName($queryName);
-            self::$preparedQueries[$queryName] = self::prepareQuery($query, $params);
-        }
-        $stmt = self::$preparedQueries[$queryName];
-        $stmt->execute($params);
-        return $stmt;
-    }
-    private static function getQueryByName($queryName)
+    protected static function getQueryByName($queryName)
     {
         $queries = [
             "changePassowrd" => "UPDATE tbl_user SET password = :new_pass WHERE id = :id",

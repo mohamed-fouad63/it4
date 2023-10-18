@@ -2,12 +2,14 @@
 
 namespace Core\Http;
 
+use App\Models\dvice;
 use Core\Database2\DB;
 use Core\Application;
 
 abstract class Model
 {
     private static $conn;
+    protected static $preparedQueries = [];
     static function getConnection_login()
     {
         $DB = new DB($_REQUEST['db']);
@@ -18,6 +20,35 @@ abstract class Model
         // $_SESSION['db'] = 'g_shrkia';
         $DB = new DB(Application::$app->session->get('db'));
         return self::$conn = $DB::$conn;
+    }
+
+    protected static function getConnection()
+    {
+        if (!isset(self::$conn)) {
+            self::$conn = self::dbConnectionBySession();
+        }
+        return self::$conn;
+    }
+
+    private static function prepareQuery($query, $params)
+    {
+        $conn = self::getConnection();
+        $stmt = $conn->prepare($query);
+        foreach ($params as $param => $value) {
+            $stmt->bindValue($param, $value);
+        }
+        return $stmt;
+    }
+
+    protected static function executePreparedQuery($queryName, $params)
+    {
+        if (!isset(self::$preparedQueries[$queryName])) {
+            $query = get_called_class()::getQueryByName($queryName);
+            self::$preparedQueries[$queryName] = self::prepareQuery($query, $params);
+        }
+        $stmt = self::$preparedQueries[$queryName];
+        $stmt->execute();
+        return $stmt;
     }
     public static function create(array $attributes)
     {

@@ -197,7 +197,7 @@
                             <th>الباركود</th>
                             <th>الى</th>
                             <th>الموضوع</th>
-                            <th><a href="../api/reg_to/to_report.php" target="_blank" class=""><i class="btn btn-warning bi bi-printer" title="طباعه صادر اليوم"></i></a></th>
+                            <th><a href="/it4/regToReport" target="_blank" class=""><i class="btn btn-warning bi bi-printer" title="طباعه صادر اليوم"></i></a></th>
                         </tr>
                     </thead>
                 </table>

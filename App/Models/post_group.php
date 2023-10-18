@@ -7,35 +7,7 @@ use Core\Http\Model;
 class post_group extends Model
 {
     protected static $table = 'post_group';
-    protected static $conn;
-    protected static $preparedQueries = [];
-    protected static function getConnection()
-    {
-        if (!isset(self::$conn)) {
-            self::$conn = self::dbConnectionBySession();
-        }
-        return self::$conn;
-    }
-    private static function prepareQuery($query, $params)
-    {
-        $conn = self::getConnection();
-        $stmt = $conn->prepare($query);
-        foreach ($params as $param => $value) {
-            $stmt->bindValue($param, $value);
-        }
-        return $stmt;
-    }
-    private static function executePreparedQuery($queryName, $params)
-    {
-        if (!isset(self::$preparedQueries[$queryName])) {
-            $query = self::getQueryByName($queryName);
-            self::$preparedQueries[$queryName] = self::prepareQuery($query, $params);
-        }
-        $stmt = self::$preparedQueries[$queryName];
-        $stmt->execute($params);
-        return $stmt;
-    }
-    private static function getQueryByName($queryName)
+    protected static function getQueryByName($queryName)
     {
         $queries = [
             "ajaxofficeGroupName" => "SELECT `post_group_name` FROM `post_group` ",

@@ -10,8 +10,6 @@ class View
     public $page;
     public static $session;
 
-
-
     public static function page($page, $params = [])
     {
         $csrf_value = self::$session = Application::$app->session->get('_token');

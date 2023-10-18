@@ -192,9 +192,9 @@
                         <tr>
                             <th>التاريخ</th>
                             <th>الباركود</th>
-                            <th>الى</th>
+                            <th>من</th>
                             <th>الموضوع</th>
-                            <th><a href="../api/reg_in/in_report.php" target="_blank" class=""><i class="btn btn-warning bi bi-printer" title="طباعه  وارد اليوم"></i></a></th>
+                            <th><a href="/it4/regInReport" target="_blank" class=""><i class="btn btn-warning bi bi-printer" title="طباعه  وارد اليوم"></i></a></th>
                         </tr>
                     </thead>
                 </table>

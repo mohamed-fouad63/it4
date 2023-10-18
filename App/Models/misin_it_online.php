@@ -7,35 +7,7 @@ use Core\Http\Model;
 class misin_it_online extends Model
 {
     protected static $table = 'misin_it_online';
-    protected static $conn;
-    protected static $preparedQueries = [];
-    protected static function getConnection()
-    {
-        if (!isset(self::$conn)) {
-            self::$conn = self::dbConnectionBySession();
-        }
-        return self::$conn;
-    }
-    private static function prepareQuery($query, $params)
-    {
-        $conn = self::getConnection();
-        $stmt = $conn->prepare($query);
-        foreach ($params as $param => $value) {
-            $stmt->bindValue($param, $value);
-        }
-        return $stmt;
-    }
-    private static function executePreparedQuery($queryName, $params)
-    {
-        if (!isset(self::$preparedQueries[$queryName])) {
-            $query = self::getQueryByName($queryName);
-            self::$preparedQueries[$queryName] = self::prepareQuery($query, $params);
-        }
-        $stmt = self::$preparedQueries[$queryName];
-        $stmt->execute($params);
-        return $stmt;
-    }
-    private static function getQueryByName($queryName)
+    protected static function getQueryByName($queryName)
     {
         $queries = [
             "ajaxMissionOnline" => "SELECT counter,id,it_name,misin_day,misin_date,office_name,misin_type,start_time,end_time,does,mission_table FROM misin_it_online",

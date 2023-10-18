@@ -84,35 +84,4 @@ class Request
             return false;
         }
     }
-    // $request->input('name');
-    // $request->path();
-    // $request->url();
-    // $request->host();
-    // $request->httpHost();
-    // $request->schemeAndHttpHost();
-    // $request->method();
-    // $request->isMethod('post')
-    //  $request->header('X-Header-Name');
-    // $request->header('X-Header-Name', 'default');
-    // $request->bearerToken();
-    // $request->ip();
-    // $request->all();
-    // $request->input('name', 'Sally');
-    // $request->input('products.0.name');
-    // $request->input(); retrieve all of the input values as an associative array:
-    // $request->query('name');
-    // $request->query('name', 'Helen');
-    // $request->query(); retrieve all of the query string values as an associative array:
-    // $request->input('user.name');When sending JSON requests to your application, you may access the JSON data via the input method as long as the Content-Type header of the request is properly set to application/json. You may even use "dot" syntax to retrieve values that are nested within JSON arrays / objects:
-    // $request->only(['username', 'password']);
-    // $request->except(['credit_card']);
-    // $request->cookie('name');
-
-        /**
-         * Get the value of this
-         */ 
-        public function getThis()
-        {
-                return $this->this;
-        }
 }

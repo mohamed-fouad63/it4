@@ -121,6 +121,7 @@ Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxAddRegTo', 'RegController@ajaxAddRegTo')
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxRegToEdit', 'RegController@ajaxRegToEdit');
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxRegToDel', 'RegController@ajaxRegToDel');
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxregToAddSub', 'RegController@ajaxregToAddSub');
+Route::get('/'.$_ENV["APP_NAME"].'/regToReport', 'RegController@regToReport');
 // Reg To Search page
 Route::get('/'.$_ENV["APP_NAME"].'/regToSearch', 'RegController@regToSearch',['AuthSessionLogin']);
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxregToSearch', 'RegController@ajaxregToSearch');
@@ -131,6 +132,7 @@ Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxAddRegIn', 'RegController@ajaxAddRegIn')
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxRegInEdit', 'RegController@ajaxRegInEdit');
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxRegInDel', 'RegController@ajaxRegInDel');
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxregInAddSub', 'RegController@ajaxregInAddSub');
+Route::get('/'.$_ENV["APP_NAME"].'/regInReport', 'RegController@regInReport');
 // Reg In Search page
 Route::get('/'.$_ENV["APP_NAME"].'/regInSearch', 'RegController@regInSearch',['AuthSessionLogin']);
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxregInSearch', 'RegController@ajaxregInSearch');
@@ -141,6 +143,7 @@ Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxAddParcelTo', 'RegController@ajaxAddParc
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxParcelToEdit', 'RegController@ajaxParcelToEdit');
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxParcelToDel', 'RegController@ajaxParcelToDel');
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxParcelToAddSub', 'RegController@ajaxParcelToAddSub');
+Route::get('/'.$_ENV["APP_NAME"].'/parcelToReport', 'RegController@parcelToReport');
 // Reg In Search page
 Route::get('/'.$_ENV["APP_NAME"].'/parcelToSearch', 'RegController@parcelToSearch',['AuthSessionLogin']);
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxParcelToSearch', 'RegController@ajaxParcelToSearch');
@@ -151,3 +154,5 @@ Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxResetUserPassword', 'UserController@ajax
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxEditUserAuth', 'UserController@ajaxEditUserAuth');
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxAddUser', 'UserController@ajaxAddUser');
 Route::ajax('/'.$_ENV["APP_NAME"].'/ajaxEditUser', 'UserController@ajaxEditUser');
+// Printer Status
+Route::ajax('/it4/ajaxPrinterStatus', 'PrinterController@getValues');

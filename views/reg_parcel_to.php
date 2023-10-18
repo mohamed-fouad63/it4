@@ -205,7 +205,7 @@
                             <th>الباركود</th>
                             <th>الى</th>
                             <th>الموضوع</th>
-                            <th><a href="../api/reg_parcel_to/reg_parcel_to_report.php" target="_blank" class=""><i class="btn btn-warning bi bi-printer" title="طباعه طرود صادر اليوم"></i></a>
+                            <th><a href="/it4/parcelToReport" target="_blank" class=""><i class="btn btn-warning bi bi-printer" title="طباعه طرود صادر اليوم"></i></a>
                             </th>
                         </tr>
                     </thead>

@@ -15,6 +15,11 @@ class RegController extends Controller
     {
         return View::page('reg_to', []);
     }
+    public function regToReport()
+    {
+        $data = send::regToReport();
+            return View::page('to_report', $data);
+    }
     public function ajaxRegTo()
     {
         if ($this->issession) {
@@ -136,6 +141,11 @@ class RegController extends Controller
     {
         return View::page('reg_in', []);
     }
+    public function regInReport()
+    {
+        $data = inbox::regInReport();
+        return View::page('in_report', $data);
+    }
     public function ajaxRegIn()
     {
         if ($this->issession) {
@@ -255,6 +265,11 @@ class RegController extends Controller
     public function parcelTo()
     {
         return View::page('reg_parcel_to', []);
+    }
+    public function parcelToReport()
+    {
+        $data = parcel_send::parcelToReport();
+        return View::page('reg_parcel_to_report', $data);
     }
     public function ajaxParcelTo()
     {

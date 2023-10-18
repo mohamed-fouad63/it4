@@ -145,7 +145,7 @@ class MisinController extends Controller
             if ($validData->isValid()) {
                 return misin_it_online::ajaxAddMissionOnline($validData->all());
             } else {
-                return $this->getFormError('json');
+                return $validData->all('json');
             }
         } else {
             return 'انتهت الجلسه';

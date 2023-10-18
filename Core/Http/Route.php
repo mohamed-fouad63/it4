@@ -10,12 +10,10 @@ class Route
 {
     public Request $request;
     public Response $response;
-    // public Session2 $session;
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
-        // $this->session = new Session2;
     }
     public static array $routes = [];
 
@@ -48,14 +46,6 @@ class Route
         exit();
     }
 
-    // public function handleMiddlewares($middlewares)
-    // {
-        // foreach ($middlewares as $middleware) {
-            // Implement your middleware logic here
-            // You can perform checks or actions before executing the route action
-            // For example, you can check for authentication or authorization
-        // }
-    // }
     public function handleMiddlewares($middlewares,$holde_routes)
 {
     if(!$middlewares){
@@ -142,8 +132,6 @@ class Route
         $ClassName = "App\Controllers\\" . $ClassName;
         if (class_exists($ClassName)) {
             if (method_exists($ClassName, $MethodName)) {
-                // $ref = new \ReflectionClass($ClassName);
-                // return $ref->newInstanceArgs([$MethodName, $route_type,]);
                 echo call_user_func_array([new $ClassName, $MethodName], [$this->request]);
             } else {
                 echo "The <mark><strong>" . $ClassName . "</strong></mark> Class Name does not have the <mark> " . $MethodName . "</mark>  method";

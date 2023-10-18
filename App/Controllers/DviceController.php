@@ -51,7 +51,7 @@ class DviceController extends Controller
             if ($validData->isValid()) {
                 return dvice::ajaxAddDvice($validData->all());
             } else {
-                return $this->formError;
+                return false;
             }
         } else {
             return 'انتهت الجلسه';

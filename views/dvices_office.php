@@ -92,6 +92,7 @@
             <li>
                 <?php include './views/layout/header/user.php'; ?>
             </li>
+            
         </ul>
     </header>
     <div class="pcoded-main-container">
@@ -289,6 +290,8 @@
         var Settings = {
             dropdown_dvieces_office_url: `<?php include './views/component/dropdown_dvieces_office.php' ?>`
         }
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
     </script>
     <script src="./views/data_tables/dvices_office.js"></script>
     <?php if ($_SESSION['edit'] == 1) { ?>
@@ -303,7 +306,8 @@
     <?php }
     if ($_SESSION['move'] == 1) { ?>
         <script src="./views/js/dvices_office/move_to.js"></script>
-    <?php } ?>
+        <?php } ?>
+        <script src="./views/js/dvices_office/printer_status.js"></script>
 </body>
 
 </html>

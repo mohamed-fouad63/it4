@@ -7,35 +7,7 @@ use Core\Http\Model;
 class parcel_send extends Model
 {
     protected static $table = 'parcel_send';
-    protected static $conn;
-    protected static $preparedQueries = [];
-    protected static function getConnection()
-    {
-        if (!isset(self::$conn)) {
-            self::$conn = self::dbConnectionBySession();
-        }
-        return self::$conn;
-    }
-    private static function prepareQuery($query, $params)
-    {
-        $conn = self::getConnection();
-        $stmt = $conn->prepare($query);
-        foreach ($params as $param => $value) {
-            $stmt->bindValue($param, $value);
-        }
-        return $stmt;
-    }
-    private static function executePreparedQuery($queryName, $params)
-    {
-        if (!isset(self::$preparedQueries[$queryName])) {
-            $query = self::getQueryByName($queryName);
-            self::$preparedQueries[$queryName] = self::prepareQuery($query, $params);
-        }
-        $stmt = self::$preparedQueries[$queryName];
-        $stmt->execute($params);
-        return $stmt;
-    }
-    private static function getQueryByName($queryName)
+    protected static function getQueryByName($queryName)
     {
         $queries = [
             "ajaxParcelTo" => "SELECT * FROM parcel_send  WHERE date = :date",
@@ -43,6 +15,7 @@ class parcel_send extends Model
             "create" => "INSERT INTO `parcel_send` (`date`, `barcode`,`send_to`, `subject`, `Attach`,`admin`) VALUES (:date,:czc,:name_reg_parcel_to,:sub_reg_parcel_to,'',:first_name)",
             "ajaxParcelToDel" => "DELETE FROM `parcel_send` WHERE `id` = :id",
             "ajaxParcelToSearch" => "SELECT * FROM parcel_send  WHERE date LIKE :date",
+            'parcelToReport' => "SELECT * FROM parcel_send  WHERE date = :date AND barcode REGEXP '^[A-Za-z]{2}[0-9]{9}[A-Za-z]{2}$'",
         ];
         return $queries[$queryName];
     }
@@ -57,7 +30,18 @@ class parcel_send extends Model
         if (count($result) > 0) {
             return json_encode($result, JSON_UNESCAPED_UNICODE);
         } else {
-            return json_encode(array('message' => 'no datas found'));
+            return json_encode(array('empty' => 'no datas found'));
+        }
+    }
+    public static function parcelToReport()
+    {
+        $params = [':date' => date('Y-m-d')];
+        $stmt = self::executePreparedQuery('parcelToReport', $params);
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        if (count($result) > 0) {
+            return $result;
+        } else {
+            return array('empty' => 'لا توجد طرود صادره اليوم');
         }
     }
     public static function ajaxParcelToAddSub($formData)

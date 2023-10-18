@@ -10,14 +10,11 @@ use  Core\Http\Controller;
 
 class Application
 {
-    public  $route;
-    public  $model;
     public  $request;
     public  $response;
     public  $session;
-    public  $controller;
+    public  $snmpObject;
     public static Application $app;
-
     public function __construct()
     {
         self::$app = $this;
